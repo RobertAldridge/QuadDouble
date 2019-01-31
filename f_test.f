@@ -4,11 +4,12 @@ subroutine f_main
 
   use qdmodule
   implicit none
-  integer*4 old_cw
+
   integer i
   type (qd_real) x, y, z
 
-  call f_fpu_fix_start (old_cw)
+! integer*4 old_cw
+! call f_fpu_fix_start (old_cw)
 
   ! Test for read/write
   z = "3.14159265358979323846264338327950288419716939937510582097494459230"
@@ -25,6 +26,8 @@ subroutine f_main
   call write_scalar(6, nan(x))
   call write_scalar(6, qdcomplex(x, y))
 
-  call f_fpu_fix_end (old_cw)
+! call f_fpu_fix_end (old_cw)
+
+stop
 end
 

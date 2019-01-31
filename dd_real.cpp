@@ -19,14 +19,17 @@
 #include <string>
 
 #include "config.h"
-#include <qd/dd_real.h>
+
+#include "inline.h"
+#include "dd_real.h"
+
+//#if !defined(QD_INLINE)
+#include "dd_inline.h"
+//#endif
+
 #include "util.h"
 
-#include <qd/bits.h>
-
-#ifndef QD_INLINE
-#include <qd/dd_inline.h>
-#endif
+#include "bits.h"
 
 using std::cout;
 using std::cerr;
@@ -38,7 +41,7 @@ using std::string;
 using std::setw;
 
 /* This routine is called whenever a fatal error occurs. */
-void dd_real::error(const char *msg) { 
+void dd_real::error(const char *msg) {
   if (msg) { cerr << "ERROR " << msg << endl; }
 }
 
@@ -68,14 +71,14 @@ QD_API dd_real sqrt(const dd_real &a) {
   return dd_real::add(ax, (a - dd_real::sqr(ax)).x[0] * (x * 0.5));
 }
 
-/* Computes the square root of a double in double-double precision. 
+/* Computes the square root of a double in double-double precision.
    NOTE: d must not be negative.                                   */
 dd_real dd_real::sqrt(double d) {
   return ::sqrt(dd_real(d));
 }
 
 /* Computes the n-th root of the double-double number a.
-   NOTE: n must be a positive integer.  
+   NOTE: n must be a positive integer.
    NOTE: If n is even, then a must not be negative.       */
 dd_real nroot(const dd_real &a, int n) {
   /* Strategy:  Use Newton iteration for the function
@@ -86,7 +89,7 @@ dd_real nroot(const dd_real &a, int n) {
 
           x' = x + x * (1 - a * x^n) / n
 
-     which converges quadratically.  We can then find 
+     which converges quadratically.  We can then find
     a^{1/n} by taking the reciprocal.
   */
 
@@ -102,7 +105,7 @@ dd_real nroot(const dd_real &a, int n) {
 
   if (n == 1) {
     return a;
-  } 
+  }
   if (n == 2) {
     return sqrt(a);
   }
@@ -121,10 +124,10 @@ dd_real nroot(const dd_real &a, int n) {
   return 1.0/x;
 }
 
-/* Computes the n-th power of a double-double number. 
+/* Computes the n-th power of a double-double number.
    NOTE:  0^0 causes an error.                         */
 dd_real npwr(const dd_real &a, int n) {
-  
+
   if (n == 0) {
     if (a.is_zero()) {
       dd_real::error("(dd_real::npwr): Invalid argument.");
@@ -154,7 +157,7 @@ dd_real npwr(const dd_real &a, int n) {
   /* Compute the reciprocal if n is negative. */
   if (n < 0)
     return (1.0 / s);
-  
+
   return s;
 }
 
@@ -188,13 +191,13 @@ static const double inv_fact[n_inv_fact][2] = {
 /* Exponential.  Computes exp(x) in double-double precision. */
 dd_real exp(const dd_real &a) {
   /* Strategy:  We first reduce the size of x by noting that
-     
+
           exp(kr + m * log(2)) = 2^m * exp(r)^k
 
      where m and k are integers.  By choosing m appropriately
-     we can make |kr| <= log(2) / 2 = 0.347.  Then exp(r) is 
-     evaluated using the familiar Taylor series.  Reducing the 
-     argument substantially speeds up the convergence.       */  
+     we can make |kr| <= log(2) / 2 = 0.347.  Then exp(r) is
+     evaluated using the familiar Taylor series.  Reducing the
+     argument substantially speeds up the convergence.       */
 
   const double k = 512.0;
   const double inv_k = 1.0 / k;
@@ -255,10 +258,10 @@ dd_real log(const dd_real &a) {
 
      using Newton iteration.  The iteration is given by
 
-         x' = x - f(x)/f'(x) 
+         x' = x - f(x)/f'(x)
             = x - (1 - a * exp(-x))
             = x + a * exp(-x) - 1.
-           
+
      Only one iteration is needed, since Newton's iteration
      approximately doubles the number of digits per iteration. */
 
@@ -345,7 +348,7 @@ static dd_real cos_taylor(const dd_real &a) {
   return s;
 }
 
-static void sincos_taylor(const dd_real &a, 
+static void sincos_taylor(const dd_real &a,
                           dd_real &sin_a, dd_real &cos_a) {
   if (a.is_zero()) {
     sin_a = 0.0;
@@ -358,17 +361,17 @@ static void sincos_taylor(const dd_real &a,
 }
 
 
-dd_real sin(const dd_real &a) {  
+dd_real sin(const dd_real &a) {
 
   /* Strategy.  To compute sin(x), we choose integers a, b so that
 
        x = s + a * (pi/2) + b * (pi/16)
 
-     and |s| <= pi/32.  Using the fact that 
+     and |s| <= pi/32.  Using the fact that
 
        sin(pi/16) = 0.5 * sqrt(2 - sqrt(2 + sqrt(2)))
 
-     we can compute sin(x) from sin(s), cos(s).  This greatly 
+     we can compute sin(x) from sin(s), cos(s).  This greatly
      increases the convergence of the sine Taylor series. */
 
   if (a.is_zero()) {
@@ -591,7 +594,7 @@ void sincos(const dd_real &a, dd_real &sin_a, dd_real &cos_a) {
     sin_a = -s;
     cos_a = -c;
   }
-  
+
 }
 
 dd_real atan(const dd_real &a) {
@@ -599,7 +602,7 @@ dd_real atan(const dd_real &a) {
 }
 
 dd_real atan2(const dd_real &y, const dd_real &x) {
-  /* Strategy: Instead of using Taylor series to compute 
+  /* Strategy: Instead of using Taylor series to compute
      arctan, we instead use Newton's iteration to solve
      the equation
 
@@ -612,12 +615,12 @@ dd_real atan2(const dd_real &y, const dd_real &x) {
         z' = z - (x - cos(z)) / sin(z)          (for equation 2)
 
      Here, x and y are normalized so that x^2 + y^2 = 1.
-     If |x| > |y|, then first iteration is used since the 
+     If |x| > |y|, then first iteration is used since the
      denominator is larger.  Otherwise, the second is used.
   */
 
   if (x.is_zero()) {
-    
+
     if (y.is_zero()) {
       /* Both x and y is zero. */
       dd_real::error("(dd_real::atan2): Both arguments zero.");
@@ -693,7 +696,7 @@ dd_real acos(const dd_real &a) {
 
   return atan2(sqrt(1.0 - sqr(a)), a);
 }
- 
+
 dd_real sinh(const dd_real &a) {
   if (a.is_zero()) {
     return 0.0;
@@ -795,7 +798,7 @@ QD_API dd_real ddrand() {
   dd_real r = 0.0;
   double d;
 
-  /* Strategy:  Generate 31 bits at a time, using lrand48 
+  /* Strategy:  Generate 31 bits at a time, using lrand48
      random number generator.  Shift the bits, and reapeat
      4 times. */
 
@@ -814,7 +817,7 @@ QD_API dd_real ddrand() {
 dd_real polyeval(const dd_real *c, int n, const dd_real &x) {
   /* Just use Horner's method of polynomial evaluation. */
   dd_real r = c[n];
-  
+
   for (int i = n-1; i >= 0; i--) {
     r *= x;
     r += c[i];
@@ -824,10 +827,10 @@ dd_real polyeval(const dd_real *c, int n, const dd_real &x) {
 }
 
 /* polyroot(c, n, x0)
-   Given an n-th degree polynomial, finds a root close to 
+   Given an n-th degree polynomial, finds a root close to
    the given guess x0.  Note that this uses simple Newton
    iteration scheme, and does not work for multiple roots.  */
-QD_API dd_real polyroot(const dd_real *c, int n, 
+QD_API dd_real polyroot(const dd_real *c, int n,
     const dd_real &x0, int max_iter, double thresh) {
   dd_real x = x0;
   dd_real f;
@@ -889,8 +892,7 @@ dd_real &dd_real::operator=(const char *s) {
 ostream &operator<<(ostream &os, const dd_real &dd) {
   bool showpos = (os.flags() & ios_base::showpos) != 0;
   bool uppercase =  (os.flags() & ios_base::uppercase) != 0;
-  return os << dd.to_string(os.precision(), os.width(), os.flags(), 
-      showpos, uppercase, os.fill());
+  return os << dd.to_string( (int)os.precision(), (int)os.width(), os.flags(), showpos, uppercase, os.fill() );
 }
 
 /* Reads in the double-double number a. */
@@ -980,9 +982,9 @@ void dd_real::to_digits(char *s, int &expn, int precision) const {
   }
 
   /* If first digit is 10, shift everything. */
-  if (s[0] > '9') { 
-    e++; 
-    for (i = precision; i >= 2; i--) s[i] = s[i-1]; 
+  if (s[0] > '9') {
+    e++;
+    for (i = precision; i >= 2; i--) s[i] = s[i-1];
     s[0] = '1';
     s[1] = '0';
   }
@@ -993,10 +995,10 @@ void dd_real::to_digits(char *s, int &expn, int precision) const {
 
 /* Writes the double-double number into the character array s of length len.
    The integer d specifies how many significant digits to write.
-   The string s must be able to hold at least (d+8) characters.  
+   The string s must be able to hold at least (d+8) characters.
    showpos indicates whether to use the + sign, and uppercase indicates
    whether the E or e is to be used for the exponent. */
-void dd_real::write(char *s, int len, int precision, 
+void dd_real::write(char *s, int len, int precision,
     bool showpos, bool uppercase) const {
   string str = to_string(precision, 0, ios_base::scientific, showpos, uppercase);
   std::strncpy(s, str.c_str(), len-1);
@@ -1037,7 +1039,7 @@ void round_string(char *s, int precision, int *offset){
 	  s[precision] = 0; // add terminator for array
 }
 
-string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt, 
+string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
     bool showpos, bool uppercase, char fill) const {
   string s;
   bool fixed = (fmt & ios_base::fixed) != 0;
@@ -1146,8 +1148,9 @@ string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
     	// if this ratio is large, then we've got problems
     	if( fabs( from_string / this->x[0] ) > 3.0 ){
 
-    		int point_position;
-    		char temp;
+//int point_position = 0;
+//
+//char temp = 0;
 
     		// loop on the string, find the point, move it up one
     		// don't act on the first character
@@ -1176,7 +1179,7 @@ string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
   }
 
   /* Fill in the blanks */
-  int len = s.length();
+  int len = (int)s.length();
   if (len < width) {
     int delta = width - len;
     if (fmt & ios_base::internal) {
@@ -1205,7 +1208,7 @@ int dd_real::read(const char *s, dd_real &a) {
   bool done = false;
   dd_real r = 0.0;
   int nread;
-  
+
   /* Skip any leading spaces */
   while (*p == ' ')
     p++;
@@ -1222,7 +1225,7 @@ int dd_real::read(const char *s, dd_real &a) {
 
       case '.':
         if (point >= 0)
-          return -1;        
+          return -1;
         point = nd;
         break;
 
@@ -1245,7 +1248,7 @@ int dd_real::read(const char *s, dd_real &a) {
         return -1;
       }
     }
-    
+
     p++;
   }
 
@@ -1289,7 +1292,7 @@ void dd_real::dump_bits(const string &name, std::ostream &os) const {
   os << " ]" << endl;
 }
 
-dd_real dd_real::debug_rand() { 
+dd_real dd_real::debug_rand() {
 
   if (std::rand() % 2 == 0)
     return ddrand();

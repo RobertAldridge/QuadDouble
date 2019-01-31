@@ -12,18 +12,18 @@
  *
  *   t  <--  tanh (sinh (x))
  *
- * This quadrature scheme is suitable for any function that is 
+ * This quadrature scheme is suitable for any function that is
  * continuous, infinitely differentiable and integrable on a finite
  * open interval.  It can also be used for certain integrals on
  * infinite intervals by making a suitable change of variable.
- * While this routine is not quite as efficient as Gaussian quadrature, 
- * it can be used for functions with an integrable singularity at one 
+ * While this routine is not quite as efficient as Gaussian quadrature,
+ * it can be used for functions with an integrable singularity at one
  * or both of the endpoints.  Further, this scheme has the advantage
  * that function evaluation at one level are all utilized at the next
  * level, thus saving significant computation.
- * 
+ *
  * This program is based on David Bailey's tquadt.f program (written
- * in Fortran 90).  C++ conversion, quad-double precision support, 
+ * in Fortran 90).  C++ conversion, quad-double precision support,
  * and few other changes have been added.
  */
 #ifndef _QUADT_CC_
@@ -36,16 +36,16 @@
  *        / -1
  *
  * Then the substitution  t = tanh (sinh (x))  gives
- * 
+ *
  *   dt = (tanh (sinh (x))' dx = (sech (sinh (x)))^2 * cosh(x) dx
  *
- * Also the limit point x = 1 corresponds to t = 
+ * Also the limit point x = 1 corresponds to t =
  */
 #include <cstdlib>
 #include <cstdio>
 #include <cmath>
 
-#include <qd/qd_real.h>
+#include "qd_real.h"
 
 template<class T>
 class quadt {
@@ -62,7 +62,7 @@ public:
      The class F is any class with overloaded operator() (T &). */
   template <class F>
   int integrate_u(const F &f, double tol, T &result, double &err);
-  
+
   /* Computes the integral of the function f from a to b.
      The class F is any class with overloaded operator() (T &). */
   template <class F>
@@ -156,7 +156,7 @@ void quadt<T>::init_table() {
 }
 
 template <class T> template <class F>
-int quadt<T>::integrate_u(const F &f, double tol, 
+int quadt<T>::integrate_u(const F &f, double tol,
                           T &result, double &err) {
   T r1, r2, r3, s;
   T x, w;
@@ -164,7 +164,7 @@ int quadt<T>::integrate_u(const F &f, double tol,
   double h = initial_width;
   bool conv = false;
   int i = 0;
-  
+
   r1 = r2 = r3 = 0.0;
   s = f(T(0.0));
   for (level = 1; level <= max_level; level++, h *= 0.5) {
@@ -192,7 +192,7 @@ int quadt<T>::integrate_u(const F &f, double tol,
         e2 = abs(to_double(r1 - r3));
         d1 = log(e1);
         d2 = log(e2);
-        
+
         err = exp(d1 * d1 / d2);
       }
 
@@ -209,21 +209,21 @@ int quadt<T>::integrate_u(const F &f, double tol,
     r2 = r1;
     r3 = r2;
   }
-  
+
   if (level > max_level)
     puts("Level exhausted.");
-  
+
   result = r1;
   if (!conv) {
     /* No convergence. */
     return -1;
   }
-  
+
   return 0;
 }
 
 template <class T> template <class F>
-int quadt<T>::integrate(const F &f, T a, T b, double tol, 
+int quadt<T>::integrate(const F &f, T a, T b, double tol,
                         T &result, double &err) {
   if (a == -1.0 && b == 1.0)
     return integrate_u(f, tol, result, err);

@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <math.h>
-#include <qd/c_qd.h>
+#include "c_qd.h"
 
 /* Test 1.  Salamin-Brent quadratically convergent formula for pi. */
 int test_1() {
 
   double a[4], b[4], s[4], p[4], t[4], t2[4];
   double a_new[4], b_new[4], p_old[4];
-  double m, err;
+  double m;
+//double err;
   int r, i;
   const int max_iter = 20;
 
@@ -67,7 +68,16 @@ int test_1() {
   return 0;
 }
 
-int main(void) {
-  fpu_fix_start(NULL);
-  return test_1();
+int main1(int argc, const char* argv[] )
+{
+  int result = 0;
+
+//unsigned int old_cw;
+//fpu_fix_start(&old_cw);
+
+  result = test_1();
+
+//fpu_fix_end(&old_cw);
+
+  return result;
 }

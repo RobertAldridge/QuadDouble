@@ -1,167 +1,162 @@
+/* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define to dummy `main' function (if any) required to link to the Fortran
-   libraries. */
-#undef FC_DUMMY_MAIN
+/* Define to dummy 'main' function (if any) required to link to the Fortran libraries. */
+//#define FC_DUMMY_MAIN main
 
-/* Define if F77 and FC dummy `main' functions are identical. */
-#undef FC_DUMMY_MAIN_EQ_F77
+/* Define if F77 and FC dummy 'main' functions are identical. */
+//#define FC_DUMMY_MAIN_EQ_F77 1
 
-/* Define to a macro mangling the given C identifier (in lower and upper
-   case), which must not contain underscores, for linking with Fortran. */
-#undef FC_FUNC
+/* Define to a macro mangling the given C identifier (in lower and uppercase), which must not contain underscores, for linking with Fortran. */
+//#define FC_FUNC(name, NAME) name ## _
 
 /* As FC_FUNC, but for C identifiers containing underscores. */
-#undef FC_FUNC_
+//#define FC_FUNC_(name, NAME) name ## _
 
-/* Define to alternate name for `main' routine that is called from a `main' in
-   the Fortran libraries. */
-#undef FC_MAIN
+/* Define to alternate name for 'main' routine that is called from a 'main' in the Fortran libraries. */
+//#define FC_MAIN main
 
 /* Define to 1 if your system has the clock_gettime function. */
-#undef HAVE_CLOCK_GETTIME
+#define HAVE_CLOCK_GETTIME 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#undef HAVE_DLFCN_H
+#define HAVE_DLFCN_H 1
 
 /* Define to 1 if Fortran interface is to be compiled. */
-#undef HAVE_FORTRAN
+#define HAVE_FORTRAN 1
 
 /* Define to 1 if you have the <fpu_control.h> header file. */
-#undef HAVE_FPU_CONTROL_H
+#define HAVE_FPU_CONTROL_H 1
 
-/* Define to 1 if you have the `gettimeofday' function. */
-#undef HAVE_GETTIMEOFDAY
+/* Define to 1 if you have the 'gettimeofday' function. */
+#define HAVE_GETTIMEOFDAY 1
 
 /* Define to 1 if you have the <ieeefp.h> header file. */
-#undef HAVE_IEEEFP_H
+#define HAVE_IEEEFP_H 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#undef HAVE_INTTYPES_H
+#define HAVE_INTTYPES_H 1
 
-/* Define to 1 if you have the `m' library (-lm). */
-#undef HAVE_LIBM
+/* Define to 1 if you have the 'm' library (-lm). */
+#define HAVE_LIBM 1
 
 /* Define to 1 if you have the <memory.h> header file. */
-#undef HAVE_MEMORY_H
+#define HAVE_MEMORY_H 1
 
 /* Define to 1 if stdbool.h conforms to C99. */
-#undef HAVE_STDBOOL_H
+#define HAVE_STDBOOL_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
-#undef HAVE_STDINT_H
+#define HAVE_STDINT_H 1
 
 /* Define to 1 if you have the <stdlib.h> header file. */
-#undef HAVE_STDLIB_H
+#define HAVE_STDLIB_H 1
 
 /* Define to 1 if you have the <strings.h> header file. */
-#undef HAVE_STRINGS_H
+#define HAVE_STRINGS_H 1
 
 /* Define to 1 if you have the <string.h> header file. */
-#undef HAVE_STRING_H
+#define HAVE_STRING_H 1
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
-#undef HAVE_SYS_STAT_H
+#define HAVE_SYS_STAT_H 1
 
 /* Define to 1 if you have the <sys/types.h> header file. */
-#undef HAVE_SYS_TYPES_H
+#define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
-#undef HAVE_UNISTD_H
+#define HAVE_UNISTD_H 1
 
-/* Define to 1 if the system has the type `_Bool'. */
-#undef HAVE__BOOL
+/* Define to 1 if the system has the type '_Bool'. */
+#define HAVE__BOOL 1
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
-#undef LT_OBJDIR
+//#define LT_OBJDIR ".libs/"
 
 /* qd major version number */
-#undef MAJOR_VERSION
+#define MAJOR_VERSION 2
 
 /* qd minor version number */
-#undef MINOR_VERSION
+#define MINOR_VERSION 3
 
 /* Name of package */
-#undef PACKAGE
+#define PACKAGE "qd"
 
 /* Define to the address where bug reports for this package should be sent. */
-#undef PACKAGE_BUGREPORT
+#define PACKAGE_BUGREPORT "yozo@cs.berkeley.edu"
 
 /* Define to the full name of this package. */
-#undef PACKAGE_NAME
+#define PACKAGE_NAME "qd"
 
 /* Define to the full name and version of this package. */
-#undef PACKAGE_STRING
+#define PACKAGE_STRING "qd 2.3.20"
 
 /* Define to the one symbol short name of this package. */
-#undef PACKAGE_TARNAME
+#define PACKAGE_TARNAME "qd"
 
 /* Define to the home page for this package. */
-#undef PACKAGE_URL
+#define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#undef PACKAGE_VERSION
+#define PACKAGE_VERSION "2.3.20"
 
 /* qd patch number (sub minor version) */
-#undef PATCH_VERSION
+#define PATCH_VERSION 12
 
 /* Any special symbols needed for exporting APIs. */
-#undef QD_API
+//#define QD_API
 
 /* Define this macro to be the copysign(x, y) function. */
-#undef QD_COPYSIGN
+#define QD_COPYSIGN(x, y) std::copysign(x, y)
 
 /* Define to 1 to enable debugging code. */
-#undef QD_DEBUG
+#define QD_DEBUG 1
 
 /* If fused multiply-add is available, define correct macro for using it. */
-#undef QD_FMA
+//#define QD_FMA
 
-/* If fused multiply-subtract is available, define correct macro for using it.
-   */
-#undef QD_FMS
+/* If fused multiply-subtract is available, define correct macro for using it. */
+//#define QD_FMS
 
 /* Define to 1 if your compiler have the C++ standard include files. */
-#undef QD_HAVE_STD
+#define QD_HAVE_STD 1
 
 /* Define to 1 to use additions with IEEE-style error bounds. */
-#undef QD_IEEE_ADD
+#define QD_IEEE_ADD 1
 
 /* Define to 1 to inline commonly used functions. */
-#undef QD_INLINE
+//#define QD_INLINE 1
 
 /* Define this macro to be the isfinite(x) function. */
-#undef QD_ISFINITE
+#define QD_ISFINITE(x) std::isfinite(x)
 
 /* Define this macro to be the isinf(x) function. */
-#undef QD_ISINF
+#define QD_ISINF(x) std::isinf(x)
 
 /* Define this macro to be the isnan(x) function. */
-#undef QD_ISNAN
+#define QD_ISNAN(x) std::isnan(x)
 
-/* Define to 1 to use sloppy division (which is faster by slightly
-   inaccurate). */
-#undef QD_SLOPPY_DIV
+/* Define to 1 to use sloppy division (which is faster by slightly inaccurate). */
+//#define QD_SLOPPY_DIV 1
 
-/* Define to 1 to use sloppy multiplication (which is faster by slightly
-   inaccurate). */
-#undef QD_SLOPPY_MUL
+/* Define to 1 to use sloppy multiplication (which is faster by slightly inaccurate). */
+//#define QD_SLOPPY_MUL 1
 
 /* Set to 1 if using VisualAge C++ compiler for __fmadd builtin. */
-#undef QD_VACPP_BUILTINS_H
+//#define QD_VACPP_BUILTINS_H 1
 
 /* Define to 1 if you have the ANSI C header files. */
-#undef STDC_HEADERS
+#define STDC_HEADERS 1
 
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-#undef TIME_WITH_SYS_TIME
+#define TIME_WITH_SYS_TIME 1
 
-/* Define to 1 if your <sys/time.h> declares `struct tm'. */
-#undef TM_IN_SYS_TIME
+/* Define to 1 if your <sys/time.h> declares 'struct tm'. */
+#define TM_IN_SYS_TIME 1
 
 /* Version number of package */
-#undef VERSION
+#define VERSION "2.3.20"
 
 /* Whether to use x86 fpu fix. */
-#undef X86
+//#define X86 1

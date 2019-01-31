@@ -12,7 +12,7 @@
  */
 
 #include "config.h"
-#include <qd/fpu.h>
+#include "fpu.h"
 
 #ifdef X86
 #ifdef  _WIN32
@@ -69,7 +69,7 @@ void fpu_fix_start(unsigned int *old_cw) {
 
   new_cw = (cw & ~_FPU_EXTENDED) | _FPU_DOUBLE;
   _FPU_SETCW(new_cw);
-  
+
   if (old_cw) {
     *old_cw = cw;
   }
@@ -121,4 +121,4 @@ void f_fpu_fix_end(unsigned int *old_cw) {
 #endif
 
 }
- 
+

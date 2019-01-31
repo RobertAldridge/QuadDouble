@@ -10,7 +10,9 @@
  * Defines constants used in quad-double package.
  */
 #include "config.h"
-#include <qd/qd_real.h>
+
+#include "inline.h"
+#include "qd_real.h"
 
 /* Some useful constants. */
 const qd_real qd_real::_2pi = qd_real(6.283185307179586232e+00,
@@ -45,18 +47,18 @@ const qd_real qd_real::_log10 = qd_real(2.302585092994045901e+00,
                                         -2.170756223382249351e-16,
                                         -9.984262454465776570e-33,
                                         -4.023357454450206379e-49);
-const qd_real qd_real::_nan = qd_real(qd::_d_nan, qd::_d_nan, 
+const qd_real qd_real::_nan = qd_real(qd::_d_nan, qd::_d_nan,
                                       qd::_d_nan, qd::_d_nan);
-const qd_real qd_real::_inf = qd_real(qd::_d_inf, qd::_d_inf, 
+const qd_real qd_real::_inf = qd_real(qd::_d_inf, qd::_d_inf,
                                       qd::_d_inf, qd::_d_inf);
 
 const double qd_real::_eps = 1.21543267145725e-63; // = 2^-209
 const double qd_real::_min_normalized = 1.6259745436952323e-260; // = 2^(-1022 + 3*53)
 const qd_real qd_real::_max = qd_real(
-    1.79769313486231570815e+308, 9.97920154767359795037e+291, 
+    1.79769313486231570815e+308, 9.97920154767359795037e+291,
     5.53956966280111259858e+275, 3.07507889307840487279e+259);
 const qd_real qd_real::_safe_max = qd_real(
-    1.7976931080746007281e+308,  9.97920154767359795037e+291, 
+    1.7976931080746007281e+308,  9.97920154767359795037e+291,
     5.53956966280111259858e+275, 3.07507889307840487279e+259);
 const int qd_real::_ndigits = 62;
 

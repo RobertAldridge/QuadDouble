@@ -17,8 +17,8 @@
 #include <climits>
 
 #include "config.h"
-#include <qd/inline.h>
-#include <qd/bits.h>
+#include "inline.h"
+#include "bits.h"
 
 #ifdef HAVE_IEEEFP_H
 #include <ieeefp.h>

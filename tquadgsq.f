@@ -20,7 +20,7 @@ subroutine f_main
 !   finite open interval.  It can also be used for certain integrals on infinite
 !   intervals, by making a suitable change of variable -- see below.  While
 !   this routine is usually more efficient than quaderf or quadts for functions
-!   that are regular on a closed interval, it is not very effective for 
+!   that are regular on a closed interval, it is not very effective for
 !   functions with a singularity at one or both of the endpoints.
 
 !   The function(s) to be integrated is(are) defined in external function
@@ -47,7 +47,7 @@ subroutine f_main
 !            (possibly doubles) the number of accurate digits in the result,
 !            but also roughly doubles the run time and memory.  nq1 > 2.
 !   nq2    Space parameter for wk and xk arrays in the calling program.  By
-!            default it is set to 8 * 2^nq1.  Increase nq2 if directed by a 
+!            default it is set to 8 * 2^nq1.  Increase nq2 if directed by a
 !            message produced in initqerf.  Note that the dimension of the
 !            wk and xk arrays starts with -1, so the length of these arrays is
 !            (nq2+2) * 4 eight-byte words.
@@ -63,9 +63,9 @@ type (qd_real) err, quadgsq, fun01, fun02, fun03, fun04, fun05, fun06, fun07, &
   t1, t2, t3, t4, wk(-1:nq2), xk(-1:nq2), x1, x2
 external quadgsq, fun01, fun02, fun03, fun04, fun05, fun06, fun07, fun08, &
   fun09, fun10, fun11, fun12, fun13, fun14, fun15a, fun15b, second
-integer*4 old_cw
 
-call f_fpu_fix_start (old_cw)
+! integer*4 old_cw
+! call f_fpu_fix_start (old_cw)
 
 ndebug = kdebug
 ndigits = ndp
@@ -297,7 +297,8 @@ write (6, 4) d1, n1
 write (6, 26)
 26 format ('Prob 15 error may be 40,000 X higher than estimated error.')
 
-call f_fpu_fix_end (old_cw)
+! call f_fpu_fix_end (old_cw)
+
 stop
 end
 
@@ -747,7 +748,7 @@ end
 
 subroutine decmdq (a, b, ib)
 
-!   For input MP value a, this routine returns DP b and integer ib such that 
+!   For input MP value a, this routine returns DP b and integer ib such that
 !   a = b * 10^ib, with 1 <= abs (b) < 10 for nonzero a.
 
 use qdmodule

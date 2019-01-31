@@ -15,7 +15,7 @@
 #ifndef _QD_FPU_H
 #define _QD_FPU_H
 
-#include <qd/qd_config.h>
+#include "qd_config.h"
 
 #ifdef __cplusplus
 extern "C" {

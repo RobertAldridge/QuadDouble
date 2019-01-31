@@ -16,8 +16,11 @@
 #include <limits>
 #include <iostream>
 #include <iomanip>
-#include <qd/qd_real.h>
-#include <qd/fpu.h>
+
+#include "inline.h"
+#include "qd_real.h"
+
+#include "fpu.h"
 #include "tictoc.h"
 
 using std::cout;
@@ -399,83 +402,130 @@ void TestSuite<T>::testall() {
   test9();
 }
 
-void print_usage() {
-  cout << "qd_test [-h] [-dd] [-qd] [-all]" << endl;
+static void print_usage()
+{
+  cout << "qd_test [-h] [-d] [--dd] [--qd] [--all] [-v] [--long]" << endl;
   cout << "  Performs timing tests of the quad-double library." << endl;
   cout << "  By default, double-double and quad-double arithmetics" << endl;
   cout << "  are timed." << endl;
   cout << endl;
-  cout << "  -h -help  Prints this usage message." << endl;
-  cout << "  -double   Time arithmetic of double." << endl;
-  cout << "  -dd       Time arithmetic of double-double." << endl;
-  cout << "  -qd       Time arithmetic of quad-double." << endl;
-  cout << "  -all      Perform both double-double and quad-double tests." << endl;
-  cout << "  -v        Verbose output." << endl;
-  cout << "  -long     Perform a longer timing loop." << endl;
+  cout << "-h --help    Prints this usage message." << endl;
+  cout << "-d --double  Time arithmetic of double." << endl;
+  cout << "--dd         Time arithmetic of double-double." << endl;
+  cout << "--qd         Time arithmetic of quad-double." << endl;
+  cout << "--all        Perform both double-double and quad-double tests." << endl;
+  cout << "-v --verbose Verbose output." << endl;
+  cout << "--long       Perform a longer timing loop." << endl;
 }
 
-int main(int argc, char *argv[]) {
-  unsigned int old_cw;
-  fpu_fix_start(&old_cw);
+int main6(int argc, const char* argv[] )
+{
+//unsigned int old_cw;
+//fpu_fix_start(&old_cw);
 
-  /* Parse the arguments. */
-  char *arg;
-  for (int i = 1; i < argc; i++) {
-    arg = argv[i];
-    if (strcmp(arg, "-h") == 0 || strcmp(arg, "-help") == 0) {
+  for(int i = 1; i < argc; i++)
+  {
+    const char* arg = argv[i];
+
+    bool result = false;
+
+    if(strcmp(arg, "-h") == 0 || strcmp(arg, "--help") == 0)
+    {
+      result = true;
+
       print_usage();
+
       std::exit(0);
-    } else if (strcmp(arg, "-double") == 0) {
+    }
+
+    if(strcmp(arg, "-d") == 0 || strcmp(arg, "--double") == 0)
+    {
+      result = true;
+
       flag_test_double = true;
-    } else if (strcmp(arg, "-dd") == 0) {
+    }
+
+    if(strcmp(arg, "--dd") == 0)
+    {
+      result = true;
+
       flag_test_dd = true;
-    } else if (strcmp(arg, "-qd") == 0) {
+    }
+
+    if(strcmp(arg, "--qd") == 0)
+    {
+      result = true;
+
       flag_test_qd = true;
-    } else if (strcmp(arg, "-all") == 0) {
+    }
+
+    if(strcmp(arg, "--all") == 0)
+    {
+      result = true;
+
       flag_test_double = flag_test_dd = flag_test_qd = true;
-    } else if (strcmp(arg, "-v") == 0) {
+    }
+
+    if(strcmp(arg, "-v") == 0 || strcmp(arg, "--verbose") == 0)
+    {
+      result = true;
+
       flag_verbose = true;
-    } else if (strcmp(arg, "-long") == 0) {
+    }
+
+    if(strcmp(arg, "--long") == 0)
+    {
+      result = true;
+
       long_factor *= 10;
-    } else {
-      cerr << "Unknown flag `" << arg << "'." << endl;
+    }
+
+    if( !result)
+    {
+      cerr << "Unknown flag '" << arg << "'." << endl;
     }
   }
 
-  /* If no flag, test both double-double and quad-double. */
-  if (!flag_test_double && !flag_test_dd && !flag_test_qd) {
+  if( !flag_test_double && !flag_test_dd && !flag_test_qd)
+  {
     flag_test_dd = true;
     flag_test_qd = true;
   }
 
-  if (flag_test_double) {
+  if(flag_test_double)
+  {
     TestSuite<double> test;
 
     cout << endl;
     cout << "Timing double" << endl;
     cout << "-------------" << endl;
+
     test.testall();
   }
 
-  if (flag_test_dd) {
+  if(flag_test_dd)
+  {
     TestSuite<dd_real> test;
 
     cout << endl;
     cout << "Timing dd_real" << endl;
     cout << "--------------" << endl;
+
     test.testall();
   }
 
-  if (flag_test_qd) {
+  if(flag_test_qd)
+  {
     TestSuite<qd_real> test;
 
     cout << endl;
     cout << "Timing qd_real" << endl;
     cout << "--------------" << endl;
+
     test.testall();
   }
-  
-  fpu_fix_end(&old_cw);
+
+//fpu_fix_end(&old_cw);
+
   return 0;
 }
-

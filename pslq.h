@@ -12,8 +12,8 @@
  * due to H. R. P. Ferguson and D. H. Bailey.  See
  *
  * A new polynomial time algorithm for finding relations among
- * real numbers, Supercomputing Research Center Tech Report 
- * SRC-93-093 (March 1993).                                 
+ * real numbers, Supercomputing Research Center Tech Report
+ * SRC-93-093 (March 1993).
  *
  * This code is based in part on David Bailey's F90 version.
  */
@@ -21,8 +21,9 @@
 #include <cmath>
 #include <cstdio>
 
-#include <qd/dd_real.h>
-#include <qd/qd_real.h>
+#include "dd_real.h"
+
+#include "qd_real.h"
 
 using std::sqrt;
 using std::abs;
@@ -38,7 +39,7 @@ using namespace qd;
    are initialized to diag, while all other elements are
    initialized to elem.                                      */
 template <class T>
-T **new_matrix(int nr_rows, int nr_cols, 
+T **new_matrix(int nr_rows, int nr_cols,
                     T diag = 0.0, T elem = 0.0) {
   T **m = new T *[nr_rows];
   int i, j;
@@ -80,7 +81,7 @@ static const double gam = 1.2;
 /* Perform PSLQ integer relation algorithm to find any
    linear relation among the n numbers in the vector x.
    It returns the coefficients found in the vector r.
-   The parameter eps provides the precision of type T. */   
+   The parameter eps provides the precision of type T. */
 template <class T>
 int pslq(const T *x, int n, T *r, double eps, int max_itr) {
   T *s = new_vector<T>(n);
@@ -115,7 +116,7 @@ int pslq(const T *x, int n, T *r, double eps, int max_itr) {
       h[i][j] = (i == j) ? s[j+1]/s[j] : - y[i]*y[j] / (s[j] * s[j+1]);
     }
   }
-  
+
   /* Reduce matrix H. */
   for (i = 1; i < n; i++) {
     for (j = i-1; j >= 0; j--) {
@@ -129,15 +130,15 @@ int pslq(const T *x, int n, T *r, double eps, int max_itr) {
       }
     }
   }
-  
-  int m;
+
+  int m = 0;
   int itr = 0;
   bool done = false;
 
   while(!done) {
 
     itr++;
-    
+
     /* Select m such that gam^i * |H_ii| is maximal when i = m. */
     T m_val = -1.0;
     T g = gam;
@@ -151,14 +152,14 @@ int pslq(const T *x, int n, T *r, double eps, int max_itr) {
       }
     }
 
-    if (m < 0) { 
+    if (m < 0) {
       /* This shouldn't happen. */
       err = 1;
       break;
     }
 
-    /* Exchange entries m and m+1 of y, 
-                   rows m and m+1 of A and H, 
+    /* Exchange entries m and m+1 of y,
+                   rows m and m+1 of A and H,
                 columns m and m+1 of B.        */
     SWAP(y[m], y[m+1])
     for (i = 0; i < n; i++) {

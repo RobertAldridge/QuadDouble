@@ -13,8 +13,8 @@
 #ifndef _QD_C_DD_H
 #define _QD_C_DD_H
 
-#include <qd/qd_config.h>
-#include <qd/fpu.h>
+#include "qd_config.h"
+#include "fpu.h"
 
 #ifdef __cplusplus
 extern "C" {

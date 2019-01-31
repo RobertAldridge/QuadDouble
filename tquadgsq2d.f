@@ -8,9 +8,9 @@ module quadglobal
 
 !   David H. Bailey      2007-03-23
 
-!   The function quadgsq2d is suitable to integrate any function that is 
-!   continuous, infinitely differentiable and integrable on a 2D finite open 
-!   interval.  Singularities or vertical derivatives are permitted on the 
+!   The function quadgsq2d is suitable to integrate any function that is
+!   continuous, infinitely differentiable and integrable on a 2D finite open
+!   interval.  Singularities or vertical derivatives are permitted on the
 !   boundaries.  This can also be used for certain integrals on infinite
 !   intervals, by making a suitable change of variable.
 
@@ -27,7 +27,7 @@ module quadglobal
 !           (possibly doubles) the number of accurate digits in the result,
 !           but also roughly *quadruples* the run time.
 !   nq2     Space parameter for wk and xk arrays in the calling program.  By
-!           default it is set to 8 * 2^nq1.  Increase nq2 if directed by a 
+!           default it is set to 8 * 2^nq1.  Increase nq2 if directed by a
 !           message in subroutine initqts.
 
 use qdmodule
@@ -48,11 +48,11 @@ double precision dplog10q, d1, d2, second, tm0, tm1
 type (qd_real) cat, catalan, err, quadgsq2d, fun01, fun02, fun03, fun04, &
   t1, t2, t3, t4, x1, x2, y1, y2
 external quadgsq2d, catalan, fun01, fun02, fun03, fun04, second
-integer*4 old_cw
 
 !  This line must be present in DD and QD main programs.
 
-call f_fpu_fix_start (old_cw)
+! integer*4 old_cw
+! call f_fpu_fix_start (old_cw)
 
 write (6, 1) ndigits1, nepsilon1, nquadl
 1 format ('Quadgsq2d test'/'Digits =',i6,'  Epsilon =',i6,'   Quadlevel =',i6)
@@ -134,7 +134,8 @@ call qdwrite (6, t1)
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
-call f_fpu_fix_end (old_cw)
+! call f_fpu_fix_end (old_cw)
+
 stop
 end
 
@@ -169,7 +170,7 @@ end
 
 function fun03 (s, t)
 
-!   fun03 (s,t) = ((1/s-1)^2 + (1/s-1)*(1/t-1) + (1/t-1)^2) 
+!   fun03 (s,t) = ((1/s-1)^2 + (1/s-1)*(1/t-1) + (1/t-1)^2)
 !                / (s^2 * t^2 * exp(1/s + 1/t - 2)
 
 use qdmodule
@@ -389,7 +390,7 @@ end
 
 subroutine decmdq (a, b, ib)
 
-!   For input MP value a, this routine returns DP b and integer ib such that 
+!   For input MP value a, this routine returns DP b and integer ib such that
 !   a = b * 10^ib, with 1 <= abs (b) < 10 for nonzero a.
 
 use qdmodule

@@ -7,7 +7,7 @@
  *
  * Copyright (c) 2000-2001
  *
- * This class contains a test suite for the quadt integration 
+ * This class contains a test suite for the quadt integration
  * code (see quadt.h).
  */
 
@@ -17,8 +17,10 @@
 #include <iostream>
 
 #include <string.h>
-#include <qd/fpu.h>
-#include <qd/qd_real.h>
+#include "fpu.h"
+
+#include "inline.h"
+#include "qd_real.h"
 
 #include "tictoc.h"
 
@@ -42,7 +44,7 @@ static bool flag_test_dd   = false;
 static bool flag_test_qd   = false;
 static bool flag_last_only = false;
 
-template <class T> 
+template <class T>
 class constants {
 public:
   static const T &pi;
@@ -184,7 +186,7 @@ public:
       fscanf(f, "%s", s);
       convert(s, &coeff[i]);
     }
-    
+
     fclose(f);
   }
 
@@ -225,7 +227,7 @@ public:
       fscanf(f, "%s", s);
       convert(s, &coeff[i]);
     }
-    
+
     fclose(f);
   }
 
@@ -259,8 +261,8 @@ private:
   double eps;
   quadt<T> *q;
 public:
-  quadt_tester(double eps) { 
-    this->eps = eps; 
+  quadt_tester(double eps) {
+    this->eps = eps;
     q = new quadt<T>(eps);
   }
 
@@ -280,7 +282,7 @@ void quadt_tester<T>::test_integral(F &f, T a, T b, T truth) {
   T result;
   double err_est, err;
   double tol = eps * 1024;
-  
+
   r = q->integrate(f, a, b, tol, result, err_est);
   err = abs(to_double(result - truth));
   if (flag_verbose) {
@@ -305,33 +307,33 @@ void quadt_tester<T>::test() {
     TestFunction3<T> f5;
     TestFunction4<T> f6;
     TestFunction5<T> f7;
-    
+
     cout << "Test 1." << endl;
     test_integral(f1, T(-1.0), T(1.0), constants<T>::pi2);
-    
+
     cout << "Test 2." << endl;
     test_integral(f2, T(0.0), constants<T>::pi4, log(1.0 + sqrt(T(2.0))));
-    
+
     cout << "Test 3." << endl;
     test_integral(f3, T(0.0), T(1.0), T(0.25));
-    
+
     cout << "Test 4." << endl;
-    test_integral(f4, T(0.0), T(1.0), 
+    test_integral(f4, T(0.0), T(1.0),
                   constants<T>::pi4/3.0 - T(1.0) / 6.0 + log(T(2.0)) / 6.0);
-    
+
     cout << "Test 5." << endl;
     test_integral(f5, T(0.0), T(1.0), T(2.0));
-    
+
     cout << "Test 6." << endl;
     test_integral(f6, T(0.0), constants<T>::pi2,
                   constants<T>::pi2 * sqrt(T(2.0)));
-    
+
     cout << "Test 7." << endl;
     test_integral(f7, T(0.0), T(1.0), sqrt(constants<T>::pi));
   }
 
   cout << "Test 8." << endl;
-    
+
   double tol = eps * 1024;
   double err;
   T r, r1, r2;
@@ -360,7 +362,7 @@ void quadt_tester<T>::test() {
     cout << "    Result: " << r << endl;
     cout << "     Truth: " << truth << endl;
     cout << "True Error: " << err << endl;
-    cout << endl;  
+    cout << endl;
   }
 
 }
@@ -384,68 +386,115 @@ void test_quadt(double eps) {
   cout << "Total CPU Time = " << tm1 + tm2 << endl;
 }
 
-void print_usage() {
-  cout << "quadt_test [-dd] [-qd] [-all] [-v] [-x]" << endl;
+static void print_usage()
+{
+  cout << "quadt_test [-h] [-d] [--dd] [--qd] [--all] [-v] [-x]" << endl;
   cout << "  Performs a selected set of integration using " << endl;
   cout << "  the quad-double library." << endl;
   cout << endl;
-  cout << "  -h -help  Print this usage message." << endl;
-  cout << "  -d        Perform quadrature test with regular double precision." << endl;
-  cout << "  -dd       Perform quadrature test with double-double." << endl;
-  cout << "  -qd       Perform quadrature test with quad-double." << endl;
-  cout << "            This is the default." << endl;
-  cout << "  -all      Perform quadrature test with all three precision types." << endl;
-  cout << "  -v" << endl;
-  cout << "  -verbose  Prints out detailed test results." << endl;
-  cout << "  -x        Perform only the last test, an interesting quadrature" << endl;
-  cout << "            whose value is *very* close to pi / 8 (see paper)." << endl;
+  cout << "-h --help    Print this usage message." << endl;
+  cout << "-d --double  Perform quadrature test with regular double precision." << endl;
+  cout << "--dd         Perform quadrature test with double-double." << endl;
+  cout << "--qd         Perform quadrature test with quad-double." << endl;
+  cout << "               This is the default." << endl;
+  cout << "--all        Perform quadrature test with all three precision types." << endl;
+  cout << "-v --verbose Prints out detailed test results." << endl;
+  cout << "-x           Perform only the last test, an interesting quadrature" << endl;
+  cout << "               whose value is *very* close to pi / 8 (see paper)." << endl;
 }
-  
-int main(int argc, char **argv) {
 
-  char *arg;
-  
-  /* Parse the command-line flags. */
-  for (int i = 1; i < argc; i++) {
-    arg = argv[i];
-    if (strcmp(arg, "-h") == 0 || strcmp(arg, "--help") == 0) {
+int main7(int argc, const char* argv[] )
+{
+  for(int i = 1; i < argc; i++)
+  {
+    const char* arg = argv[i];
+
+    bool result = false;
+
+    if(strcmp(arg, "-h") == 0 || strcmp(arg, "--help") == 0)
+    {
+      result = true;
+
       print_usage();
+
       exit(0);
-    } else if (strcmp(arg, "-d") == 0) {
+    }
+
+    if(strcmp(arg, "-d") == 0 || strcmp(arg, "--double") == 0)
+    {
+      result = true;
+
       flag_test_d = true;
-    } else if (strcmp(arg, "-dd") == 0) {
+    }
+
+    if(strcmp(arg, "--dd") == 0)
+    {
+      result = true;
+
       flag_test_dd = true;
-    } else if (strcmp(arg, "-qd") == 0) {
+    }
+
+    if(strcmp(arg, "--qd") == 0)
+    {
+      result = true;
+
       flag_test_qd = true;
-    } else if (strcmp(arg, "-all") == 0) {
+    }
+
+    if(strcmp(arg, "--all") == 0)
+    {
+      result = true;
+
       flag_test_d = flag_test_dd = flag_test_qd = true;
-    } else if (strcmp(arg, "-v") == 0 || strcmp(arg, "-verbose") == 0) {
+    }
+
+    if(strcmp(arg, "-v") == 0 || strcmp(arg, "--verbose") == 0)
+    {
+      result = true;
+
       flag_verbose = true;
-    } else if (strcmp(arg, "-x") == 0) {
+    }
+
+    if(strcmp(arg, "-x") == 0)
+    {
+      result = true;
+
       flag_last_only = true;
-    } else {
-      cerr << "Unknown flag `" << arg << "'." << endl;
+    }
+
+    if( !result)
+    {
+      cerr << "Unknown flag '" << arg << "'." << endl;
     }
   }
 
+//unsigned int old_cw;
+//fpu_fix_start(&old_cw);
 
-  unsigned int old_cw;
-  fpu_fix_start(&old_cw);
-
-  if (!flag_test_d && !flag_test_dd && !flag_test_qd)
+  if( !flag_test_d && !flag_test_dd && !flag_test_qd)
+  {
     flag_test_qd = true;
+  }
 
   double _eps = 1.11022302462516e-16;
-  if (flag_test_d)
-    test_quadt<double>  (_eps);
 
-  if (flag_test_dd)
+  if(flag_test_d)
+  {
+    test_quadt<double> (_eps);
+  }
+
+  if(flag_test_dd)
+  {
     test_quadt<dd_real> (dd_real::_eps);
+  }
 
-  if (flag_test_qd) 
+  if(flag_test_qd)
+  {
     test_quadt<qd_real> (qd_real::_eps);
+  }
 
-  fpu_fix_end(&old_cw);
+//fpu_fix_end(&old_cw);
+
   return 0;
 }
 

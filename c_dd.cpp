@@ -13,8 +13,11 @@
 #include <cstring>
 
 #include "config.h"
-#include <qd/dd_real.h>
-#include <qd/c_dd.h>
+
+#include "inline.h"
+#include "dd_real.h"
+
+#include "c_dd.h"
 
 #define TO_DOUBLE_PTR(a, ptr) ptr[0] = a.x[0]; ptr[1] = a.x[1];
 
@@ -283,7 +286,7 @@ void c_dd_comp(const double *a, const double *b, int *result) {
     *result = -1;
   else if (aa > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -293,7 +296,7 @@ void c_dd_comp_dd_d(const double *a, double b, int *result) {
     *result = -1;
   else if (aa > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -303,7 +306,7 @@ void c_dd_comp_d_dd(double a, const double *b, int *result) {
     *result = -1;
   else if (aa > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 

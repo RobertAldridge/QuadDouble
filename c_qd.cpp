@@ -13,8 +13,11 @@
 #include <cstring>
 
 #include "config.h"
-#include <qd/qd_real.h>
-#include <qd/c_qd.h>
+
+#include "inline.h"
+#include "qd_real.h"
+
+#include "c_qd.h"
 
 #define TO_DOUBLE_PTR(a, ptr) ptr[0] = a.x[0]; ptr[1] = a.x[1]; \
                               ptr[2] = a.x[2]; ptr[3] = a.x[3];
@@ -419,7 +422,7 @@ void c_qd_comp(const double *a, const double *b, int *result) {
     *result = -1;
   else if (aa > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -429,7 +432,7 @@ void c_qd_comp_qd_d(const double *a, double b, int *result) {
     *result = -1;
   else if (aa > b)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -439,7 +442,7 @@ void c_qd_comp_d_qd(double a, const double *b, int *result) {
     *result = -1;
   else if (a > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 

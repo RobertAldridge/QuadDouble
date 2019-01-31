@@ -15,8 +15,11 @@
 #include <cstring>
 
 #include "config.h"
-#include <qd/dd_real.h>
-#include <qd/c_dd.h>
+
+#include "inline.h"
+#include "dd_real.h"
+
+#include "c_dd.h"
 
 #define f_dd_add          FC_FUNC_(f_dd_add, F_DD_ADD)
 #define f_dd_add_dd_d     FC_FUNC_(f_dd_add_dd_d, F_DD_ADD_DD_D)
@@ -298,8 +301,8 @@ void f_dd_sincosh(const double *a, double *s, double *c) {
 
 /* Writes a dd_real into a character array of length maxlen, with
  * the given precision.   The rest of the array will be filled with
- * spaces.  Parameter maxlen should at least be precision + 7 
- * characters.  Prec can be zero to put out the defaut number of 
+ * spaces.  Parameter maxlen should at least be precision + 7
+ * characters.  Prec can be zero to put out the defaut number of
  * digits. */
 void f_dd_swrite(const double *a, int *precision, char *s, int *maxlen) {
   int prec = *precision;
@@ -341,7 +344,7 @@ void f_dd_comp(const double *a, const double *b, int *result) {
     *result = -1;
   else if (aa > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -351,7 +354,7 @@ void f_dd_comp_dd_d(const double *a, const double *b, int *result) {
     *result = -1;
   else if (aa > *b)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -361,7 +364,7 @@ void f_dd_comp_d_dd(const double *a, const double *b, int *result) {
     *result = -1;
   else if (*a > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 

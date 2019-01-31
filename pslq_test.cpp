@@ -7,7 +7,7 @@
  *
  * Copyright (c) 2000-2001
  *
- * A driver for the pslq program which exercises the double-double and 
+ * A driver for the pslq program which exercises the double-double and
  * quad-double library.
  */
 
@@ -17,9 +17,11 @@
 #include <cstring>
 #include <limits>
 #include <iomanip>
-#include <qd/fpu.h>
+#include "fpu.h"
 
 #include "tictoc.h"
+
+#include "inline.h"
 #include "pslq.h"
 
 using std::cout;
@@ -81,7 +83,7 @@ bool pslq_test(int p, int q, double eps, int max_itr = 100000) {
   x[1] = r;
   t = r*r;
   for (int i = 2; i < n; i++, t *= r) x[i] = t;
-  
+
   cout << "  testing pslq_test(" << p << ", " << q << ") ..." << endl;
   if (g_verbose) cout << std::setprecision(std::numeric_limits<T>::digits10) << "    r = " << r << endl;
 
@@ -95,7 +97,7 @@ bool pslq_test(int p, int q, double eps, int max_itr = 100000) {
   if (!err) {
     if (g_verbose) {
       cout << "    polynomial: ";
-      for (int i = 0; i < n; i++) { 
+      for (int i = 0; i < n; i++) {
         if (i > 0) cout << "                ";
         cout << std::setprecision(0) << std::setw(24) << b[i] << endl;
       }
@@ -132,66 +134,106 @@ bool pslq_test(int p, int q) {
   return pslq_test<T>(p, q, std::numeric_limits<T>::epsilon());
 }
 
-void print_usage() {
-  cout << "pslq_test [-h] [-n N] [-d] [-dd] [-qd] [-all] [-verbose]" << endl;
+static void print_usage()
+{
+  cout << "pslq_test [-h] [-n N] [-d] [--dd] [--qd] [--all] [-v]" << endl;
   cout << "  Performs the PSLQ algorithm on 1, r, r^2, ..., r^{n-1}" << endl;
   cout << "  where r is a root of a constructed integer coefficient" << endl;
   cout << "  polynomial.  PSLQ algorithm should reconstruct the polynomial" << endl;
   cout << "  in most cases where the degree is not too high and the" << endl;
   cout << "  polynomial is irreducible over the rationals." << endl;
   cout << endl;
-  cout << "  -h -help  Print this usage message and exit." << endl;
-  cout << "  -d        Perform PSLQ with double precision (53 bit mantissa)." << endl;
-  cout << "  -dd       Perform PSLQ with double-double precision." << endl;
-  cout << "            (about 106 bits of significand)." << endl;
-  cout << "  -qd       Perform PSLQ with quad-double precision." << endl;
-  cout << "            (about 212 bits of significand).  This is the default." << endl;
-  cout << "  -all      Perform PSLQ with all three precisions above." << endl;
-  cout << "  -verbose" << endl;
-  cout << "  -v        Increase verbosity." << endl;
+  cout << "-h --help    Print this usage message and exit." << endl;
+  cout << "-d --double  Perform PSLQ with double precision (53 bit mantissa)." << endl;
+  cout << "--dd         Perform PSLQ with double-double precision." << endl;
+  cout << "               (about 106 bits of significand)." << endl;
+  cout << "--qd         Perform PSLQ with quad-double precision." << endl;
+  cout << "               (about 212 bits of significand).  This is the default." << endl;
+  cout << "--all        Perform PSLQ with all three precisions above." << endl;
+  cout << "-v --verbose Increase verbosity." << endl;
 }
 
-int main(int argc, char **argv) {
-  char *arg;
+int main4(int argc, const char* argv[] )
+{
+  for(int i = 1; i < argc; i++)
+  {
+    const char* arg = argv[i];
 
-  /* Parse the command-line arguments. */
-  for (int i = 1; i < argc; i++) {
-    arg = argv[i];
-    if (strcmp(arg, "-h") == 0 || strcmp(arg, "-help") == 0) {
+    bool result = false;
+
+    if(strcmp(arg, "-h") == 0 || strcmp(arg, "--help") == 0)
+    {
+      result = true;
+
       print_usage();
+
       return 0;
-    } else if (strcmp(arg, "-d") == 0) {
+    }
+
+    if(strcmp(arg, "-d") == 0 || strcmp(arg, "--double") == 0)
+    {
+      result = true;
+
       flag_double_pslq = true;
-    } else if (strcmp(arg, "-dd") == 0) {
+    }
+
+    if(strcmp(arg, "--dd") == 0)
+    {
+      result = true;
+
       flag_dd_pslq = true;
-    } else if (strcmp(arg, "-qd") == 0) {
+    }
+
+    if(strcmp(arg, "--qd") == 0)
+    {
+      result = true;
+
       flag_qd_pslq = true;
-    } else if (strcmp(arg, "-all") == 0) {
+    }
+
+    if(strcmp(arg, "--all") == 0)
+    {
+      result = true;
+
       flag_double_pslq = flag_dd_pslq = flag_qd_pslq = true;
-    } else if (strcmp(arg, "-v") == 0 || strcmp(arg, "-verbose") == 0) {
+    }
+
+    if(strcmp(arg, "-v") == 0 || strcmp(arg, "--verbose") == 0)
+    {
+      result = true;
+
       g_verbose++;
-    } else {
-      cerr << "Unknown flag `" << arg << "'." << endl;
+    }
+
+    if( !result)
+    {
+      cerr << "Unknown flag '" << arg << "'." << endl;
     }
   }
 
-  if (!flag_double_pslq && !flag_dd_pslq && !flag_qd_pslq) {
+  if( !flag_double_pslq && !flag_dd_pslq && !flag_qd_pslq)
+  {
     flag_dd_pslq = true;
     flag_qd_pslq = true;
   }
 
-  unsigned int old_cw;
-  fpu_fix_start(&old_cw);
+//unsigned int old_cw;
+//fpu_fix_start(&old_cw);
 
   bool pass = true;
-  if (flag_double_pslq) {
+
+  if(flag_double_pslq)
+  {
     cout << "Performing double-precision PSLQ." << endl;
+
     pass &= pslq_test<double>(2, 2);
     pass &= pslq_test<double>(3, 2);
   }
 
-  if (flag_dd_pslq) {
+  if(flag_dd_pslq)
+  {
     cout << "Performing double-double precision PSLQ." << endl;
+
     pass &= pslq_test<dd_real>(2, 2);
     pass &= pslq_test<dd_real>(2, 3);
     pass &= pslq_test<dd_real>(2, 4);
@@ -199,8 +241,10 @@ int main(int argc, char **argv) {
     pass &= pslq_test<dd_real>(2, 5);
   }
 
-  if (flag_qd_pslq) {
+  if(flag_qd_pslq)
+  {
     cout << "Performing quad-double precision PSLQ." << endl;
+
     pass &= pslq_test<qd_real>(3, 3);
     pass &= pslq_test<dd_real>(2, 5);
     pass &= pslq_test<qd_real>(4, 3);
@@ -209,13 +253,16 @@ int main(int argc, char **argv) {
     pass &= pslq_test<qd_real>(3, 5);
   }
 
-  if (pass)
+  if(pass)
+  {
     cout << "All tests passed." << endl;
+  }
   else
+  {
     cout << "Some tests FAILED." << endl;
+  }
 
-  fpu_fix_end(&old_cw);
-  return (pass ? 0 : 1);
+//fpu_fix_end(&old_cw);
+
+  return pass ? 0 : 1;
 }
-
-

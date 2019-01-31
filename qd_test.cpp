@@ -17,8 +17,11 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
-#include <qd/qd_real.h>
-#include <qd/fpu.h>
+
+#include "inline.h"
+#include "qd_real.h"
+
+#include "fpu.h"
 
 using std::cout;
 using std::cerr;
@@ -32,9 +35,9 @@ using std::exit;
 // Global flags passed to the main program.
 static bool flag_test_dd = false;
 static bool flag_test_qd = false;
-bool flag_verbose = false;
+static bool flag_verbose = false;
 
-bool print_result(bool result) {
+static bool print_result(bool result) {
   if (result)
     cout << "Test passed." << endl;
   else
@@ -92,7 +95,7 @@ bool TestSuite<T>::test2() {
 
   cout << endl;
   cout << "Test 2.  (Machin's Formula for Pi)." << endl;
-  
+
   /* Use the Machin's arctangent formula:
 
        pi / 4  =  4 arctan(1/5) - arctan(1/239)
@@ -245,7 +248,7 @@ bool TestSuite<T>::test4() {
     r = nroot(1.0 - sqr(sqr(y)), 4);
     y = (1.0 - r) / (1.0 + r);
     a = a * sqr(sqr(1.0 + y)) - m * y * (1.0 + y + sqr(y));
-    
+
     p_old = p;
     p = 1.0 / a;
     if (flag_verbose)
@@ -259,7 +262,7 @@ bool TestSuite<T>::test4() {
     cout << "         _pi: " << T::_pi << endl;
     cout.precision(double_digits);
     cout << "       error: " << err << " = " << err / T::_eps << " eps" << endl;
-  }  
+  }
 
   return (err < 256.0 * T::_eps);
 }
@@ -339,7 +342,7 @@ bool TestSuite<T>::test6() {
     cout << "_log2 = " << T::_log2 << endl;
 
     cout.precision(double_digits);
-    cout << "error = " << delta << " = " << (delta / T::_eps) 
+    cout << "error = " << delta << " = " << (delta / T::_eps)
          << " eps" << endl;
     cout << i << " iterations." << endl;
   }
@@ -439,74 +442,113 @@ bool TestSuite<T>::testall() {
   return pass;
 }
 
-void print_usage() {
-  cout << "qd_test [-h] [-dd] [-qd] [-all]" << endl;
+static void print_usage()
+{
+  cout << "qd_test [-h] [--dd] [--qd] [--all] [-v]" << endl;
   cout << "  Performs miscellaneous tests of the quad-double library," << endl;
   cout << "  such as polynomial root finding, computation of pi, etc." << endl;
   cout << endl;
-  cout << "  -h -help  Prints this usage message." << endl;
-  cout << "  -dd       Perform tests with double-double types." << endl;
-  cout << "  -qd       Perform tests with quad-double types." << endl;
-  cout << "            This is the default." << endl;
-  cout << "  -all      Perform both double-double and quad-double tests." << endl;
-  cout << "  -v" << endl;
-  cout << "  -verbose  Print detailed information for each test." << endl;
-  
+  cout << "-h --help    Prints this usage message." << endl;
+  cout << "--dd         Perform tests with double-double types." << endl;
+  cout << "--qd         Perform tests with quad-double types." << endl;
+  cout << "               This is the default." << endl;
+  cout << "--all        Perform both double-double and quad-double tests." << endl;
+  cout << "-v --verbose Print detailed information for each test." << endl;
 }
 
-int main(int argc, char *argv[]) {
-  
+int main5(int argc, const char* argv[] )
+{
   bool pass = true;
-  unsigned int old_cw;
-  fpu_fix_start(&old_cw);
 
-  /* Parse the arguments. */
-  char *arg;
-  for (int i = 1; i < argc; i++) {
-    arg = argv[i];
-    if (strcmp(arg, "-h") == 0 || strcmp(arg, "-help") == 0) {
+//unsigned int old_cw;
+//fpu_fix_start(&old_cw);
+
+  for(int i = 1; i < argc; i++)
+  {
+    const char* arg = argv[i];
+
+    bool result = false;
+
+    if(strcmp(arg, "-h") == 0 || strcmp(arg, "--help") == 0)
+    {
+      result = true;
+
       print_usage();
+
       exit(0);
-    } else if (strcmp(arg, "-dd") == 0) {
+    }
+
+    if(strcmp(arg, "--dd") == 0)
+    {
+      result = true;
+
       flag_test_dd = true;
-    } else if (strcmp(arg, "-qd") == 0) {
+    }
+
+    if(strcmp(arg, "--qd") == 0)
+    {
+      result = true;
+
       flag_test_qd = true;
-    } else if (strcmp(arg, "-all") == 0) {
+    }
+
+    if(strcmp(arg, "--all") == 0)
+    {
+      result = true;
+
       flag_test_dd = flag_test_qd = true;
-    } else if (strcmp(arg, "-v") == 0 || strcmp(arg, "-verbose") == 0) {
+    }
+
+    if(strcmp(arg, "-v") == 0 || strcmp(arg, "--verbose") == 0)
+    {
+      result = true;
+
       flag_verbose = true;
-    } else {
-      cerr << "Unknown flag `" << arg << "'." << endl;
+    }
+
+    if( !result)
+    {
+      cerr << "Unknown flag '" << arg << "'." << endl;
     }
   }
 
-  /* If no flag, test both double-double and quad-double. */
-  if (!flag_test_dd && !flag_test_qd) {
+  if( !flag_test_dd && !flag_test_qd)
+  {
     flag_test_dd = true;
     flag_test_qd = true;
   }
 
-  if (flag_test_dd) {
+  if(flag_test_dd)
+  {
     TestSuite<dd_real> dd_test;
 
     cout << endl;
     cout << "Testing dd_real ..." << endl;
-    if (flag_verbose)
+
+    if(flag_verbose)
+    {
       cout << "sizeof(dd_real) = " << sizeof(dd_real) << endl;
+    }
+
     pass &= dd_test.testall();
   }
 
-  if (flag_test_qd) {
+  if(flag_test_qd)
+  {
     TestSuite<qd_real> qd_test;
 
     cout << endl;
     cout << "Testing qd_real ..." << endl;
-    if (flag_verbose)
+
+    if(flag_verbose)
+    {
       cout << "sizeof(qd_real) = " << sizeof(qd_real) << endl;
+    }
+
     pass &= qd_test.testall();
   }
-  
-  fpu_fix_end(&old_cw);
-  return (pass ? 0 : 1);
-}
 
+//fpu_fix_end(&old_cw);
+
+  return pass ? 0 : 1;
+}

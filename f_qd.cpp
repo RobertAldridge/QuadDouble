@@ -16,8 +16,11 @@
 #include <cstring>
 
 #include "config.h"
-#include <qd/qd_real.h>
-#include <qd/c_qd.h>
+
+#include "inline.h"
+#include "qd_real.h"
+
+#include "c_qd.h"
 
 #define f_qd_add          FC_FUNC_(f_qd_add, F_QD_ADD)
 #define f_qd_add_qd_dd    FC_FUNC_(f_qd_add_qd_dd, F_QD_ADD_QD_DD)
@@ -419,8 +422,8 @@ void f_qd_sincosh(const double *a, double *s, double *c) {
 
 /* Writes a dd_real into a character array of length maxlen, with
  * the given precision.   The rest of the array will be filled with
- * spaces.  Parameter maxlen should at least be precision + 7 
- * characters.  Prec can be zero to put out the defaut number of 
+ * spaces.  Parameter maxlen should at least be precision + 7
+ * characters.  Prec can be zero to put out the defaut number of
  * digits. */
 void f_qd_swrite(const double *a, int *precision, char *s, int *maxlen) {
   int prec = *precision;
@@ -464,7 +467,7 @@ void f_qd_comp(const double *a, const double *b, int *result) {
     *result = -1;
   else if (aa > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -474,7 +477,7 @@ void f_qd_comp_qd_d(const double *a, const double *b, int *result) {
     *result = -1;
   else if (aa > *b)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 
@@ -484,7 +487,7 @@ void f_qd_comp_d_qd(const double *a, const double *b, int *result) {
     *result = -1;
   else if (*a > bb)
     *result = 1;
-  else 
+  else
     *result = 0;
 }
 

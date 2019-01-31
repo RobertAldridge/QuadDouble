@@ -3,7 +3,7 @@ subroutine f_main
 
   use @@module
   implicit none
-  integer*4 old_cw
+
   double precision t
   double precision second
   double precision time_thresh
@@ -11,7 +11,8 @@ subroutine f_main
   type (@@_real) a, b, c, d
   integer n, i, k
 
-  call f_fpu_fix_start (old_cw)
+! integer*4 old_cw
+! call f_fpu_fix_start (old_cw)
 
   write (6, *) 'Timing addition / subtraction ...'
   n = 512
@@ -137,5 +138,8 @@ subroutine f_main
   write (6, *) t/n*1.0d6, ' usec'
   call @@write(6, a)
 
+! call f_fpu_fix_end (old_cw)
+
+stop
 end
 
