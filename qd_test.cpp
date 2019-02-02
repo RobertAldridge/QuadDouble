@@ -1,27 +1,12 @@
+
+// qd_test.cpp
+
 /*
- * tests/qd_test.cpp
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * This contains some simple tests to sanity check the double-double
  * and quad-double library.
  */
 
-#include <cstdlib>
-#include <cmath>
-#include <cstring>
-#include <iostream>
-#include <iomanip>
-#include <algorithm>
-
-#include "inline.h"
-#include "qd_real.h"
-
-#include "fpu.h"
+#include "include.h"
 
 using std::cout;
 using std::cerr;

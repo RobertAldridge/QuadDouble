@@ -1,6 +1,7 @@
+
+// qd_inline.h
+
 /*
- * include/qd_inline.h
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -10,15 +11,11 @@
  * Contains small functions (suitable for inlining) in the quad-double
  * arithmetic package.
  */
+
 #ifndef _QD_QD_INLINE_H
 #define _QD_QD_INLINE_H
 
-//#include <cmath>
-
-//#include "inline.h"
-
 //#ifndef QD_INLINE
-#define inline
 //#endif
 
 /********** Constructors **********/

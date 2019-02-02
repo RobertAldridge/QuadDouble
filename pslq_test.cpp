@@ -1,28 +1,12 @@
+
+// pslq_test.cpp
+
 /*
- * tests/pslq_test.cpp
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * A driver for the pslq program which exercises the double-double and
  * quad-double library.
  */
 
-#include <cmath>
-#include <iostream>
-#include <ctime>
-#include <cstring>
-#include <limits>
-#include <iomanip>
-#include "fpu.h"
-
-#include "tictoc.h"
-
-#include "inline.h"
-#include "pslq.h"
+#include "include.h"
 
 using std::cout;
 using std::cerr;

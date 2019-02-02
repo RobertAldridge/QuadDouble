@@ -1,27 +1,11 @@
+
+// qd_timer.cpp
+
 /*
- * tests/qd_timer.cpp
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2004
- *
  * Contains code to time basic operations.
  */
 
-#include <cstring>
-#include <cstdlib>
-#include <cmath>
-#include <limits>
-#include <iostream>
-#include <iomanip>
-
-#include "inline.h"
-#include "qd_real.h"
-
-#include "fpu.h"
-#include "tictoc.h"
+#include "include.h"
 
 using std::cout;
 using std::cerr;

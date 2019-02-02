@@ -1,6 +1,7 @@
+
+// quadt.h
+
 /*
- * tests/quadt.cpp
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -26,6 +27,7 @@
  * in Fortran 90).  C++ conversion, quad-double precision support,
  * and few other changes have been added.
  */
+
 #ifndef _QUADT_CC_
 #define _QUADT_CC_
 
@@ -41,11 +43,6 @@
  *
  * Also the limit point x = 1 corresponds to t =
  */
-#include <cstdlib>
-#include <cstdio>
-#include <cmath>
-
-#include "qd_real.h"
 
 template<class T>
 class quadt {

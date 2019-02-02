@@ -1,18 +1,11 @@
+
+// qd_const.cpp
+
 /*
- * src/qd_const.cc
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * Defines constants used in quad-double package.
  */
-#include "config.h"
 
-#include "inline.h"
-#include "qd_real.h"
+#include "include.h"
 
 /* Some useful constants. */
 const qd_real qd_real::_2pi = qd_real(6.283185307179586232e+00,

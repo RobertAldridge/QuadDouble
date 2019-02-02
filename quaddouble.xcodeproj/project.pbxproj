@@ -66,7 +66,7 @@
 		51D42CC621FB044E00ED5F99 /* c_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c_test.cpp; sourceTree = "<group>"; };
 		51D42CC821FB04B100ED5F99 /* fpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpu.h; sourceTree = SOURCE_ROOT; };
 		51D42CC921FB04B100ED5F99 /* qd_real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qd_real.h; sourceTree = SOURCE_ROOT; };
-		51D42CCA21FB04B100ED5F99 /* autoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autoconf.h; sourceTree = SOURCE_ROOT; };
+		51D42CCA21FB04B100ED5F99 /* include.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = include.h; sourceTree = SOURCE_ROOT; };
 		51D42CCB21FB04B100ED5F99 /* pslq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pslq.h; sourceTree = SOURCE_ROOT; };
 		51D42CCC21FB04B100ED5F99 /* qd_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qd_config.h; sourceTree = SOURCE_ROOT; };
 		51D42CCD21FB04B100ED5F99 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = SOURCE_ROOT; };
@@ -97,7 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				519FFEF421FB21D200085DCD /* coeff.dat */,
-				51D42CCA21FB04B100ED5F99 /* autoconf.h */,
+				51D42CCA21FB04B100ED5F99 /* include.h */,
 				51D42CCE21FB04B100ED5F99 /* bits.h */,
 				51D42CD521FB04B100ED5F99 /* c_dd.h */,
 				51D42CD721FB04B100ED5F99 /* c_qd.h */,

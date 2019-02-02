@@ -1,4 +1,5 @@
-/* include/qd/qd_config.h.  Generated from qd_config.h.in by configure.  */
+
+// qd_config.h
 
 #ifndef _QD_QD_CONFIG_H
 #define _QD_QD_CONFIG_H  1

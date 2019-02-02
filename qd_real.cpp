@@ -1,35 +1,12 @@
+
+// qd_real.cpp
+
 /*
- * src/qd_real.cc
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2007
- *
  * Contains implementation of non-inlined functions of quad-double
  * package.  Inlined functions are found in qd_inline.h (in include directory).
  */
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <cmath>
-#include <iostream>
-#include <iomanip>
-#include <string>
 
-#include "config.h"
-
-#include "inline.h"
-#include "qd_real.h"
-
-//#if !defined(QD_INLINE)
-#include "qd_inline.h"
-//#endif
-
-#include "util.h"
-
-#include "bits.h"
+#include "include.h"
 
 using std::cout;
 using std::cerr;

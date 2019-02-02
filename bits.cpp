@@ -1,28 +1,12 @@
+
+// bits.cpp
+
 /*
- * src/bits.cc
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * Defines various routines to get / set bits of a IEEE floating point
  * number.  This used by the library for debugging purposes.
  */
 
-#include <iostream>
-#include <iomanip>
-#include <cmath>
-#include <climits>
-
-#include "config.h"
-#include "inline.h"
-#include "bits.h"
-
-#ifdef HAVE_IEEEFP_H
-#include <ieeefp.h>
-#endif
+#include "include.h"
 
 using std::setw;
 

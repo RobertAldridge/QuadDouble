@@ -1,16 +1,7 @@
 
+// compileExample.cpp
 
-// simple exaple of QD usage to illustrate linking process
-// Alex Kaiser, LBNL, 6/3/2010
-
-
-
-#include <iostream>
-
-#include "inline.h"
-#include "qd_real.h"
-
-#include "fpu.h"
+#include "include.h"
 
 using namespace std;
 

@@ -1,6 +1,7 @@
+
+// dd_real.h
+
 /*
- * include/dd_real.h
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -28,14 +29,6 @@
 
 #ifndef _QD_DD_REAL_H
 #define _QD_DD_REAL_H
-
-#include <cmath>
-#include <iostream>
-#include <string>
-#include <limits>
-
-#include "qd_config.h"
-#include "fpu.h"
 
 // Some compilers define isnan, isfinite, and isinf as macros, even for
 // C++ codes, which cause havoc when overloading these functions.  We undef
@@ -285,7 +278,6 @@ QD_API std::ostream& operator<<(std::ostream &s, const dd_real &a);
 QD_API std::istream& operator>>(std::istream &s, dd_real &a);
 
 //#if defined(QD_INLINE)
-//#include "dd_inline.h"
 //#endif
 
-#endif /* _QD_DD_REAL_H */
+#endif

@@ -1,5 +1,7 @@
-#include <cstdlib>
-#include "util.h"
+
+// util.cpp
+
+#include "include.h"
 
 void append_expn(std::string &str, int expn) {
   int k;
@@ -19,4 +21,3 @@ void append_expn(std::string &str, int expn) {
 
   str += '0' + expn;
 }
-

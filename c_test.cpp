@@ -1,6 +1,7 @@
-#include <stdio.h>
-#include <math.h>
-#include "c_qd.h"
+
+// c_test.cpp
+
+#include "include.h"
 
 /* Test 1.  Salamin-Brent quadratically convergent formula for pi. */
 int test_1() {

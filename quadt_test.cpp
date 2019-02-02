@@ -1,28 +1,12 @@
+
+// quadt_test.cpp
+
 /*
- * tests/quadt_test.cpp
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * This class contains a test suite for the quadt integration
  * code (see quadt.h).
  */
 
-#include <cmath>
-#include <cstdlib>
-#include <cstdio>
-#include <iostream>
-
-#include <string.h>
-#include "fpu.h"
-
-#include "inline.h"
-#include "qd_real.h"
-
-#include "tictoc.h"
+#include "include.h"
 
 using std::cout;
 using std::cerr;
@@ -34,8 +18,6 @@ using std::sqrt;
 using std::cos;
 using std::atan;
 using namespace qd;
-
-#include "quadt.h"
 
 /** Various flags passed to the main program. */
 static bool flag_verbose   = false;

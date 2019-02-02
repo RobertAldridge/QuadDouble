@@ -1,35 +1,12 @@
+
+// dd_real.cpp
+
 /*
- * src/dd_real.cc
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2007
- *
  * Contains implementation of non-inlined functions of double-double
  * package.  Inlined functions are found in dd_inline.h (in include directory).
  */
-#include <cstdlib>
-#include <cstdio>
-#include <cmath>
-#include <cstring>
-#include <iostream>
-#include <iomanip>
-#include <string>
 
-#include "config.h"
-
-#include "inline.h"
-#include "dd_real.h"
-
-//#if !defined(QD_INLINE)
-#include "dd_inline.h"
-//#endif
-
-#include "util.h"
-
-#include "bits.h"
+#include "include.h"
 
 using std::cout;
 using std::cerr;

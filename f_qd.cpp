@@ -1,26 +1,14 @@
+
+// f_qd.cpp
+
 /*
- * src/c_qd.cc
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * Contains C wrapper function for quad-double precision arithmetic.
  * This can be used from fortran code.
  */
-#include "config.h"
+
+#include "include.h"
+
 #ifdef HAVE_FORTRAN
-
-#include <cstring>
-
-#include "config.h"
-
-#include "inline.h"
-#include "qd_real.h"
-
-#include "c_qd.h"
 
 #define f_qd_add          FC_FUNC_(f_qd_add, F_QD_ADD)
 #define f_qd_add_qd_dd    FC_FUNC_(f_qd_add_qd_dd, F_QD_ADD_QD_DD)
@@ -90,12 +78,10 @@
 #define f_qd_pi           FC_FUNC_(f_qd_pi, F_QD_PI)
 #define f_qd_nan          FC_FUNC_(f_qd_nan, F_QD_NAN)
 
-#define TO_DOUBLE_PTR(a, ptr) ptr[0] = a.x[0]; ptr[1] = a.x[1]; \
-                              ptr[2] = a.x[2]; ptr[3] = a.x[3];
+#define TO_DOUBLE_PTR(a, ptr) ptr[0] = a.x[0]; ptr[1] = a.x[1]; ptr[2] = a.x[2]; ptr[3] = a.x[3];
 
-extern "C" {
-
-
+extern "C"
+{
 
 /* add */
 void f_qd_add(const double *a, const double *b, double *c) {
@@ -501,5 +487,4 @@ void f_qd_nan(double *a) {
 
 }
 
-#endif /* HAVE_FORTRAN */
-
+#endif

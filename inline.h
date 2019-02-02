@@ -1,6 +1,7 @@
+
+// inline.h
+
 /*
- * include/inline.h
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -9,22 +10,20 @@
  *
  * This file contains the basic functions used both by double-double
  * and quad-double package.  These are declared as inline functions as
- * they are the smallest building blocks of the double-double and 
+ * they are the smallest building blocks of the double-double and
  * quad-double arithmetic.
  */
+
 #ifndef _QD_INLINE_H
 #define _QD_INLINE_H
 
-#define _QD_SPLITTER 134217729.0               // = 2^27 + 1
+#define _QD_SPLITTER 134217729.0 // = 2^27 + 1
+
 #define _QD_SPLIT_THRESH 6.69692879491417e+299 // = 2^996
 
 #ifdef QD_VACPP_BUILTINS_H
 /* For VisualAge C++ __fmadd */
-#include <builtins.h>
 #endif
-
-#include <cmath>
-#include <limits>
 
 namespace qd {
 
@@ -124,7 +123,7 @@ inline double aint(double d) {
   return (d >= 0.0) ? std::floor(d) : std::ceil(d);
 }
 
-/* These are provided to give consistent 
+/* These are provided to give consistent
    interface for double with double-double and quad-double. */
 inline void sincosh(double t, double &sinh_t, double &cosh_t) {
   sinh_t = std::sinh(t);

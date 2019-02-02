@@ -1,3 +1,6 @@
+
+// pslq.h
+
 /*
  * tests/pslq.h
  *
@@ -17,13 +20,6 @@
  *
  * This code is based in part on David Bailey's F90 version.
  */
-
-#include <cmath>
-#include <cstdio>
-
-#include "dd_real.h"
-
-#include "qd_real.h"
 
 using std::sqrt;
 using std::abs;

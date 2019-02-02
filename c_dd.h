@@ -1,6 +1,7 @@
+
+// c_dd.h
+
 /*
- * include/c_dd.h
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -10,11 +11,9 @@
  * Contains C wrapper function prototypes for double-double precision
  * arithmetic.  This can also be used from fortran code.
  */
+
 #ifndef _QD_C_DD_H
 #define _QD_C_DD_H
-
-#include "qd_config.h"
-#include "fpu.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -95,4 +94,4 @@ void c_dd_pi(double *a);
 }
 #endif
 
-#endif  /* _QD_C_DD_H */
+#endif

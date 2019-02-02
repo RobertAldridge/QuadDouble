@@ -1,11 +1,7 @@
 
-// file name: main.cpp
+// main.cpp
 
-#include <cstdio>
-#include <cstdlib>
-
-#include "fpu.h"
-#include "config.h"
+#include "include.h"
 
 //#define f_main FC_FUNC_(f_main, F_MAIN)
 

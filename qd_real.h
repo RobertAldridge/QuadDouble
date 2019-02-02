@@ -1,6 +1,7 @@
+
+// qd_real.h
+
 /*
- * include/qd_real.h
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -20,16 +21,9 @@
  *
  * Yozo Hida
  */
+
 #ifndef _QD_QD_REAL_H
 #define _QD_QD_REAL_H
-
-#include <iostream>
-#include <string>
-#include <limits>
-
-#include "qd_config.h"
-
-#include "dd_real.h"
 
 struct QD_API qd_real {
   double x[4];    /* The Components. */
@@ -289,7 +283,6 @@ QD_API std::ostream &operator<<(std::ostream &s, const qd_real &a);
 QD_API std::istream &operator>>(std::istream &s, qd_real &a);
 
 //#if defined(QD_INLINE)
-//#include "qd_inline.h"
 //#endif
 
-#endif /* _QD_QD_REAL_H */
+#endif

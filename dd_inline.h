@@ -1,6 +1,7 @@
+
+// dd_inline.h
+
 /*
- * include/dd_inline.h
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -10,19 +11,11 @@
  * Contains small functions (suitable for inlining) in the double-double
  * arithmetic package.
  */
+
 #ifndef _QD_DD_INLINE_H
 #define _QD_DD_INLINE_H
 
-//#include <cmath>
-
-//#include "inline.h"
-
-namespace qd
-{
-}
-
 //#ifndef QD_INLINE
-#define inline
 //#endif
 
 /*********** Additions ************/

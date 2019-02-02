@@ -1,6 +1,7 @@
+
+// fpu.h
+
 /*
- * include/fpu.h
- *
  * This work was supported by the Director, Office of Science, Division
  * of Mathematical, Information, and Computational Sciences of the
  * U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -12,10 +13,9 @@
  * quad-double package does not function with the extended mode found in
  * these FPU.
  */
+
 #ifndef _QD_FPU_H
 #define _QD_FPU_H
-
-#include "qd_config.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,4 +36,4 @@ QD_API void fpu_fix_end(unsigned int *old_cw);
 }
 #endif
 
-#endif  /* _QD_FPU_H */
+#endif

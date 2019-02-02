@@ -1,25 +1,12 @@
+
+// huge.cpp
+
 /*
- * tests/huge.cpp
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2007
- *
  * This contains tests for check for accuracy when dealing with numbers
  * near overflow.
  */
 
-#include <cmath>
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <sstream>
-
-#include "inline.h"
-#include "qd_real.h"
+#include "include.h"
 
 using std::cout;
 using std::cerr;
