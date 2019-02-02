@@ -28,19 +28,21 @@
 
 //#include <fpu_control.h>
 
-#include <ieeefp.h>
+/* #include <ieeefp.h> */
 
 //#include <sys/time.h>
 
 //#include <windows.h>
 
 //#if !defined(QD_INLINE)
-#define inline
+/* #define inline */
 //#endif
 
 namespace qd
 {
 }
+
+/* #define QD_API */
 
 #include "config.h"
 
@@ -48,8 +50,8 @@ namespace qd
 
 #include "inline.h"
 
-#include "qd_real.h"
 #include "dd_real.h"
+#include "qd_real.h"
 
 #include "fpu.h"
 

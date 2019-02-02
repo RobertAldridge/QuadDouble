@@ -25,7 +25,8 @@
 #ifndef _QD_QD_REAL_H
 #define _QD_QD_REAL_H
 
-struct QD_API qd_real {
+struct QD_API qd_real
+{
   double x[4];    /* The Components. */
 
   /* Eliminates any zeros in the middle component(s). */
@@ -116,25 +117,22 @@ struct QD_API qd_real {
   static qd_real rand(void);
 
   void to_digits(char *s, int &expn, int precision = _ndigits) const;
-  void write(char *s, int len, int precision = _ndigits,
-      bool showpos = false, bool uppercase = false) const;
-  std::string to_string(int precision = _ndigits, int width = 0,
-      std::ios_base::fmtflags fmt = static_cast<std::ios_base::fmtflags>(0),
-      bool showpos = false, bool uppercase = false, char fill = ' ') const;
+  void write(char *s, int len, int precision = _ndigits, bool showpos = false, bool uppercase = false) const;
+  std::string to_string(int precision = _ndigits, int width = 0, std::ios_base::fmtflags fmt = static_cast<std::ios_base::fmtflags>(0), bool showpos = false, bool uppercase = false, char fill = ' ') const;
   static int read(const char *s, qd_real &a);
 
   /* Debugging methods */
   void dump(const std::string &name = "", std::ostream &os = std::cerr) const;
-  void dump_bits(const std::string &name = "",
-                 std::ostream &os = std::cerr) const;
+  void dump_bits(const std::string &name = "", std::ostream &os = std::cerr) const;
 
   static qd_real debug_rand();
 
 };
 
-namespace std {
-  template <>
-  class numeric_limits<qd_real> : public numeric_limits<double> {
+namespace std
+{
+  template <> class numeric_limits<qd_real> : public numeric_limits<double>
+  {
   public:
     inline static double epsilon() { return qd_real::_eps; }
     inline static double min() { return qd_real::_min_normalized; }
@@ -146,8 +144,7 @@ namespace std {
 }
 
 QD_API qd_real polyeval(const qd_real *c, int n, const qd_real &x);
-QD_API qd_real polyroot(const qd_real *c, int n,
-    const qd_real &x0, int max_iter = 64, double thresh = 0.0);
+QD_API qd_real polyroot(const qd_real *c, int n, const qd_real &x0, int max_iter = 64, double thresh = 0.0);
 
 QD_API qd_real qdrand(void);
 QD_API qd_real sqrt(const qd_real &a);
@@ -197,8 +194,8 @@ QD_API qd_real drem(const qd_real &a, const qd_real &b);
 QD_API qd_real divrem(const qd_real &a, const qd_real &b, qd_real &r);
 
 dd_real to_dd_real(const qd_real &a);
-double  to_double(const qd_real &a);
-int     to_int(const qd_real &a);
+double to_double(const qd_real &a);
+int to_int(const qd_real &a);
 
 QD_API bool operator==(const qd_real &a, const qd_real &b);
 QD_API bool operator==(const qd_real &a, const dd_real &b);

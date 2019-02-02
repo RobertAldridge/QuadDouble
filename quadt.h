@@ -193,9 +193,9 @@ int quadt<T>::integrate_u(const F &f, double tol,
         err = exp(d1 * d1 / d2);
       }
 
-      cout << " level = " << level << endl;
-      cout << "     r = " << r1 << endl;
-      cout << "   err = " << err << endl;
+      std::cout << " level = " << level << std::endl;
+      std::cout << "     r = " << r1 << std::endl;
+      std::cout << "   err = " << err << std::endl;
 
       if (err < abs(r1) * tol) {
         conv = true;

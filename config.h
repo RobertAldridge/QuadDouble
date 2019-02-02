@@ -23,7 +23,7 @@
 #define HAVE_DLFCN_H 1
 
 /* Define to 1 if Fortran interface is to be compiled. */
-#define HAVE_FORTRAN 1
+/* #define HAVE_FORTRAN 1 */
 
 /* Define to 1 if you have the <fpu_control.h> header file. */
 #define HAVE_FPU_CONTROL_H 1

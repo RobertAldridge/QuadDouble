@@ -100,8 +100,6 @@ void f_qd_add_qd_d(const double *a, const double *b, double *c) {
   TO_DOUBLE_PTR(cc, c);
 }
 
-
-
 /* sub */
 void f_qd_sub(const double *a, const double *b, double *c) {
   qd_real cc;
@@ -129,8 +127,6 @@ void f_qd_sub_d_qd(const double *a, const double *b, double *c) {
   TO_DOUBLE_PTR(cc, c);
 }
 
-
-
 /* mul */
 void f_qd_mul(const double *a, const double *b, double *c) {
   qd_real cc;
@@ -147,8 +143,6 @@ void f_qd_mul_qd_d(const double *a, const double *b, double *c) {
   cc = qd_real(a) * *b;
   TO_DOUBLE_PTR(cc, c);
 }
-
-
 
 /* div */
 void f_qd_div(const double *a, const double *b, double *c) {
@@ -177,9 +171,6 @@ void f_qd_div_d_qd(const double *a, const double *b, double *c) {
   TO_DOUBLE_PTR(cc, c);
 }
 
-
-
-
 /* selfadd */
 void f_qd_selfadd(const double *a, double *b) {
   qd_real bb(b);
@@ -196,8 +187,6 @@ void f_qd_selfadd_d(const double *a, double *b) {
   bb += *a;
   TO_DOUBLE_PTR(bb, b);
 }
-
-
 
 /* selfsub */
 void f_qd_selfsub(const double *a, double *b) {
@@ -216,8 +205,6 @@ void f_qd_selfsub_d(const double *a, double *b) {
   TO_DOUBLE_PTR(bb, b);
 }
 
-
-
 /* selfmul */
 void f_qd_selfmul(const double *a, double *b) {
   qd_real bb(b);
@@ -235,8 +222,6 @@ void f_qd_selfmul_d(const double *a, double *b) {
   TO_DOUBLE_PTR(bb, b);
 }
 
-
-
 /* selfdiv */
 void f_qd_selfdiv(const double *a, double *b) {
   qd_real bb(b);
@@ -253,8 +238,6 @@ void f_qd_selfdiv_d(const double *a, double *b) {
   bb /= *a;
   TO_DOUBLE_PTR(bb, b);
 }
-
-
 
 void f_qd_sqrt(const double *a, double *b) {
   qd_real bb;
@@ -411,7 +394,8 @@ void f_qd_sincosh(const double *a, double *s, double *c) {
  * spaces.  Parameter maxlen should at least be precision + 7
  * characters.  Prec can be zero to put out the defaut number of
  * digits. */
-void f_qd_swrite(const double *a, int *precision, char *s, int *maxlen) {
+void f_qd_swrite(const double *a, int *precision, char *s, int *maxlen)
+{
   int prec = *precision;
   if (prec <= 0 || prec > qd_real::_ndigits) prec = qd_real::_ndigits;
   std::ios_base::fmtflags fmt = static_cast<std::ios_base::fmtflags>(0);

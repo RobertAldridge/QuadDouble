@@ -30,11 +30,15 @@
 //#define _FPU_DOUBLE 0x0200
 #endif
 
-extern "C" {
+extern "C"
+{
 
-void fpu_fix_start(unsigned int *old_cw) {
+void fpu_fix_start(unsigned int *old_cw)
+{
 #ifdef X86
+
 #ifdef _WIN32
+
 #ifdef __BORLANDC__
   /* Win 32 Borland C */
   unsigned short cw = _control87(0, 0);
@@ -50,6 +54,7 @@ void fpu_fix_start(unsigned int *old_cw) {
     *old_cw = cw;
   }
 #endif
+
 #else
   /* Linux */
   volatile unsigned short cw, new_cw;
@@ -62,11 +67,14 @@ void fpu_fix_start(unsigned int *old_cw) {
     *old_cw = cw;
   }
 #endif
+
 #endif
 }
 
-void fpu_fix_end(unsigned int *old_cw) {
+void fpu_fix_end(unsigned int *old_cw)
+{
 #ifdef X86
+
 #ifdef _WIN32
 
 #ifdef __BORLANDC__
@@ -90,23 +98,26 @@ void fpu_fix_end(unsigned int *old_cw) {
     _FPU_SETCW(cw);
   }
 #endif
+
 #endif
 }
 
 #ifdef HAVE_FORTRAN
 
 #define f_fpu_fix_start FC_FUNC_(f_fpu_fix_start, F_FPU_FIX_START)
+
 #define f_fpu_fix_end   FC_FUNC_(f_fpu_fix_end,   F_FPU_FIX_END)
 
-void f_fpu_fix_start(unsigned int *old_cw) {
+void f_fpu_fix_start(unsigned int* old_cw)
+{
   fpu_fix_start(old_cw);
 }
 
-void f_fpu_fix_end(unsigned int *old_cw) {
+void f_fpu_fix_end(unsigned int* old_cw)
+{
   fpu_fix_end(old_cw);
 }
 
 #endif
 
 }
-

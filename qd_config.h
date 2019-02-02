@@ -24,9 +24,9 @@
 #endif
 
 /* Set the following to 1 to define commonly used function to be inlined.  This should be set to 1 unless the compiler does not support the "inline" keyword, or if building for debugging purposes. */
-#ifndef QD_INLINE
+//#ifndef QD_INLINE
 //#define QD_INLINE 1
-#endif
+//#endif
 
 /* Set the following to 1 to use ANSI C++ standard header files such as cmath, iostream, etc.  If set to zero, it will try to include math.h, iostream.h, etc, instead. */
 #ifndef QD_HAVE_STD
