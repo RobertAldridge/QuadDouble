@@ -1,3 +1,6 @@
+
+README
+
 Quad Double computation package
 Copyright (C) 2003-2018
 ================================================
@@ -36,7 +39,6 @@ III. C++ Usage
 IV.  Fortran Usage
 V.   Note on x86-Based Processors (MOST systems in use today)
 
-
 I. Introduction
 
 This package provides numeric types of twice the precision of IEEE double (106 mantissa
@@ -54,147 +56,14 @@ which was presented at the ARITH-15 conference, is also available in this same d
 
 II. Directories and Files
 
-There are six directories and several files in the main directory of this distribution,
-described below
+The root directory contains the entire distribution, including source code and header files of the quad-double and
+double-double library.  Fortran-90 files.  Some simple non-comprehensive tests.  Xcode project.
 
-src   This contains the source code of the quad-double and double-double
-    library.  This source code does not include inline functions,
-    which are found in the header files in the include directory.
-
-include  This directory contains the header files.
-
-fortran  This directory contains Fortran-90 files.
-
-tests This directory contains some simple (not comprehensive) tests.
-
-docs  This directory contains two papers describing the algorithms.
-
-config   This directory contains various scripts used by the configure
-    script and the Makefile.
-
-
-
-C++ Usage:
-
-Please note that all commands refer to a Unix-type environment such as Mac OSX or Ubuntu
-Linux using the bash shell.
-
-
+C++ Usage
 A. Building
-
-To build the library, first run the included configure script by typing
-
-       ./configure
-
-This script automatically generates makefiles for building the library and selects compilers
-and necessary flags and libraries to include. If the user wishes to specify compilers or flags
-they may use the following options.
-
-       CXX        C++ compiler to use
-       CXXFLAGS   C++ compiler flags to use
-       CC         C compiler to use (for C demo program)
-       CFLAGS     C compiler flags to use (for C demo program)
-       FC         Fortran 90 compiler
-       FCFLAGS    Fortran 90 compiler flags to use
-       FCLIBS     Fortran 90 libraries needed to link with C++ code.
-
-For example, if one is using GNU compilers, configure with:
-
-       ./configure CXX=g++ FC=gfortran
-
-The Fortran and C++ compilers must produce compatible binaries. On some systems
-additional flags must be included to ensure that portions of the
-library are not built with 32 and 64 bit object files. For example, on
-64-Bit Mac OSX 10.6 (Snow Leopard) and 10.7 (Lion) the correct
-configure line using GNU compilers is:
-
-        ./configure CXX=g++ FC=gfortran FCFLAGS=-m64
-
-To build the library, simply type
-
-       make
-
-and the automatically generated makefiles will build the library including archive files.
-
-To allow for easy linking to the library, the user may also wish to
-install the archive files to a standard place. To do this type:
-
-       make install
-
-This will also build the library if it has not already been built. Many systems, including Mac
-and Ubuntu Linux systems, require administrator privileges to install the library at such
-standard places. On such systems, one may type:
-
-       sudo make install
-
-instead if one has sufficient access.
-
-The directory "tests" contains programs for high precision quadrature and integer-relation
-detection. To build such programs, type:
-
-  make demo
-
-in the  "tests" directory.
-
 B. Linking
 
-The simplest way to link to the library is to install it to a standard place as described above,
-and use the -l option. For example
-
-       g++ compileExample.cpp -o compileExample -l qd
-
-One can also use this method to build with make. A file called "compileExample.cpp" and the
-associated makefile "makeCompileExample" illustrate the process.
-
-A third alternative is to use a link script. If one types "make demo" in the test directory, the
-output produced gives guidance as to how to build the files. By following the structure of
-the compiling commands one may copy the appropriate portions, perhaps replacing the
-filename with an argument that the user can include at link time. An example of such a
-script is as follows:
-
-g++ -DHAVE_CONFIG_H   -I.. -I../include -I../include   -O2  -MT $1.o -MD -MP -MF
-.deps/qd_test.Tpo -c -o $1.o $1.cpp
-mv -f .deps/$1.Tpo .deps/$1.Po
-g++  -O2    -o $1 $1.o ../src/libqd.a Ðlm
-
-To use it, make the link script executable and type:
-
-./link.scr compileExample
-
-Note that the file extension is not included because the script handles all extensions,
-expecting the source file to have the extension ".cpp" .
-
-Similarly, a script for compiling fortran programs may be constructed
-as follows.  In the fortran directory, type "make quadts".  This
-compiles the Fortran program tquadts.f, links with all necessary
-library files, and produces the executable "quadts".  As this is being
-done, all flags and linked libraries are displayed.  For instance, on
-many Mac systems, presuming g++-4.0 was defined for C++ and gfortran
-for F90, the following is output:
-
-  gfortran  -O2 -ffree-form -c -o tquadts.o tquadts.f
-  g++-4.0  -O2 -Wall   -o quadts tquadts.o second.o libarprec_f_main.a
-  libarprecmod.a ../src/libarprec.a
-  -L/usr/local/lib/gcc/i386-apple-darwin9.0.0/4.3.0
-  -L/usr/local/lib/gcc/i386-apple-darwin9.0.0/4.3.0/../../.. -lgfortranbegin
-  -lgfortran
-
-Thus a general compile-link script (which could be saved in an
-executable file named "complink.scr") is the following:
-
-  gfortran  -O2 -ffree-form -c -o $1.o $1.f
-  g++-4.0  -O2 -Wall   -o $1 $1.o second.o libarprec_f_main.a \
-  libarprecmod.a ../src/libarprec.a \
-  -L/usr/local/lib/gcc/i386-apple-darwin9.0.0/4.3.0 \
-  -L/usr/local/lib/gcc/i386-apple-darwin9.0.0/4.3.0/../../.. -lgfortranbegin \
-  -lgfortran
-
-Note that if the .f90 suffix is used for Fortran-90 source files, the
--ffree-form flag can be omitted, and the first line above ends with
-"$1.f90".  Remember to type "chmod +x complink.scr".  Then, for
-instance, a program named "prog.f90" could be compiled and linked by
-merely typing "./complink.scr prog".
-
+To build link run, open the Xcode project
 
 C. Programming techniques
 
@@ -213,10 +82,6 @@ further arithmetic. Upon assignment to a multi-precision variable, the value wil
 padded. This problem is serious and potentially difficult to debug. To avoid this, use the
 included constructors to force arithmetic to be performed in the full precision requested.
 
-
-For a table with descriptions, please see the included file README.pdf
-
-
 ii. Included functions and Constants
 
 Supported functions include assignment operators, comparisons, arithmetic and
@@ -230,7 +95,6 @@ precision codes.
 Many constants are included, which are global and calculated upon initialization. The
 following list of constants is calculated for both the dd_real and qd_real classes separately.
 Use care to select the correct value.
-
 
 For a table with descriptions, please see the included file README.pdf
 
@@ -273,7 +137,6 @@ For example:
 
   fpu_fix_end(&old_cw);
 
-
 E. I/O
 
 The standard I/O stream routines have been overloaded to be fully compatible with all
@@ -294,9 +157,7 @@ Here are three valid examples:
   3.14159 26535 89793
   123.123123e50
 
-
 When read using cin, these constants will be converted using full multi-precision accuracy.
-
 
 IV. Fortran-90 Usage
 
@@ -414,7 +275,6 @@ enclosing them in quotes, as in
 Sample Fortran-90 programs illustrating some of these features are provided in the f90
 subdirectory.
 
-
 V. Note on x86-Based Processors (MOST systems in use today)
 
 The algorithms in this library assume IEEE double precision floating point arithmetic.  Since
@@ -450,4 +310,3 @@ A Fortran-90 example is the following:
 
   call f_fpu_fix_end(old_cw)
   end subroutine
-
