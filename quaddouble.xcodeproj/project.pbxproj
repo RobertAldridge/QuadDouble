@@ -17,11 +17,11 @@
     51D42CB221FB038F00ED5F99 /* dd_const.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CA821FB038F00ED5F99 /* dd_const.cpp */; };
     51D42CB321FB038F00ED5F99 /* bits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CA921FB038F00ED5F99 /* bits.cpp */; };
     51D42CB421FB038F00ED5F99 /* c_qd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CAA21FB038F00ED5F99 /* c_qd.cpp */; };
-    51D42CB521FB038F00ED5F99 /* dd_real.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CAB21FB038F00ED5F99 /* dd_real.cpp */; };
+    51D42CB521FB038F00ED5F99 /* dd_large.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CAB21FB038F00ED5F99 /* dd_large.cpp */; };
     51D42CBE21FB03A100ED5F99 /* pslq_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CB621FB03A000ED5F99 /* pslq_test.cpp */; };
     51D42CBF21FB03A100ED5F99 /* qd_const.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CB721FB03A000ED5F99 /* qd_const.cpp */; };
     51D42CC021FB03A100ED5F99 /* quadt_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CB821FB03A000ED5F99 /* quadt_test.cpp */; };
-    51D42CC121FB03A100ED5F99 /* qd_real.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CB921FB03A000ED5F99 /* qd_real.cpp */; };
+    51D42CC121FB03A100ED5F99 /* qd_large.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CB921FB03A000ED5F99 /* qd_large.cpp */; };
     51D42CC221FB03A100ED5F99 /* qd_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CBA21FB03A000ED5F99 /* qd_test.cpp */; };
     51D42CC321FB03A100ED5F99 /* qd_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CBB21FB03A000ED5F99 /* qd_timer.cpp */; };
     51D42CC421FB03A100ED5F99 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51D42CBC21FB03A000ED5F99 /* util.cpp */; };
@@ -54,18 +54,18 @@
     51D42CA821FB038F00ED5F99 /* dd_const.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dd_const.cpp; sourceTree = "<group>"; };
     51D42CA921FB038F00ED5F99 /* bits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bits.cpp; sourceTree = "<group>"; };
     51D42CAA21FB038F00ED5F99 /* c_qd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c_qd.cpp; sourceTree = "<group>"; };
-    51D42CAB21FB038F00ED5F99 /* dd_real.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dd_real.cpp; sourceTree = "<group>"; };
+    51D42CAB21FB038F00ED5F99 /* dd_large.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dd_large.cpp; sourceTree = "<group>"; };
     51D42CB621FB03A000ED5F99 /* pslq_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pslq_test.cpp; sourceTree = "<group>"; };
     51D42CB721FB03A000ED5F99 /* qd_const.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qd_const.cpp; sourceTree = "<group>"; };
     51D42CB821FB03A000ED5F99 /* quadt_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quadt_test.cpp; sourceTree = "<group>"; };
-    51D42CB921FB03A000ED5F99 /* qd_real.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qd_real.cpp; sourceTree = "<group>"; };
+    51D42CB921FB03A000ED5F99 /* qd_large.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qd_large.cpp; sourceTree = "<group>"; };
     51D42CBA21FB03A000ED5F99 /* qd_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qd_test.cpp; sourceTree = "<group>"; };
     51D42CBB21FB03A000ED5F99 /* qd_timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qd_timer.cpp; sourceTree = "<group>"; };
     51D42CBC21FB03A000ED5F99 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
     51D42CBD21FB03A100ED5F99 /* tictoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tictoc.cpp; sourceTree = "<group>"; };
     51D42CC621FB044E00ED5F99 /* c_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c_test.cpp; sourceTree = "<group>"; };
     51D42CC821FB04B100ED5F99 /* fpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpu.h; sourceTree = SOURCE_ROOT; };
-    51D42CC921FB04B100ED5F99 /* qd_real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qd_real.h; sourceTree = SOURCE_ROOT; };
+    51D42CC921FB04B100ED5F99 /* qd_large.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qd_large.h; sourceTree = SOURCE_ROOT; };
     51D42CCA21FB04B100ED5F99 /* include.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = include.h; sourceTree = SOURCE_ROOT; };
     51D42CCB21FB04B100ED5F99 /* pslq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pslq.h; sourceTree = SOURCE_ROOT; };
     51D42CCC21FB04B100ED5F99 /* qd_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qd_config.h; sourceTree = SOURCE_ROOT; };
@@ -74,11 +74,11 @@
     51D42CCF21FB04B100ED5F99 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = SOURCE_ROOT; };
     51D42CD021FB04B100ED5F99 /* quadt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quadt.h; sourceTree = SOURCE_ROOT; };
     51D42CD121FB04B100ED5F99 /* tictoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tictoc.h; sourceTree = SOURCE_ROOT; };
-    51D42CD221FB04B100ED5F99 /* dd_real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dd_real.h; sourceTree = SOURCE_ROOT; };
-    51D42CD321FB04B100ED5F99 /* inline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inline.h; sourceTree = SOURCE_ROOT; };
-    51D42CD421FB04B100ED5F99 /* qd_inline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qd_inline.h; sourceTree = SOURCE_ROOT; };
+    51D42CD221FB04B100ED5F99 /* dd_large.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dd_large.h; sourceTree = SOURCE_ROOT; };
+    51D42CD321FB04B100ED5F99 /* small.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = small.h; sourceTree = SOURCE_ROOT; };
+    51D42CD421FB04B100ED5F99 /* qd_small.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qd_small.h; sourceTree = SOURCE_ROOT; };
     51D42CD521FB04B100ED5F99 /* c_dd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c_dd.h; sourceTree = SOURCE_ROOT; };
-    51D42CD621FB04B100ED5F99 /* dd_inline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dd_inline.h; sourceTree = SOURCE_ROOT; };
+    51D42CD621FB04B100ED5F99 /* dd_small.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dd_small.h; sourceTree = SOURCE_ROOT; };
     51D42CD721FB04B100ED5F99 /* c_qd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c_qd.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -102,21 +102,21 @@
         51D42CD521FB04B100ED5F99 /* c_dd.h */,
         51D42CD721FB04B100ED5F99 /* c_qd.h */,
         51D42CCF21FB04B100ED5F99 /* config.h */,
-        51D42CD621FB04B100ED5F99 /* dd_inline.h */,
-        51D42CD221FB04B100ED5F99 /* dd_real.h */,
+        51D42CD621FB04B100ED5F99 /* dd_small.h */,
+        51D42CD221FB04B100ED5F99 /* dd_large.h */,
         51D42CC821FB04B100ED5F99 /* fpu.h */,
-        51D42CD321FB04B100ED5F99 /* inline.h */,
+        51D42CD321FB04B100ED5F99 /* small.h */,
         51D42CCB21FB04B100ED5F99 /* pslq.h */,
         51D42CCC21FB04B100ED5F99 /* qd_config.h */,
-        51D42CD421FB04B100ED5F99 /* qd_inline.h */,
-        51D42CC921FB04B100ED5F99 /* qd_real.h */,
+        51D42CD421FB04B100ED5F99 /* qd_small.h */,
+        51D42CC921FB04B100ED5F99 /* qd_large.h */,
         51D42CD021FB04B100ED5F99 /* quadt.h */,
         51D42CD121FB04B100ED5F99 /* tictoc.h */,
         51D42CCD21FB04B100ED5F99 /* util.h */,
         51D42CC621FB044E00ED5F99 /* c_test.cpp */,
         51D42CB621FB03A000ED5F99 /* pslq_test.cpp */,
         51D42CB721FB03A000ED5F99 /* qd_const.cpp */,
-        51D42CB921FB03A000ED5F99 /* qd_real.cpp */,
+        51D42CB921FB03A000ED5F99 /* qd_large.cpp */,
         51D42CBA21FB03A000ED5F99 /* qd_test.cpp */,
         51D42CBB21FB03A000ED5F99 /* qd_timer.cpp */,
         51D42CB821FB03A000ED5F99 /* quadt_test.cpp */,
@@ -127,7 +127,7 @@
         51D42CAA21FB038F00ED5F99 /* c_qd.cpp */,
         51D42CA621FB038F00ED5F99 /* compileExample.cpp */,
         51D42CA821FB038F00ED5F99 /* dd_const.cpp */,
-        51D42CAB21FB038F00ED5F99 /* dd_real.cpp */,
+        51D42CAB21FB038F00ED5F99 /* dd_large.cpp */,
         51D42CA221FB038F00ED5F99 /* f_dd.cpp */,
         51D42CA421FB038F00ED5F99 /* f_qd.cpp */,
         51D42CA321FB038F00ED5F99 /* fpu.cpp */,
@@ -203,9 +203,9 @@
         51D42CB221FB038F00ED5F99 /* dd_const.cpp in Sources */,
         5106FF9621F70481008AF557 /* main.cpp in Sources */,
         51D42CAF21FB038F00ED5F99 /* huge.cpp in Sources */,
-        51D42CB521FB038F00ED5F99 /* dd_real.cpp in Sources */,
+        51D42CB521FB038F00ED5F99 /* dd_large.cpp in Sources */,
         51D42CC521FB03A100ED5F99 /* tictoc.cpp in Sources */,
-        51D42CC121FB03A100ED5F99 /* qd_real.cpp in Sources */,
+        51D42CC121FB03A100ED5F99 /* qd_large.cpp in Sources */,
         51D42CC421FB03A100ED5F99 /* util.cpp in Sources */,
         51D42CB121FB038F00ED5F99 /* c_dd.cpp in Sources */,
         51D42CBE21FB03A100ED5F99 /* pslq_test.cpp in Sources */,
