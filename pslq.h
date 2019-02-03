@@ -2,15 +2,6 @@
 // pslq.h
 
 /*
- * tests/pslq.h
- *
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
- *
  * Implementation of PSLQ Integer Relation Detection Algorithm
  * due to H. R. P. Ferguson and D. H. Bailey.  See
  *

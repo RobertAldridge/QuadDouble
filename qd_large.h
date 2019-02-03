@@ -1,5 +1,5 @@
 
-// qd_real.h
+// qd_large.h
 
 /*
  * Quad-double precision (>= 212-bit significand) floating point arithmetic

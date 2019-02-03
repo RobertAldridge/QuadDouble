@@ -2,12 +2,6 @@
 // small.h
 
 /*
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * This file contains the basic functions used both by double-double
  * and quad-double package.  These are
  * the smallest building blocks of the double-double and

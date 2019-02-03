@@ -1,5 +1,5 @@
 
-// dd_real.h
+// dd_large.h
 
 /*
  * Double-double precision (>= 106-bit significand) floating point

@@ -2,12 +2,6 @@
 ! ddmod.f
 
 !
-!  This work was supported by the Director, Office of Science, Division
-!  of Mathematical, Information, and Computational Sciences of the
-!  U.S. Department of Energy under contract number DE-AC03-76SF00098.
-!
-!  Copyright (c) 2000-2008
-!
 !  Fortran-90 module file to use with double-double numbers.
 !
 !  Yozo Hida
