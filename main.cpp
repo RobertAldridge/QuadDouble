@@ -5,7 +5,7 @@
 
 //#define f_main FC_FUNC_(f_main, F_MAIN)
 
-//extern "C" void f_main();
+//extern void f_main();
 
 extern int main1(int argc, const char* argv[] );
 extern int main2(int argc, const char* argv[] );

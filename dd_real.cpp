@@ -1,21 +1,12 @@
 
-// dd_real.cpp
+// dd_large.cpp
 
 /*
- * Contains implementation of non-inlined functions of double-double
- * package.  Inlined functions are found in dd_inline.h (in include directory).
+ * Contains implementation of large functions of double-double
+ * package.  Small functions are found in dd_small.h
  */
 
 #include "include.h"
-
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::ostream;
-using std::istream;
-using std::ios_base;
-using std::string;
-using std::setw;
 
 /* This routine is called whenever a fatal error occurs. */
 void dd_real::error(const char *msg) {
@@ -24,7 +15,7 @@ void dd_real::error(const char *msg) {
 
 /* Computes the square root of the double-double number dd.
    NOTE: dd must be a non-negative number.                   */
-QD_API dd_real sqrt(const dd_real &a) {
+dd_real sqrt(const dd_real &a) {
   /* Strategy:  Use Karp's trick:  if x is an approximation
      to sqrt(a), then
 
@@ -764,12 +755,12 @@ dd_real atanh(const dd_real &a) {
   return mul_pwr2(log((1.0 + a) / (1.0 - a)), 0.5);
 }
 
-QD_API dd_real fmod(const dd_real &a, const dd_real &b) {
+dd_real fmod(const dd_real &a, const dd_real &b) {
   dd_real n = aint(a / b);
   return (a - b * n);
 }
 
-QD_API dd_real ddrand() {
+dd_real ddrand() {
   static const double m_const = 4.6566128730773926e-10;  /* = 2^{-31} */
   double m = m_const;
   dd_real r = 0.0;
@@ -807,7 +798,7 @@ dd_real polyeval(const dd_real *c, int n, const dd_real &x) {
    Given an n-th degree polynomial, finds a root close to
    the given guess x0.  Note that this uses simple Newton
    iteration scheme, and does not work for multiple roots.  */
-QD_API dd_real polyroot(const dd_real *c, int n,
+dd_real polyroot(const dd_real *c, int n,
     const dd_real &x0, int max_iter, double thresh) {
   dd_real x = x0;
   dd_real f;
@@ -984,36 +975,36 @@ void dd_real::write(char *s, int len, int precision,
 
 
 void round_string(char *s, int precision, int *offset){
-	/*
-	 Input string must be all digits or errors will occur.
-	 */
+  /*
+   Input string must be all digits or errors will occur.
+   */
 
-	int i;
-	int D = precision ;
+  int i;
+  int D = precision ;
 
-	/* Round, handle carry */
-	  if (D>0 && s[D] >= '5') {
-	    s[D-1]++;
+  /* Round, handle carry */
+    if (D>0 && s[D] >= '5') {
+      s[D-1]++;
 
-	    i = D-1;
-	    while (i > 0 && s[i] > '9') {
-	      s[i] -= 10;
-	      s[--i]++;
-	    }
-	  }
+      i = D-1;
+      while (i > 0 && s[i] > '9') {
+        s[i] -= 10;
+        s[--i]++;
+      }
+    }
 
-	  /* If first digit is 10, shift everything. */
-	  if (s[0] > '9') {
-	    // e++; // don't modify exponent here
-	    for (i = precision; i >= 1; i--) s[i+1] = s[i];
-	    s[0] = '1';
-	    s[1] = '0';
+    /* If first digit is 10, shift everything. */
+    if (s[0] > '9') {
+      // e++; // don't modify exponent here
+      for (i = precision; i >= 1; i--) s[i+1] = s[i];
+      s[0] = '1';
+      s[1] = '0';
 
-	    (*offset)++ ; // now offset needs to be increased by one
-	    precision++ ;
-	  }
+      (*offset)++ ; // now offset needs to be increased by one
+      precision++ ;
+    }
 
-	  s[precision] = 0; // add terminator for array
+    s[precision] = 0; // add terminator for array
 }
 
 string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
@@ -1050,18 +1041,18 @@ string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
 
       int d_with_extra = d;
       if(fixed)
-    	  d_with_extra = std::max(60, d); // longer than the max accuracy for DD
+        d_with_extra = std::max(60, d); // longer than the max accuracy for DD
 
       // highly special case - fixed mode, precision is zero, abs(*this) < 1.0
       // without this trap a number like 0.9 printed fixed with 0 precision prints as 0
       // should be rounded to 1.
       if(fixed && (precision == 0) && (abs(*this) < 1.0)){
-    	  if(abs(*this) >= 0.5)
-    		  s += '1';
-    	  else
-    		  s += '0';
+        if(abs(*this) >= 0.5)
+          s += '1';
+        else
+          s += '0';
 
-    	  return s;
+        return s;
       }
 
       // handle near zero to working precision (but not exactly zero)
@@ -1077,12 +1068,12 @@ string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
         int j;
 
         if(fixed){
-        	t = new char[d_with_extra+1];
-        	to_digits(t, e, d_with_extra);
+          t = new char[d_with_extra+1];
+          to_digits(t, e, d_with_extra);
         }
         else{
-        	t = new char[d+1];
-        	to_digits(t, e, d);
+          t = new char[d+1];
+          to_digits(t, e, d);
         }
 
         off = e + 1;
@@ -1111,7 +1102,7 @@ string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
             s += t[i];
 
         }
-		delete [] t;
+    delete[] t;
       }
     }
 
@@ -1119,32 +1110,32 @@ string dd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
     // without this trap, output of values of the for 10^j - 1 fail for j > 28
     // and are output with the point in the wrong place, leading to a dramatically off value
     if(fixed && (precision > 0)){
-    	// make sure that the value isn't dramatically larger
-    	double from_string = atof(s.c_str());
+      // make sure that the value isn't dramatically larger
+      double from_string = atof(s.c_str());
 
-    	// if this ratio is large, then we've got problems
-    	if( fabs( from_string / this->x[0] ) > 3.0 ){
+      // if this ratio is large, then we've got problems
+      if( fabs( from_string / this->x[0] ) > 3.0 ){
 
 //int point_position = 0;
 //
 //char temp = 0;
 
-    		// loop on the string, find the point, move it up one
-    		// don't act on the first character
-    		for(i=1; i < s.length(); i++){
-    			if(s[i] == '.'){
-    				s[i] = s[i-1] ;
-    				s[i-1] = '.' ;
-    				break;
-    			}
-    		}
+        // loop on the string, find the point, move it up one
+        // don't act on the first character
+        for(i=1; i < s.length(); i++){
+          if(s[i] == '.'){
+            s[i] = s[i-1] ;
+            s[i-1] = '.' ;
+            break;
+          }
+        }
 
-        	from_string = atof(s.c_str());
-        	// if this ratio is large, then the string has not been fixed
-        	if( fabs( from_string / this->x[0] ) > 3.0 ){
-        		dd_real::error("Re-rounding unsuccessful in large number fixed point trap.") ;
-        	}
-    	}
+          from_string = atof(s.c_str());
+          // if this ratio is large, then the string has not been fixed
+          if( fabs( from_string / this->x[0] ) > 3.0 ){
+            dd_real::error("Re-rounding unsuccessful in large number fixed point trap.") ;
+          }
+      }
     }
 
 
@@ -1269,18 +1260,27 @@ void dd_real::dump_bits(const string &name, std::ostream &os) const {
   os << " ]" << endl;
 }
 
-dd_real dd_real::debug_rand() {
-
-  if (std::rand() % 2 == 0)
+dd_real dd_real::debug_rand()
+{
+  if(std::rand() % 2 == 0)
+  {
     return ddrand();
+  }
 
   int expn = 0;
+
   dd_real a = 0.0;
+
   double d;
-  for (int i = 0; i < 2; i++) {
-    d = std::ldexp(static_cast<double>(std::rand()) / RAND_MAX, -expn);
+
+  for(int i = 0; i < 2; i++)
+  {
+    d = std::ldexp(static_cast<double>(std::rand() ) / RAND_MAX, -expn);
+
     a += d;
+
     expn = expn + 54 + std::rand() % 200;
   }
+
   return a;
 }

@@ -21,11 +21,6 @@
  * This code is based in part on David Bailey's F90 version.
  */
 
-using std::sqrt;
-using std::abs;
-
-using namespace qd;
-
 #define MIN(a, b) ( ((a)<(b)) ? (a) : (b) )
 #define MAX(a, b) ( ((a)>(b)) ? (a) : (b) )
 #define SWAP(a, b)  { t = a; a = b; b = t; }
@@ -239,4 +234,3 @@ int pslq(const T *x, int n, T *r, double eps, int max_itr) {
 
   return err;
 }
-

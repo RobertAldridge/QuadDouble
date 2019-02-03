@@ -3,7 +3,8 @@
 
 #include "include.h"
 
-void append_expn(std::string &str, int expn) {
+void append_expn(std::string &str, int expn)
+{
   int k;
 
   str += (expn < 0 ? '-' : '+');

@@ -7,15 +7,6 @@
 
 #include "include.h"
 
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::sqrt;
-using std::strcmp;
-using std::setw;
-using std::setprecision;
-using std::fixed;
-
 // Global flags passed to the main program.
 static bool flag_test_double = false;
 static bool flag_test_dd = false;

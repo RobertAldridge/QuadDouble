@@ -8,17 +8,6 @@
 
 #include "include.h"
 
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::abs;
-using std::exp;
-using std::log;
-using std::sqrt;
-using std::cos;
-using std::atan;
-using namespace qd;
-
 /** Various flags passed to the main program. */
 static bool flag_verbose   = false;
 static bool flag_test_d    = false;

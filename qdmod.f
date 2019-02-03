@@ -1,5 +1,7 @@
-!  qdmod.f
-!  
+
+! qdmod.f
+
+!
 !  This work was supported by the Director, Office of Science, Division
 !  of Mathematical, Information, and Computational Sciences of the
 !  U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -15,7 +17,7 @@ module qdmodule
   use ddmodule
   use qdext
   implicit none
-  
+
   type qd_real
     sequence
     real*8 :: re(4)
@@ -530,7 +532,7 @@ contains
     to_d_qd = qd%re(1)
   end function to_d_qd
 
-  elemental integer function to_int_qd(a) 
+  elemental integer function to_int_qd(a)
     type (qd_real), intent(in) :: a
     to_int_qd = a%re(1)
   end function to_int_qd
@@ -2000,7 +2002,7 @@ subroutine qdoutc (a, b)
   call f_qd_swrite(a, 62, b(3), 70)
 end subroutine
 
-elemental type (qd_real) function qdhuge(a) 
+elemental type (qd_real) function qdhuge(a)
   type (qd_real), intent(in) :: a
   qdhuge = qd_huge
 end function qdhuge
@@ -2012,12 +2014,12 @@ elemental type (qd_real) function qd_safe_huge(a)
     5.53956966280111259858d+275, 3.07507889307840487279d+259/))
 end function qd_safe_huge
 
-elemental type (qd_real) function qdtiny(a) 
+elemental type (qd_real) function qdtiny(a)
   type (qd_real), intent(in) :: a
   qdtiny = qd_tiny
 end function qdtiny
 
-elemental type (qd_real) function qdepsilon(a) 
+elemental type (qd_real) function qdepsilon(a)
   type (qd_real), intent(in) :: a
   qdepsilon = qd_eps
 end function qdepsilon

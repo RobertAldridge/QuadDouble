@@ -8,11 +8,6 @@
 
 #include "include.h"
 
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::string;
-
 // Global flags passed to the main program.
 static bool flag_test_dd = false;
 static bool flag_test_qd = false;

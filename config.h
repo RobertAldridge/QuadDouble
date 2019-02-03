@@ -104,9 +104,6 @@
 /* qd patch number (sub minor version) */
 #define PATCH_VERSION 12
 
-/* Any special symbols needed for exporting APIs. */
-//#define QD_API
-
 /* Define this macro to be the copysign(x, y) function. */
 #define QD_COPYSIGN(x, y) std::copysign(x, y)
 
@@ -124,9 +121,6 @@
 
 /* Define to 1 to use additions with IEEE-style error bounds. */
 #define QD_IEEE_ADD 1
-
-/* Define to 1 to inline commonly used functions. */
-//#define QD_INLINE 1
 
 /* Define this macro to be the isfinite(x) function. */
 #define QD_ISFINITE(x) std::isfinite(x)

@@ -1,4 +1,8 @@
+
+! dd_timer.f
+
 ! program to time the various routines
+
 subroutine f_main
 
   use ddmodule
@@ -142,4 +146,3 @@ subroutine f_main
 
 stop
 end
-

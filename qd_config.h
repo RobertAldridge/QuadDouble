@@ -1,13 +1,6 @@
 
 // qd_config.h
 
-#ifndef _QD_QD_CONFIG_H
-#define _QD_QD_CONFIG_H  1
-
-#ifndef QD_API
-//#define QD_API
-#endif
-
 /* Set to 1 if using VisualAge C++ compiler for __fmadd builtin. */
 #ifndef QD_VACPP_BUILTINS_H
 #define QD_VACPP_BUILTINS_H 1
@@ -22,11 +15,6 @@
 #ifndef QD_FMS
 //#define QD_FMS
 #endif
-
-/* Set the following to 1 to define commonly used function to be inlined.  This should be set to 1 unless the compiler does not support the "inline" keyword, or if building for debugging purposes. */
-//#ifndef QD_INLINE
-//#define QD_INLINE 1
-//#endif
 
 /* Set the following to 1 to use ANSI C++ standard header files such as cmath, iostream, etc.  If set to zero, it will try to include math.h, iostream.h, etc, instead. */
 #ifndef QD_HAVE_STD
@@ -68,5 +56,3 @@ where |d1| <= eps and |d2| eps. */
 #ifndef QD_ISNAN
 #define QD_ISNAN(x) std::isnan(x)
 #endif
-
-#endif /* _QD_QD_CONFIG_H */

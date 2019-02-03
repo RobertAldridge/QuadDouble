@@ -1,5 +1,7 @@
-!  ddmod.f
-!  
+
+! ddmod.f
+
+!
 !  This work was supported by the Director, Office of Science, Division
 !  of Mathematical, Information, and Computational Sciences of the
 !  U.S. Department of Energy under contract number DE-AC03-76SF00098.
@@ -14,7 +16,7 @@
 module ddmodule
   use ddext
   implicit none
-  
+
   type dd_real
     sequence
     real*8 :: re(2)
@@ -507,7 +509,7 @@ contains
     to_d_dd = a%re(1)
   end function to_d_dd
 
-  elemental integer function to_int_dd(a) 
+  elemental integer function to_int_dd(a)
     type (dd_real), intent(in) :: a
     to_int_dd = a%re(1)
   end function to_int_dd
@@ -2011,7 +2013,7 @@ end subroutine
     return
   end function
 
-elemental type (dd_real) function ddhuge(a) 
+elemental type (dd_real) function ddhuge(a)
   type (dd_real), intent(in) :: a
   ddhuge = dd_huge
 end function ddhuge
@@ -2022,12 +2024,12 @@ elemental type (dd_real) function dd_safe_huge(a)
                            9.97920154767359795037d+291/));
 end function dd_safe_huge
 
-elemental type (dd_real) function ddtiny(a) 
+elemental type (dd_real) function ddtiny(a)
   type (dd_real), intent(in) :: a
   ddtiny = dd_tiny
 end function ddtiny
 
-elemental type (dd_real) function ddepsilon(a) 
+elemental type (dd_real) function ddepsilon(a)
   type (dd_real), intent(in) :: a
   ddepsilon = dd_eps
 end function ddepsilon

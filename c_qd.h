@@ -2,22 +2,9 @@
 // c_qd.h
 
 /*
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2001
- *
  * Contains C wrapper function prototypes for quad-double precision
  * arithmetic.  This can also be used from fortran code.
  */
-
-#ifndef _QD_C_QD_H
-#define _QD_C_QD_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* add */
 void c_qd_add(const double *a, const double *b, double *c);
@@ -110,9 +97,3 @@ void c_qd_comp(const double *a, const double *b, int *result);
 void c_qd_comp_qd_d(const double *a, double b, int *result);
 void c_qd_comp_d_qd(double a, const double *b, int *result);
 void c_qd_pi(double *a);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif

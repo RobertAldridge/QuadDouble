@@ -10,9 +10,6 @@
 
 #define TO_DOUBLE_PTR(a, ptr) ptr[0] = a.x[0]; ptr[1] = a.x[1]; ptr[2] = a.x[2]; ptr[3] = a.x[3];
 
-extern "C"
-{
-
 /* add */
 void c_qd_add(const double *a, const double *b, double *c) {
   qd_real cc;
@@ -455,8 +452,7 @@ void c_qd_comp_d_qd(double a, const double *b, int *result) {
     *result = 0;
 }
 
-void c_qd_pi(double *a) {
+void c_qd_pi(double *a)
+{
   TO_DOUBLE_PTR(qd_real::_pi, a);
-}
-
 }

@@ -34,31 +34,23 @@
 
 //#include <windows.h>
 
-//#if !defined(QD_INLINE)
-/* #define inline */
-//#endif
-
 namespace qd
 {
 }
-
-/* #define QD_API */
 
 #include "config.h"
 
 #include "qd_config.h"
 
-#include "inline.h"
+#include "small.h"
 
-#include "dd_real.h"
-#include "qd_real.h"
+#include "dd_large.h"
+#include "qd_large.h"
 
 #include "fpu.h"
 
-//#if !defined(QD_INLINE)
-#include "qd_inline.h"
-#include "dd_inline.h"
-//#endif
+#include "qd_small.h"
+#include "dd_small.h"
 
 #include "util.h"
 

@@ -30,9 +30,6 @@
 //#define _FPU_DOUBLE 0x0200
 #endif
 
-extern "C"
-{
-
 void fpu_fix_start(unsigned int *old_cw)
 {
 #ifdef X86
@@ -119,5 +116,3 @@ void f_fpu_fix_end(unsigned int* old_cw)
 }
 
 #endif
-
-}

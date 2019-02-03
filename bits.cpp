@@ -8,8 +8,6 @@
 
 #include "include.h"
 
-using std::setw;
-
 int get_double_expn(double x) {
   if (x == 0.0)
     return INT_MIN;

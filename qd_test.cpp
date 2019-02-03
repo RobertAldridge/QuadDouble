@@ -8,15 +8,6 @@
 
 #include "include.h"
 
-using std::cout;
-using std::cerr;
-using std::endl;
-
-using std::abs;
-using std::sqrt;
-using std::strcmp;
-using std::exit;
-
 // Global flags passed to the main program.
 static bool flag_test_dd = false;
 static bool flag_test_qd = false;

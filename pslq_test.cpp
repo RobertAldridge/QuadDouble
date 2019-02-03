@@ -8,14 +8,12 @@
 
 #include "include.h"
 
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::strcmp;
-
 int g_verbose = 0;
+
 bool flag_double_pslq = false;
+
 bool flag_dd_pslq = false;
+
 bool flag_qd_pslq = false;
 
 /* Computes the value of the given n-th degree polynomial at point x

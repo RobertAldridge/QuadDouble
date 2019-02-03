@@ -10,9 +10,6 @@
 
 #define TO_DOUBLE_PTR(a, ptr) ptr[0] = a.x[0]; ptr[1] = a.x[1];
 
-extern "C"
-{
-
 /* add */
 void c_dd_add(const double *a, const double *b, double *c) {
   dd_real cc;
@@ -318,8 +315,7 @@ void c_dd_comp_d_dd(double a, const double *b, int *result) {
     *result = 0;
 }
 
-void c_dd_pi(double *a) {
+void c_dd_pi(double *a)
+{
   TO_DOUBLE_PTR(dd_real::_pi, a);
-}
-
 }

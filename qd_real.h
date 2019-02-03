@@ -2,12 +2,6 @@
 // qd_real.h
 
 /*
- * This work was supported by the Director, Office of Science, Division
- * of Mathematical, Information, and Computational Sciences of the
- * U.S. Department of Energy under contract number DE-AC03-76SF00098.
- *
- * Copyright (c) 2000-2007
- *
  * Quad-double precision (>= 212-bit significand) floating point arithmetic
  * package, written in ANSI C++, taking full advantage of operator overloading.
  * Uses similar techniques as that of David Bailey's double-double package
@@ -22,10 +16,7 @@
  * Yozo Hida
  */
 
-#ifndef _QD_QD_REAL_H
-#define _QD_QD_REAL_H
-
-struct QD_API qd_real
+struct qd_real
 {
   double x[4];    /* The Components. */
 
@@ -134,152 +125,147 @@ namespace std
   template <> class numeric_limits<qd_real> : public numeric_limits<double>
   {
   public:
-    inline static double epsilon() { return qd_real::_eps; }
-    inline static double min() { return qd_real::_min_normalized; }
-    inline static qd_real max() { return qd_real::_max; }
-    inline static qd_real safe_max() { return qd_real::_safe_max; }
+    static double epsilon() { return qd_real::_eps; }
+    static double min() { return qd_real::_min_normalized; }
+    static qd_real max() { return qd_real::_max; }
+    static qd_real safe_max() { return qd_real::_safe_max; }
     static const int digits = 209;
     static const int digits10 = 62;
   };
 }
 
-QD_API qd_real polyeval(const qd_real *c, int n, const qd_real &x);
-QD_API qd_real polyroot(const qd_real *c, int n, const qd_real &x0, int max_iter = 64, double thresh = 0.0);
+qd_real polyeval(const qd_real *c, int n, const qd_real &x);
+qd_real polyroot(const qd_real *c, int n, const qd_real &x0, int max_iter = 64, double thresh = 0.0);
 
-QD_API qd_real qdrand(void);
-QD_API qd_real sqrt(const qd_real &a);
+qd_real qdrand(void);
+qd_real sqrt(const qd_real &a);
 
-QD_API inline bool isnan(const qd_real &a) { return a.isnan(); }
-QD_API inline bool isfinite(const qd_real &a) { return a.isfinite(); }
-QD_API inline bool isinf(const qd_real &a) { return a.isinf(); }
+bool isnan(const qd_real &a) { return a.isnan(); }
+bool isfinite(const qd_real &a) { return a.isfinite(); }
+bool isinf(const qd_real &a) { return a.isinf(); }
 
 /* Computes  qd * d  where d is known to be a power of 2.
    This can be done component wise.                      */
-QD_API qd_real mul_pwr2(const qd_real &qd, double d);
+qd_real mul_pwr2(const qd_real &qd, double d);
 
-QD_API qd_real operator+(const qd_real &a, const qd_real &b);
-QD_API qd_real operator+(const dd_real &a, const qd_real &b);
-QD_API qd_real operator+(const qd_real &a, const dd_real &b);
-QD_API qd_real operator+(const qd_real &a, double b);
-QD_API qd_real operator+(double a, const qd_real &b);
+qd_real operator+(const qd_real &a, const qd_real &b);
+qd_real operator+(const dd_real &a, const qd_real &b);
+qd_real operator+(const qd_real &a, const dd_real &b);
+qd_real operator+(const qd_real &a, double b);
+qd_real operator+(double a, const qd_real &b);
 
-QD_API qd_real operator-(const qd_real &a, const qd_real &b);
-QD_API qd_real operator-(const dd_real &a, const qd_real &b);
-QD_API qd_real operator-(const qd_real &a, const dd_real &b);
-QD_API qd_real operator-(const qd_real &a, double b);
-QD_API qd_real operator-(double a, const qd_real &b);
+qd_real operator-(const qd_real &a, const qd_real &b);
+qd_real operator-(const dd_real &a, const qd_real &b);
+qd_real operator-(const qd_real &a, const dd_real &b);
+qd_real operator-(const qd_real &a, double b);
+qd_real operator-(double a, const qd_real &b);
 
-QD_API qd_real operator*(const qd_real &a, const qd_real &b);
-QD_API qd_real operator*(const dd_real &a, const qd_real &b);
-QD_API qd_real operator*(const qd_real &a, const dd_real &b);
-QD_API qd_real operator*(const qd_real &a, double b);
-QD_API qd_real operator*(double a, const qd_real &b);
+qd_real operator*(const qd_real &a, const qd_real &b);
+qd_real operator*(const dd_real &a, const qd_real &b);
+qd_real operator*(const qd_real &a, const dd_real &b);
+qd_real operator*(const qd_real &a, double b);
+qd_real operator*(double a, const qd_real &b);
 
-QD_API qd_real operator/(const qd_real &a, const qd_real &b);
-QD_API qd_real operator/(const dd_real &a, const qd_real &b);
-QD_API qd_real operator/(const qd_real &a, const dd_real &b);
-QD_API qd_real operator/(const qd_real &a, double b);
-QD_API qd_real operator/(double a, const qd_real &b);
+qd_real operator/(const qd_real &a, const qd_real &b);
+qd_real operator/(const dd_real &a, const qd_real &b);
+qd_real operator/(const qd_real &a, const dd_real &b);
+qd_real operator/(const qd_real &a, double b);
+qd_real operator/(double a, const qd_real &b);
 
-QD_API qd_real sqr(const qd_real &a);
-QD_API qd_real sqrt(const qd_real &a);
-QD_API qd_real pow(const qd_real &a, int n);
-QD_API qd_real pow(const qd_real &a, const qd_real &b);
-QD_API qd_real npwr(const qd_real &a, int n);
+qd_real sqr(const qd_real &a);
+qd_real sqrt(const qd_real &a);
+qd_real pow(const qd_real &a, int n);
+qd_real pow(const qd_real &a, const qd_real &b);
+qd_real npwr(const qd_real &a, int n);
 
-QD_API qd_real nroot(const qd_real &a, int n);
+qd_real nroot(const qd_real &a, int n);
 
-QD_API qd_real rem(const qd_real &a, const qd_real &b);
-QD_API qd_real drem(const qd_real &a, const qd_real &b);
-QD_API qd_real divrem(const qd_real &a, const qd_real &b, qd_real &r);
+qd_real rem(const qd_real &a, const qd_real &b);
+qd_real drem(const qd_real &a, const qd_real &b);
+qd_real divrem(const qd_real &a, const qd_real &b, qd_real &r);
 
 dd_real to_dd_real(const qd_real &a);
 double to_double(const qd_real &a);
 int to_int(const qd_real &a);
 
-QD_API bool operator==(const qd_real &a, const qd_real &b);
-QD_API bool operator==(const qd_real &a, const dd_real &b);
-QD_API bool operator==(const dd_real &a, const qd_real &b);
-QD_API bool operator==(double a, const qd_real &b);
-QD_API bool operator==(const qd_real &a, double b);
+bool operator==(const qd_real &a, const qd_real &b);
+bool operator==(const qd_real &a, const dd_real &b);
+bool operator==(const dd_real &a, const qd_real &b);
+bool operator==(double a, const qd_real &b);
+bool operator==(const qd_real &a, double b);
 
-QD_API bool operator<(const qd_real &a, const qd_real &b);
-QD_API bool operator<(const qd_real &a, const dd_real &b);
-QD_API bool operator<(const dd_real &a, const qd_real &b);
-QD_API bool operator<(double a, const qd_real &b);
-QD_API bool operator<(const qd_real &a, double b);
+bool operator<(const qd_real &a, const qd_real &b);
+bool operator<(const qd_real &a, const dd_real &b);
+bool operator<(const dd_real &a, const qd_real &b);
+bool operator<(double a, const qd_real &b);
+bool operator<(const qd_real &a, double b);
 
-QD_API bool operator>(const qd_real &a, const qd_real &b);
-QD_API bool operator>(const qd_real &a, const dd_real &b);
-QD_API bool operator>(const dd_real &a, const qd_real &b);
-QD_API bool operator>(double a, const qd_real &b);
-QD_API bool operator>(const qd_real &a, double b);
+bool operator>(const qd_real &a, const qd_real &b);
+bool operator>(const qd_real &a, const dd_real &b);
+bool operator>(const dd_real &a, const qd_real &b);
+bool operator>(double a, const qd_real &b);
+bool operator>(const qd_real &a, double b);
 
-QD_API bool operator<=(const qd_real &a, const qd_real &b);
-QD_API bool operator<=(const qd_real &a, const dd_real &b);
-QD_API bool operator<=(const dd_real &a, const qd_real &b);
-QD_API bool operator<=(double a, const qd_real &b);
-QD_API bool operator<=(const qd_real &a, double b);
+bool operator<=(const qd_real &a, const qd_real &b);
+bool operator<=(const qd_real &a, const dd_real &b);
+bool operator<=(const dd_real &a, const qd_real &b);
+bool operator<=(double a, const qd_real &b);
+bool operator<=(const qd_real &a, double b);
 
-QD_API bool operator>=(const qd_real &a, const qd_real &b);
-QD_API bool operator>=(const qd_real &a, const dd_real &b);
-QD_API bool operator>=(const dd_real &a, const qd_real &b);
-QD_API bool operator>=(double a, const qd_real &b);
-QD_API bool operator>=(const qd_real &a, double b);
+bool operator>=(const qd_real &a, const qd_real &b);
+bool operator>=(const qd_real &a, const dd_real &b);
+bool operator>=(const dd_real &a, const qd_real &b);
+bool operator>=(double a, const qd_real &b);
+bool operator>=(const qd_real &a, double b);
 
-QD_API bool operator!=(const qd_real &a, const qd_real &b);
-QD_API bool operator!=(const qd_real &a, const dd_real &b);
-QD_API bool operator!=(const dd_real &a, const qd_real &b);
-QD_API bool operator!=(double a, const qd_real &b);
-QD_API bool operator!=(const qd_real &a, double b);
+bool operator!=(const qd_real &a, const qd_real &b);
+bool operator!=(const qd_real &a, const dd_real &b);
+bool operator!=(const dd_real &a, const qd_real &b);
+bool operator!=(double a, const qd_real &b);
+bool operator!=(const qd_real &a, double b);
 
-QD_API qd_real fabs(const qd_real &a);
-QD_API qd_real abs(const qd_real &a);    /* same as fabs */
+qd_real fabs(const qd_real &a);
+qd_real abs(const qd_real &a);    /* same as fabs */
 
-QD_API qd_real ldexp(const qd_real &a, int n);
+qd_real ldexp(const qd_real &a, int n);
 
-QD_API qd_real nint(const qd_real &a);
-QD_API qd_real quick_nint(const qd_real &a);
-QD_API qd_real floor(const qd_real &a);
-QD_API qd_real ceil(const qd_real &a);
-QD_API qd_real aint(const qd_real &a);
+qd_real nint(const qd_real &a);
+qd_real quick_nint(const qd_real &a);
+qd_real floor(const qd_real &a);
+qd_real ceil(const qd_real &a);
+qd_real aint(const qd_real &a);
 
-QD_API qd_real sin(const qd_real &a);
-QD_API qd_real cos(const qd_real &a);
-QD_API qd_real tan(const qd_real &a);
-QD_API void sincos(const qd_real &a, qd_real &s, qd_real &c);
+qd_real sin(const qd_real &a);
+qd_real cos(const qd_real &a);
+qd_real tan(const qd_real &a);
+void sincos(const qd_real &a, qd_real &s, qd_real &c);
 
-QD_API qd_real asin(const qd_real &a);
-QD_API qd_real acos(const qd_real &a);
-QD_API qd_real atan(const qd_real &a);
-QD_API qd_real atan2(const qd_real &y, const qd_real &x);
+qd_real asin(const qd_real &a);
+qd_real acos(const qd_real &a);
+qd_real atan(const qd_real &a);
+qd_real atan2(const qd_real &y, const qd_real &x);
 
-QD_API qd_real exp(const qd_real &a);
-QD_API qd_real log(const qd_real &a);
-QD_API qd_real log10(const qd_real &a);
+qd_real exp(const qd_real &a);
+qd_real log(const qd_real &a);
+qd_real log10(const qd_real &a);
 
-QD_API qd_real sinh(const qd_real &a);
-QD_API qd_real cosh(const qd_real &a);
-QD_API qd_real tanh(const qd_real &a);
-QD_API void sincosh(const qd_real &a, qd_real &sin_qd, qd_real &cos_qd);
+qd_real sinh(const qd_real &a);
+qd_real cosh(const qd_real &a);
+qd_real tanh(const qd_real &a);
+void sincosh(const qd_real &a, qd_real &sin_qd, qd_real &cos_qd);
 
-QD_API qd_real asinh(const qd_real &a);
-QD_API qd_real acosh(const qd_real &a);
-QD_API qd_real atanh(const qd_real &a);
+qd_real asinh(const qd_real &a);
+qd_real acosh(const qd_real &a);
+qd_real atanh(const qd_real &a);
 
-QD_API qd_real qdrand(void);
+qd_real qdrand(void);
 
-QD_API qd_real max(const qd_real &a, const qd_real &b);
-QD_API qd_real max(const qd_real &a, const qd_real &b, const qd_real &c);
-QD_API qd_real min(const qd_real &a, const qd_real &b);
-QD_API qd_real min(const qd_real &a, const qd_real &b, const qd_real &c);
+qd_real max(const qd_real &a, const qd_real &b);
+qd_real max(const qd_real &a, const qd_real &b, const qd_real &c);
+qd_real min(const qd_real &a, const qd_real &b);
+qd_real min(const qd_real &a, const qd_real &b, const qd_real &c);
 
-QD_API qd_real fmod(const qd_real &a, const qd_real &b);
+qd_real fmod(const qd_real &a, const qd_real &b);
 
-QD_API std::ostream &operator<<(std::ostream &s, const qd_real &a);
-QD_API std::istream &operator>>(std::istream &s, qd_real &a);
-
-//#if defined(QD_INLINE)
-//#endif
-
-#endif
+std::ostream &operator<<(std::ostream &s, const qd_real &a);
+std::istream &operator>>(std::istream &s, qd_real &a);

@@ -1,23 +1,12 @@
 
-// qd_real.cpp
+// qd_large.cpp
 
 /*
- * Contains implementation of non-inlined functions of quad-double
- * package.  Inlined functions are found in qd_inline.h (in include directory).
+ * Contains implementation of large functions of quad-double
+ * package.  Small functions are found in qd_small.h
  */
 
 #include "include.h"
-
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::istream;
-using std::ostream;
-using std::ios_base;
-using std::string;
-using std::setw;
-
-using namespace qd;
 
 void qd_real::error(const char *msg) {
   if (msg) { cerr << "ERROR " << msg << endl; }
@@ -349,36 +338,36 @@ void qd_real::write(char *s, int len, int precision,
 }
 
 void round_string_qd(char *s, int precision, int *offset){
-	/*
-	 Input string must be all digits or errors will occur.
-	 */
+  /*
+   Input string must be all digits or errors will occur.
+   */
 
-	int i;
-	int D = precision ;
+  int i;
+  int D = precision ;
 
-	/* Round, handle carry */
-	  if (D>0 && s[D] >= '5') {
-	    s[D-1]++;
+  /* Round, handle carry */
+    if (D>0 && s[D] >= '5') {
+      s[D-1]++;
 
-	    i = D-1;
-	    while (i > 0 && s[i] > '9') {
-	      s[i] -= 10;
-	      s[--i]++;
-	    }
-	  }
+      i = D-1;
+      while (i > 0 && s[i] > '9') {
+        s[i] -= 10;
+        s[--i]++;
+      }
+    }
 
-	  /* If first digit is 10, shift everything. */
-	  if (s[0] > '9') {
-	    // e++; // don't modify exponent here
-	    for (i = precision; i >= 1; i--) s[i+1] = s[i];
-	    s[0] = '1';
-	    s[1] = '0';
+    /* If first digit is 10, shift everything. */
+    if (s[0] > '9') {
+      // e++; // don't modify exponent here
+      for (i = precision; i >= 1; i--) s[i+1] = s[i];
+      s[0] = '1';
+      s[1] = '0';
 
-	    (*offset)++ ; // now offset needs to be increased by one
-	    precision++ ;
-	  }
+      (*offset)++ ; // now offset needs to be increased by one
+      precision++ ;
+    }
 
-	  s[precision] = 0; // add terminator for array
+    s[precision] = 0; // add terminator for array
 }
 
 
@@ -422,18 +411,18 @@ string qd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
 
       int d_with_extra = d;
       if(fixed)
-    	  d_with_extra = std::max(120, d); // longer than the max accuracy for DD
+        d_with_extra = std::max(120, d); // longer than the max accuracy for DD
 
       // highly special case - fixed mode, precision is zero, abs(*this) < 1.0
       // without this trap a number like 0.9 printed fixed with 0 precision prints as 0
       // should be rounded to 1.
       if(fixed && (precision == 0) && (abs(*this) < 1.0)){
-    	  if(abs(*this) >= 0.5)
-    		  s += '1';
-    	  else
-    		  s += '0';
+        if(abs(*this) >= 0.5)
+          s += '1';
+        else
+          s += '0';
 
-    	  return s;
+        return s;
       }
 
       // handle near zero to working precision (but not exactly zero)
@@ -449,12 +438,12 @@ string qd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
         int j;
 
         if(fixed){
-        	t = new char[d_with_extra+1];
-        	to_digits(t, e, d_with_extra);
+          t = new char[d_with_extra+1];
+          to_digits(t, e, d_with_extra);
         }
         else{
-        	t = new char[d+1];
-        	to_digits(t, e, d);
+          t = new char[d+1];
+          to_digits(t, e, d);
         }
 
         off = e + 1;
@@ -483,7 +472,7 @@ string qd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
             s += t[i];
 
         }
-		delete [] t;
+    delete[] t;
       }
     }
 
@@ -491,32 +480,32 @@ string qd_real::to_string(int precision, int width, ios_base::fmtflags fmt,
     // without this trap, output of values of the for 10^j - 1 fail for j > 28
     // and are output with the point in the wrong place, leading to a dramatically off value
     if(fixed && (precision > 0)){
-    	// make sure that the value isn't dramatically larger
-    	double from_string = atof(s.c_str());
+      // make sure that the value isn't dramatically larger
+      double from_string = atof(s.c_str());
 
-    	// if this ratio is large, then we've got problems
-    	if( fabs( from_string / this->x[0] ) > 3.0 ){
+      // if this ratio is large, then we've got problems
+      if( fabs( from_string / this->x[0] ) > 3.0 ){
 
 //int point_position = 0;
 //
 //char temp = 0;
 
-    		// loop on the string, find the point, move it up one
-    		// don't act on the first character
-    		for(i=1; i < s.length(); i++){
-    			if(s[i] == '.'){
-    				s[i] = s[i-1] ;
-    				s[i-1] = '.' ;
-    				break;
-    			}
-    		}
+        // loop on the string, find the point, move it up one
+        // don't act on the first character
+        for(i=1; i < s.length(); i++){
+          if(s[i] == '.'){
+            s[i] = s[i-1] ;
+            s[i-1] = '.' ;
+            break;
+          }
+        }
 
-        	from_string = atof(s.c_str());
-        	// if this ratio is large, then the string has not been fixed
-        	if( fabs( from_string / this->x[0] ) > 3.0 ){
-        		dd_real::error("Re-rounding unsuccessful in large number fixed point trap.") ;
-        	}
-    	}
+          from_string = atof(s.c_str());
+          // if this ratio is large, then the string has not been fixed
+          if( fabs( from_string / this->x[0] ) > 3.0 ){
+            dd_real::error("Re-rounding unsuccessful in large number fixed point trap.") ;
+          }
+      }
     }
 
     if (!fixed) {
@@ -716,7 +705,7 @@ qd_real qd_real::accurate_div(const qd_real &a, const qd_real &b) {
   return qd_real(q0, q1, q2, q3);
 }
 
-QD_API qd_real sqrt(const qd_real &a) {
+qd_real sqrt(const qd_real &a) {
   /* Strategy:
 
      Perform the following Newton iteration:
@@ -764,40 +753,40 @@ qd_real nroot(const qd_real &a, int n) {
      we only need to perform it twice.
 
    */
-	if (n <= 0) {
-		qd_real::error("(qd_real::nroot): N must be positive.");
-		return qd_real::_nan;
-	}
+  if (n <= 0) {
+    qd_real::error("(qd_real::nroot): N must be positive.");
+    return qd_real::_nan;
+  }
 
-	if (n % 2 == 0 && a.is_negative()) {
-		qd_real::error("(qd_real::nroot): Negative argument.");
-		return qd_real::_nan;
-	}
+  if (n % 2 == 0 && a.is_negative()) {
+    qd_real::error("(qd_real::nroot): Negative argument.");
+    return qd_real::_nan;
+  }
 
-	if (n == 1) {
-		return a;
-	}
-	if (n == 2) {
-		return sqrt(a);
-	}
-	if (a.is_zero()) {
-		return qd_real(0.0);
-	}
+  if (n == 1) {
+    return a;
+  }
+  if (n == 2) {
+    return sqrt(a);
+  }
+  if (a.is_zero()) {
+    return qd_real(0.0);
+  }
 
 
-	/* Note  a^{-1/n} = exp(-log(a)/n) */
-	qd_real r = abs(a);
-	qd_real x = std::exp(-std::log(r.x[0]) / n);
+  /* Note  a^{-1/n} = exp(-log(a)/n) */
+  qd_real r = abs(a);
+  qd_real x = std::exp(-std::log(r.x[0]) / n);
 
-	/* Perform Newton's iteration. */
-	double dbl_n = static_cast<double>(n);
-	x += x * (1.0 - r * npwr(x, n)) / dbl_n;
-	x += x * (1.0 - r * npwr(x, n)) / dbl_n;
-	x += x * (1.0 - r * npwr(x, n)) / dbl_n;
-	if (a[0] < 0.0){
-		x = -x;
-	}
-	return 1.0 / x;
+  /* Perform Newton's iteration. */
+  double dbl_n = static_cast<double>(n);
+  x += x * (1.0 - r * npwr(x, n)) / dbl_n;
+  x += x * (1.0 - r * npwr(x, n)) / dbl_n;
+  x += x * (1.0 - r * npwr(x, n)) / dbl_n;
+  if (a[0] < 0.0){
+    x = -x;
+  }
+  return 1.0 / x;
 }
 
 static const int n_inv_fact = 15;
@@ -2507,12 +2496,12 @@ qd_real atanh(const qd_real &a) {
   return mul_pwr2(log((1.0 + a) / (1.0 - a)), 0.5);
 }
 
-QD_API qd_real fmod(const qd_real &a, const qd_real &b) {
+qd_real fmod(const qd_real &a, const qd_real &b) {
   qd_real n = aint(a / b);
   return (a - b * n);
 }
 
-QD_API qd_real qdrand() {
+qd_real qdrand() {
   static const double m_const = 4.6566128730773926e-10;  /* = 2^{-31} */
   double m = m_const;
   qd_real r = 0.0;
@@ -2550,7 +2539,7 @@ qd_real polyeval(const qd_real *c, int n, const qd_real &x) {
    Given an n-th degree polynomial, finds a root close to
    the given guess x0.  Note that this uses simple Newton
    iteration scheme, and does not work for multiple roots.  */
-QD_API qd_real polyroot(const qd_real *c, int n,
+qd_real polyroot(const qd_real *c, int n,
     const qd_real &x0, int max_iter, double thresh) {
   qd_real x = x0;
   qd_real f;
