@@ -1,8 +1,6 @@
 
 ! qdext.f
 
-! module file describing the C++-to-Fortran interface found in f_qd.cpp.
-
 module qdext
   implicit none
 

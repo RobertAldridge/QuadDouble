@@ -7,53 +7,7 @@ implicit none
 integer ndebug, ndigits, nerror, nquadl
 end module
 
-! program tquadgsq
 subroutine f_main
-
-!   David H. Bailey      2004-12-16
-!   This is Quad-Double Fortran-90 version.
-
-!   This work was supported by the Director, Office of Science, Division
-!   of Mathematical, Information, and Computational Sciences of the
-!   U.S. Department of Energy under contract number DE-AC03-76SF00098.
-
-!   This program demonstrates the quadrature routine 'quadgsq', which employs
-!   Gaussian quadrature.  The function quadgsq is suitable to integrate
-!   a function that is continuous, infinitely differentiable and integrable on a
-!   finite open interval.  It can also be used for certain integrals on infinite
-!   intervals, by making a suitable change of variable -- see below.  While
-!   this routine is usually more efficient than quaderf or quadts for functions
-!   that are regular on a closed interval, it is not very effective for
-!   functions with a singularity at one or both of the endpoints.
-
-!   The function(s) to be integrated is(are) defined in external function
-!   subprogram(s) -- see the sample function subprograms below.  The name(s) of
-!   the function subprogram(s) must be included in appropriate type and external
-!   statements in the main program.
-
-!   Note that an integral of a function on an infinite interval can be
-!   converted to an integral on a finite interval by means of a suitable
-!   change of variable.  Example (here the notation "inf" means infinity):
-
-!   Int_0^inf f(t) dt  =  Int_0^1 f(t) dt + Int_1^inf f(t) dt
-!                      =  Int_0^1 f(t) dt + Int_0^1 f(1/t)/t^2 dt
-
-!   See examples below.
-
-!   Inputs set in parameter statement below:
-!   kdebug Debug level setting.  Default = 2.
-!   ndp    Digits of precision.  May not exceed mpipl in file mpmod90.f.
-!            In some cases, ndp must be significantly greater than the desired
-!            tolerance in the result-- see the examples below.
-!   neps   Log10 of the desired tolerance in the result (negative integer).
-!   nq1    Max number of phases in quadrature routine; adding 1 increases
-!            (possibly doubles) the number of accurate digits in the result,
-!            but also roughly doubles the run time and memory.  nq1 > 2.
-!   nq2    Space parameter for wk and xk arrays in the calling program.  By
-!            default it is set to 8 * 2^nq1.  Increase nq2 if directed by a
-!            message produced in initqerf.  Note that the dimension of the
-!            wk and xk arrays starts with -1, so the length of these arrays is
-!            (nq2+2) * 4 eight-byte words.
 
 use qdmodule
 use quadglobal
@@ -77,16 +31,12 @@ nquadl = nq1
 write (6, 1) ndigits, neps, nquadl
 1 format ('Quadgsq test'/'Digits =',i6,'  Epsilon =',i6,'   Quadlevel =',i6)
 
-!   Initialize quadrature tables wk and xk (weights and abscissas).
-
 tm0 = second ()
 call initqgsq (nq1, nq2, wk, xk)
 tm1 = second ()
 if (nerror > 0) stop
 write (6, 2) tm1 - tm0
 2 format ('Quadrature initialization completed: cpu time =',f12.6)
-
-!   Begin quadrature tests.
 
 write (6, 11)
 11 format (/'Continuous functions on finite itervals:'//&
@@ -105,7 +55,7 @@ write (6, 4) d1, n1
 4 format ('Actual error =',f10.6,'x10^',i5)
 
 write (6, 12)
-12 format (/'Problem 2: Int_0^1 t^2*arctan(t) dt = (pi - 2 + 2*log(2))/12')
+12 format (/'Problem 2: Int_0^1 t^2*arctan(t) dt = (pi - 2 + 2*log(2) )/12')
 x1 = 0.d0
 x2 = 1.d0
 tm0 = second ()
@@ -113,7 +63,7 @@ t1 = quadgsq (fun02, x1, x2, nq1, nq2, wk, xk)
 tm1 = second ()
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
-t2 = (qdpi() - 2.d0 + 2.d0 * log (qdreal (2.d0))) / 12.d0
+t2 = (qdpi() - 2.d0 + 2.d0 * log (qdreal (2.d0) ) ) / 12.d0
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
@@ -126,13 +76,13 @@ t1 = quadgsq (fun03, x1, x2, nq1, nq2, wk, xk)
 tm1 = second ()
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
-t2 = 0.5d0 * (exp (0.5d0 * qdpi()) - 1.d0)
+t2 = 0.5d0 * (exp (0.5d0 * qdpi() ) - 1.d0)
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
 write (6, 14)
 14 format (/ &
-  'Problem 4: Int_0^1 arctan(sqrt(2+t^2))/((1+t^2)sqrt(2+t^2)) dt = 5*Pi^2/96')
+  'Problem 4: Int_0^1 arctan(sqrt(2+t^2) )/( (1+t^2)sqrt(2+t^2) ) dt = 5*Pi^2/96')
 x1 = 0.d0
 x2 = 1.d0
 tm0 = second ()
@@ -201,7 +151,7 @@ call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
 write (6, 19)
-19 format (/'Problem 9: Int_0^(pi/2) log(cos(t)) dt = -pi*log(2)/2')
+19 format (/'Problem 9: Int_0^(pi/2) log(cos(t) ) dt = -pi*log(2)/2')
 x1 = 0.d0
 x2 = 0.5d0 * qdpi()
 tm0 = second ()
@@ -209,12 +159,12 @@ t1 = quadgsq (fun09, x1, x2, nq1, nq2, wk, xk)
 tm1 = second ()
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
-t2 = -0.5d0 * qdpi() * log (qdreal (2.d0))
+t2 = -0.5d0 * qdpi() * log (qdreal (2.d0) )
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
 write (6, 20)
-20 format (/'Problem 10: Int_0^(pi/2) sqrt(tan(t)) dt = pi*sqrt(2)/2')
+20 format (/'Problem 10: Int_0^(pi/2) sqrt(tan(t) ) dt = pi*sqrt(2)/2')
 x1 = 0.d0
 x2 = 0.5d0 * qdpi()
 tm0 = second ()
@@ -222,7 +172,7 @@ t1 = quadgsq (fun10, x1, x2, nq1, nq2, wk, xk)
 tm1 = second ()
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
-t2 = 0.5d0 * qdpi() * sqrt (qdreal (2.d0))
+t2 = 0.5d0 * qdpi() * sqrt (qdreal (2.d0) )
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
@@ -250,7 +200,7 @@ t1 = quadgsq (fun12, x1, x2, nq1, nq2, wk, xk)
 tm1 = second ()
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
-t2 = sqrt (qdpi())
+t2 = sqrt (qdpi() )
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
@@ -263,7 +213,7 @@ t1 = quadgsq (fun13, x1, x2, nq1, nq2, wk, xk)
 tm1 = second ()
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
-t2 = sqrt (0.5d0 * qdpi())
+t2 = sqrt (0.5d0 * qdpi() )
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 
@@ -307,8 +257,6 @@ end
 
 function fun01 (t)
 
-!   fun01(t) = t * log(1+t)
-
 use qdmodule
 implicit none
 type (qd_real) fun01, t
@@ -318,8 +266,6 @@ return
 end
 
 function fun02 (t)
-
-!   fun02(t) = t^2 * arctan(t)
 
 use qdmodule
 implicit none
@@ -331,8 +277,6 @@ end
 
 function fun03 (t)
 
-!   fun03(t) = e^t * cos(t)
-
 use qdmodule
 implicit none
 type (qd_real) fun03, t
@@ -343,20 +287,16 @@ end
 
 function fun04 (t)
 
-!   fun04(t) = arctan(sqrt(2+t^2))/((1+t^2)sqrt(2+t^2))
-
 use qdmodule
 implicit none
 type (qd_real) fun04, t, t1
 
 t1 = sqrt (2.d0 + t**2)
-fun04 = atan(t1)/((1.d0 + t**2)*t1)
+fun04 = atan(t1)/( (1.d0 + t**2)*t1)
 return
 end
 
 function fun05 (t)
-
-!    fun05(t) = sqrt(t)*log(t)
 
 use qdmodule
 implicit none
@@ -368,8 +308,6 @@ end
 
 function fun06 (t)
 
-!    fun06(t) = sqrt(1-t^2)
-
 use qdmodule
 implicit none
 type (qd_real) fun06, t
@@ -379,8 +317,6 @@ return
 end
 
 function fun07 (t)
-
-!   fun07(t) = t / sqrt(1-t^2)
 
 use qdmodule
 implicit none
@@ -392,8 +328,6 @@ end
 
 function fun08 (t)
 
-!   fun08(t) = log(t)^2
-
 use qdmodule
 implicit none
 type (qd_real) fun08, t
@@ -404,31 +338,25 @@ end
 
 function fun09 (t)
 
-!   fun09(t) = log (cos (t))
-
 use qdmodule
 implicit none
 type (qd_real) fun09, t
 
-fun09 = log (cos (t))
+fun09 = log (cos (t) )
 return
 end
 
 function fun10 (t)
 
-!   fun10(t) = sqrt(tan(t))
-
 use qdmodule
 implicit none
 type (qd_real) fun10, t
 
-fun10 = sqrt (tan (t))
+fun10 = sqrt (tan (t) )
 return
 end
 
 function fun11 (t)
-
-!   fun11(t) = 1/(u^2(1+(1/u-1)^2)) = 1/(1 - 2*u + u^2)
 
 use qdmodule
 implicit none
@@ -439,8 +367,6 @@ return
 end
 
 function fun12 (t)
-
-!   fun12(t) = e^(-(1/t-1)) / sqrt(t^3 - t^4)
 
 use qdmodule
 implicit none
@@ -453,8 +379,6 @@ end
 
 function fun13 (t)
 
-!   fun13(t) = e^(-(1/t-1)^2/2) / t^2
-
 use qdmodule
 implicit none
 type (qd_real) fun13, t, t1
@@ -465,8 +389,6 @@ return
 end
 
 function fun14 (t)
-
-!   fun14(t) = e^(-(1/t-1)) * cos (1/t-1) / t^2
 
 use qdmodule
 implicit none
@@ -479,8 +401,6 @@ end
 
 function fun15a (t)
 
-!   fun15a(t) = sin(t)/t
-
 use qdmodule
 use quadglobal
 implicit none
@@ -491,8 +411,6 @@ return
 end
 
 function fun15b (t)
-
-!   fun15b(t) = t^7 * sin(1/t)
 
 use qdmodule
 use quadglobal
@@ -508,14 +426,6 @@ return
 end
 
 subroutine initqgsq (nq1, nq2, wk, xk)
-
-!   This subroutine initializes the quadrature arays xk and wk for Gaussian
-!   quadrature.  It employs a Newton iteration scheme with a dynamic precision
-!   level.  The argument nq2, which is the space allocated for wk and xk in
-!   the calling program, should be at least 8 * 2^nq1 + 100, although a higher
-!   value may be required, depending on precision level.  Monitor the space
-!   figure given in the message below during initialization to be certain.
-!   David H Bailey    2002-11-04
 
 use qdmodule
 use quadglobal
@@ -550,13 +460,8 @@ do k = 1, nq1
 
   do j = 1, n / 2
 
-!   Compute a double precision estimate of the root.
-
     is = 0
-    r = cos ((pi * (j - 0.25d0)) / (n + 0.5d0))
-
-!   Compute the j-th root of the n-degree Legendre polynomial using Newton's
-!   iteration.
+    r = cos ( (pi * (j - 0.25d0) ) / (n + 0.5d0) )
 
 100 continue
 
@@ -573,16 +478,13 @@ do k = 1, nq1
     t5 = r
     r = r - t1 / t4
 
-!   Once convergence is achieved at nwp = 3, then start doubling (almost) the
-!   working precision level at each iteration until full precision is reached.
-
     if (abs (r - t5) > eps) goto 100
 
     i = i + 1
     if (i > nq2) goto 110
     xk(i) = r
     t4 = dble (n) * (r * t1 - t2) / (r ** 2  - 1.d0)
-    wk(i) = 2.d0 / ((1.d0 - r ** 2) * t4 ** 2)
+    wk(i) = 2.d0 / ( (1.d0 - r ** 2) * t4 ** 2)
   enddo
 
   xk(k+1) = dble (i)
@@ -615,12 +517,6 @@ end
 
 function quadgsq (fun, x1, x2, nq1, nq2, wk, xk)
 
-!   This routine computes the integral of the function fun on the interval
-!   [0, 1], with up to nq1 iterations, with a target tolerance of eps.
-!   wk and xk are precomputed tables of weights and abscissas, each of size
-!   nq2 and of type qd_real.  The function fun is not evaluated at x1 or x2.
-!   David H. Bailey    2002-11-04
-
 use qdmodule
 use quadglobal
 implicit none
@@ -638,7 +534,7 @@ s2 = 0.d0
 c10 = 10.d0
 eps = 1.d-64
 eps1 = 1.d-61
-  if (wk(-1) < dble (nq1)) then
+  if (wk(-1) < dble (nq1) ) then
   write (6, 1) nq1
 1 format ('quadgsq: quadrature arrays have not been initialized; nq1 =',i6)
   nerror = 70
@@ -651,7 +547,7 @@ do k = 1, nq1
   s2 = s1
   fmx = 0.d0
   sum = 0.d0
-  i = dble (xk(k))
+  i = dble (xk(k) )
 
   do j = 1, n / 2
     i = i + 1
@@ -668,13 +564,13 @@ do k = 1, nq1
       t2 = 0.d0
     endif
     sum = sum + wk(i) * (t1 + t2)
-    fmx = max (fmx, abs (t1), abs (t2))
+    fmx = max (fmx, abs (t1), abs (t2) )
   enddo
 
   s1 =  a * sum
   eps2 = fmx * eps
-  d1 = dplog10q (abs (s1 - s2))
-  d2 = dplog10q (abs (s1 - s3))
+  d1 = dplog10q (abs (s1 - s2) )
+  d2 = dplog10q (abs (s1 - s3) )
   d3 = dplog10q (eps2) - 1.d0
 
   if (k <= 2) then
@@ -682,14 +578,12 @@ do k = 1, nq1
   elseif (d1 .eq. -9999.d0) then
     err = 0.d0
   else
-    d4 = min (0.d0, max (d1 ** 2 / d2, 2.d0 * d1, d3))
+    d4 = min (0.d0, max (d1 ** 2 / d2, 2.d0 * d1, d3) )
     err = c10 ** nint (d4)
   endif
 
-!   Output current integral approximation and error estimate, to 56 dp.
-
   if (ndebug >= 2) then
-    write (6, 2) k, nq1, nint (dplog10q (abs (err)))
+    write (6, 2) k, nq1, nint (dplog10q (abs (err) ) )
 2   format ('quadgsq: Iteration',i3,' of',i3,'; est error = 10^',i5, &
       '; approx value =')
     call qdwrite (6, s1)
@@ -698,7 +592,7 @@ do k = 1, nq1
   if (k >= 3 .and. err < eps2) goto 110
 enddo
 
-write (6, 3) nint (dplog10q (abs (err))), nquadl
+write (6, 3) nint (dplog10q (abs (err) ) ), nquadl
 3 format ('quadgsq: Estimated error = 10^',i5/&
   'Increase Quadlevel for greater accuracy. Current Quadlevel =',i4)
 if (err > 1.d-20) then
@@ -710,7 +604,7 @@ goto 130
 
 110 continue
 
-write (6, 5) nint (dplog10q (abs (err))), ndigits
+write (6, 5) nint (dplog10q (abs (err) ) ), ndigits
 5 format ('quadgsq: Estimated error = 10^',i5/&
   'Increase working prec (Digits) for greater accuracy. Current Digits =',i4)
 goto 130
@@ -730,8 +624,6 @@ end
 
 function dplog10q (a)
 
-!   For input MP value a, this routine returns a DP approximation to log10 (a).
-
 use qdmodule
 implicit none
 integer ia
@@ -742,7 +634,7 @@ da = a
 if (da .eq. 0.d0) then
   dplog10q = -9999.d0
 else
-  dplog10q = log10 (abs (da))
+  dplog10q = log10 (abs (da) )
 endif
 
 100 continue
@@ -750,9 +642,6 @@ return
 end
 
 subroutine decmdq (a, b, ib)
-
-!   For input MP value a, this routine returns DP b and integer ib such that
-!   a = b * 10^ib, with 1 <= abs (b) < 10 for nonzero a.
 
 use qdmodule
 implicit none
@@ -763,7 +652,7 @@ type (qd_real) a
 
 da = a
 if (da .ne. 0.d0) then
-  t1 = log10 (abs (da))
+  t1 = log10 (abs (da) )
   ib = t1
   if (t1 .lt. 0.d0) ib = ib - 1
   b = sign (10.d0 ** (t1 - ib), da)

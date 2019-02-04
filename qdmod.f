@@ -1,12 +1,6 @@
 
 ! qdmod.f
 
-!
-!  Fortran-90 module file to use with quad-double numbers.
-!
-!  Yozo Hida
-!  David H Bailey    2008-02-20
-
 module qdmodule
   use ddmodule
   use qdext
@@ -26,14 +20,14 @@ module qdmodule
   parameter (d_qd_eps = 1.21543267145725d-63)
 
   type (qd_real) qd_one, qd_zero, qd_eps, qd_huge, qd_tiny
-  parameter (qd_one = qd_real((/1.0d0, 0.0d0, 0.0d0, 0.0d0/)))
-  parameter (qd_zero = qd_real((/0.0d0, 0.0d0, 0.0d0, 0.0d0/)))
-  parameter (qd_eps = qd_real((/d_qd_eps, 0.0d0, 0.0d0, 0.0d0/)))
-  parameter (qd_huge = qd_real((/ &
+  parameter (qd_one = qd_real( (/1.0d0, 0.0d0, 0.0d0, 0.0d0/) ) )
+  parameter (qd_zero = qd_real( (/0.0d0, 0.0d0, 0.0d0, 0.0d0/) ) )
+  parameter (qd_eps = qd_real( (/d_qd_eps, 0.0d0, 0.0d0, 0.0d0/) ) )
+  parameter (qd_huge = qd_real( (/ &
     1.79769313486231570815d+308, 9.97920154767359795037d+291, &
-    5.53956966280111259858d+275, 3.07507889307840487279d+259/)))
-  parameter (qd_tiny = qd_real((/3.25194908739046463067d-260, &
-    0.0d0, 0.0d0, 0.0d0/)))
+    5.53956966280111259858d+275, 3.07507889307840487279d+259/) ) )
+  parameter (qd_tiny = qd_real( (/3.25194908739046463067d-260, &
+    0.0d0, 0.0d0, 0.0d0/) ) )
 
   interface assignment (=)
     module procedure assign_qd_str
@@ -399,7 +393,6 @@ module qdmodule
 
 contains
 
-! Assignments
   subroutine assign_qd_str(a, s)
     type (qd_real), intent(inout) :: a
     character (len=*), intent(in) :: s
@@ -494,7 +487,7 @@ contains
 
   elemental subroutine assign_qdc_dc (qdc, dc)
     type (qd_complex), intent (inout) :: qdc
-    complex (kind (0.d0)), intent (in) :: dc
+    complex (kind (0.d0) ), intent (in) :: dc
     qdc%cmp(1) = dble (dc)
     qdc%cmp(2:4) = 0.d0
     qdc%cmp(5) = aimag (dc)
@@ -502,12 +495,10 @@ contains
   end subroutine assign_qdc_dc
 
   elemental subroutine assign_dc_qdc (dc, qdc)
-    complex (kind (0.D0)), intent (inout) :: dc
+    complex (kind (0.D0) ), intent (inout) :: dc
     type (qd_complex), intent (in) :: qdc
-    dc = cmplx (qdc%cmp(1), qdc%cmp(5), kind (0.d0))
+    dc = cmplx (qdc%cmp(1), qdc%cmp(5), kind (0.d0) )
   end subroutine assign_dc_qdc
-
-! Conversions
 
   elemental type (qd_real) function to_qd_i(ia)
     integer, intent(in) :: ia
@@ -577,13 +568,13 @@ contains
     to_qdc_d%cmp(2:8) = 0.d0
   end function to_qdc_d
 
-  elemental complex (kind (0.D0)) function to_dc_qdc (qdc)
+  elemental complex (kind (0.D0) ) function to_dc_qdc (qdc)
     type (qd_complex), intent (in) :: qdc
-    to_dc_qdc = cmplx (qdc%cmp(1), qdc%cmp(5), kind (0.d0))
+    to_dc_qdc = cmplx (qdc%cmp(1), qdc%cmp(5), kind (0.d0) )
   end function to_dc_qdc
 
   elemental type (qd_complex) function to_qdc_dc (dc)
-    complex (kind (0.d0)), intent(in) :: dc
+    complex (kind (0.d0) ), intent(in) :: dc
     to_qdc_dc%cmp(1) = dble (dc)
     to_qdc_dc%cmp(2:4) = 0.d0
     to_qdc_dc%cmp(5) = aimag (dc)
@@ -595,15 +586,12 @@ contains
     to_d_qdc = qdc%cmp(1)
   end function to_d_qdc
 
-!  Complex conjugation
-
   elemental type (qd_complex) function qdcconjg (qdc)
     type (qd_complex), intent(in) :: qdc
     qdcconjg%cmp(1:4) = qdc%cmp(1:4)
     qdcconjg%cmp(5:8) = -qdc%cmp(5:8)
   end function qdcconjg
 
-! Additions
   elemental type (qd_real) function add_qd(a, b)
     type (qd_real), intent(in) :: a, b
     call f_qd_add(a%re, b%re, add_qd%re)
@@ -635,14 +623,14 @@ contains
 
   elemental type (qd_complex) function add_qdc(a, b)
     type (qd_complex), intent(in) :: a, b
-    call f_qd_add (a%cmp(1:4), b%cmp(1:4), add_qdc%cmp(1:4))
-    call f_qd_add (a%cmp(5:8), b%cmp(5:8), add_qdc%cmp(5:8))
+    call f_qd_add (a%cmp(1:4), b%cmp(1:4), add_qdc%cmp(1:4) )
+    call f_qd_add (a%cmp(5:8), b%cmp(5:8), add_qdc%cmp(5:8) )
   end function add_qdc
 
   elemental type (qd_complex) function add_qdc_qd(a, b)
     type (qd_complex), intent(in) :: a
     type (qd_real), intent(in) :: b
-    call f_qd_add (a%cmp(1:4), b%re, add_qdc_qd%cmp(1:4))
+    call f_qd_add (a%cmp(1:4), b%re, add_qdc_qd%cmp(1:4) )
     add_qdc_qd%cmp(5:8) = a%cmp(5:8)
   end function add_qdc_qd
 
@@ -658,7 +646,7 @@ contains
     type (qd_real) :: qdb
     qdb%re(1) = b
     qdb%re(2:4) = 0.d0
-    call f_qd_add (a%cmp(1:4), qdb%re, add_qdc_d%cmp(1:4))
+    call f_qd_add (a%cmp(1:4), qdb%re, add_qdc_d%cmp(1:4) )
     add_qdc_d%cmp(5:8) = a%cmp(5:8)
   end function add_qdc_d
 
@@ -668,7 +656,6 @@ contains
     add_d_qdc = add_qdc_d(b, a)
   end function add_d_qdc
 
-! Subtractions
   elemental type (qd_real) function sub_qd(a, b)
     type (qd_real), intent(in) :: a, b
     call f_qd_sub(a%re, b%re, sub_qd%re)
@@ -688,21 +675,21 @@ contains
 
   elemental type (qd_complex) function sub_qdc(a, b)
     type (qd_complex), intent(in) :: a, b
-    call f_qd_sub (a%cmp(1:4), b%cmp(1:4), sub_qdc%cmp(1:4))
-    call f_qd_sub (a%cmp(5:8), b%cmp(5:8), sub_qdc%cmp(5:8))
+    call f_qd_sub (a%cmp(1:4), b%cmp(1:4), sub_qdc%cmp(1:4) )
+    call f_qd_sub (a%cmp(5:8), b%cmp(5:8), sub_qdc%cmp(5:8) )
   end function sub_qdc
 
   elemental type (qd_complex) function sub_qdc_qd(a, b)
     type (qd_complex), intent(in) :: a
     type (qd_real), intent(in) :: b
-    call f_qd_sub (a%cmp(1:4), b%re(1:4), sub_qdc_qd%cmp(1:4))
+    call f_qd_sub (a%cmp(1:4), b%re(1:4), sub_qdc_qd%cmp(1:4) )
     sub_qdc_qd%cmp(5:8) = a%cmp(5:8)
   end function sub_qdc_qd
 
   elemental type (qd_complex) function sub_qd_qdc(a, b)
     type (qd_real), intent(in) :: a
     type (qd_complex), intent(in) :: b
-    call f_qd_sub (a%re(1:4), b%cmp(1:4), sub_qd_qdc%cmp(1:4))
+    call f_qd_sub (a%re(1:4), b%cmp(1:4), sub_qd_qdc%cmp(1:4) )
     sub_qd_qdc%cmp(5:8) = - b%cmp(5:8)
   end function sub_qd_qdc
 
@@ -712,7 +699,7 @@ contains
     type (qd_real) qdb
     qdb%re(1) = b
     qdb%re(2:4) = 0.d0
-    call f_qd_sub (a%cmp(1:4), qdb%re, sub_qdc_d%cmp(1:4))
+    call f_qd_sub (a%cmp(1:4), qdb%re, sub_qdc_d%cmp(1:4) )
     sub_qdc_d%cmp(5:8) = a%cmp(5:8)
   end function sub_qdc_d
 
@@ -722,11 +709,10 @@ contains
     type (qd_real) qda
     qda%re(1) = a
     qda%re(2:4) = 0.d0
-    call f_qd_sub (qda%re, b%cmp(1:4), sub_d_qdc%cmp(1:4))
+    call f_qd_sub (qda%re, b%cmp(1:4), sub_d_qdc%cmp(1:4) )
     sub_d_qdc%cmp(5:8) = - b%cmp(5:8)
   end function sub_d_qdc
 
-! Unary Minus
   elemental type (qd_real) function neg_qd(a)
     type (qd_real), intent(in) :: a
     neg_qd%re = -a%re
@@ -737,7 +723,6 @@ contains
     neg_qdc%cmp = -a%cmp
   end function neg_qdc
 
-! Multiplications
   elemental type (qd_real) function mul_qd(a, b)
     type (qd_real), intent(in) :: a, b
     call f_qd_mul(a%re, b%re, mul_qd%re)
@@ -772,55 +757,54 @@ contains
     type (qd_real) t1, t2
     call f_qd_mul (a%cmp(1:4), b%cmp(1:4), t1%re)
     call f_qd_mul (a%cmp(5:8), b%cmp(5:8), t2%re)
-    call f_qd_sub (t1%re, t2%re, mul_qdc%cmp(1:4))
+    call f_qd_sub (t1%re, t2%re, mul_qdc%cmp(1:4) )
     call f_qd_mul (a%cmp(1:4), b%cmp(5:8), t1%re)
     call f_qd_mul (a%cmp(5:8), b%cmp(1:4), t2%re)
-    call f_qd_add (t1%re, t2%re, mul_qdc%cmp(5:8))
+    call f_qd_add (t1%re, t2%re, mul_qdc%cmp(5:8) )
   end function mul_qdc
 
   elemental type (qd_complex) function mul_qdc_qd(a, b)
     type (qd_complex), intent(in) :: a
     type (qd_real), intent(in) :: b
-    call f_qd_mul (a%cmp(1:4), b%re, mul_qdc_qd%cmp(1:4))
-    call f_qd_mul (a%cmp(5:8), b%re, mul_qdc_qd%cmp(5:8))
+    call f_qd_mul (a%cmp(1:4), b%re, mul_qdc_qd%cmp(1:4) )
+    call f_qd_mul (a%cmp(5:8), b%re, mul_qdc_qd%cmp(5:8) )
   end function mul_qdc_qd
 
   elemental type (qd_complex) function mul_qd_qdc(a, b)
     type (qd_real), intent(in) :: a
     type (qd_complex), intent(in) :: b
-    call f_qd_mul (a%re, b%cmp(1:4), mul_qd_qdc%cmp(1:4))
-    call f_qd_mul (a%re, b%cmp(5:8), mul_qd_qdc%cmp(5:8))
+    call f_qd_mul (a%re, b%cmp(1:4), mul_qd_qdc%cmp(1:4) )
+    call f_qd_mul (a%re, b%cmp(5:8), mul_qd_qdc%cmp(5:8) )
   end function mul_qd_qdc
 
   elemental type (qd_complex) function mul_qdc_d(a, b)
     type (qd_complex), intent(in) :: a
     real*8, intent(in) :: b
-    call f_qd_mul_qd_d (a%cmp(1:4), b, mul_qdc_d%cmp(1:4))
-    call f_qd_mul_qd_d (a%cmp(5:8), b, mul_qdc_d%cmp(5:8))
+    call f_qd_mul_qd_d (a%cmp(1:4), b, mul_qdc_d%cmp(1:4) )
+    call f_qd_mul_qd_d (a%cmp(5:8), b, mul_qdc_d%cmp(5:8) )
   end function mul_qdc_d
 
   elemental type (qd_complex) function mul_d_qdc(a, b)
     real*8, intent(in) :: a
     type (qd_complex), intent(in) :: b
-    call f_qd_mul_qd_d (b%cmp(1:4), a, mul_d_qdc%cmp(1:4))
-    call f_qd_mul_qd_d (b%cmp(5:8), a, mul_d_qdc%cmp(5:8))
+    call f_qd_mul_qd_d (b%cmp(1:4), a, mul_d_qdc%cmp(1:4) )
+    call f_qd_mul_qd_d (b%cmp(5:8), a, mul_d_qdc%cmp(5:8) )
   end function mul_d_qdc
 
   elemental type (qd_complex) function mul_qdc_i(a, b)
     type (qd_complex), intent(in) :: a
     integer, intent(in) :: b
-    call f_qd_mul_qd_d (a%cmp(1:4), dble(b), mul_qdc_i%cmp(1:4))
-    call f_qd_mul_qd_d (a%cmp(5:8), dble(b), mul_qdc_i%cmp(5:8))
+    call f_qd_mul_qd_d (a%cmp(1:4), dble(b), mul_qdc_i%cmp(1:4) )
+    call f_qd_mul_qd_d (a%cmp(5:8), dble(b), mul_qdc_i%cmp(5:8) )
   end function mul_qdc_i
 
   elemental type (qd_complex) function mul_i_qdc(a, b)
     integer, intent(in) :: a
     type (qd_complex), intent(in) :: b
-    call f_qd_mul_qd_d (b%cmp(1:4), dble(a), mul_i_qdc%cmp(1:4))
-    call f_qd_mul_qd_d (b%cmp(5:8), dble(a), mul_i_qdc%cmp(5:8))
+    call f_qd_mul_qd_d (b%cmp(1:4), dble(a), mul_i_qdc%cmp(1:4) )
+    call f_qd_mul_qd_d (b%cmp(5:8), dble(a), mul_i_qdc%cmp(5:8) )
   end function mul_i_qdc
 
-! Divisions
   elemental type (qd_real) function div_qd(a, b)
     type (qd_real), intent(in) :: a, b
     call f_qd_div(a%re, b%re, div_qd%re)
@@ -862,15 +846,15 @@ contains
     call f_qd_mul (b%cmp(1:4), b%cmp(1:4), t1%re)
     call f_qd_mul (b%cmp(5:8), b%cmp(5:8), t2%re)
     call f_qd_add (t1%re, t2%re, t5%re)
-    call f_qd_div (t3%re, t5%re, div_qdc%cmp(1:4))
-    call f_qd_div (t4%re, t5%re, div_qdc%cmp(5:8))
+    call f_qd_div (t3%re, t5%re, div_qdc%cmp(1:4) )
+    call f_qd_div (t4%re, t5%re, div_qdc%cmp(5:8) )
   end function div_qdc
 
   elemental type (qd_complex) function div_qdc_qd(a, b)
     type (qd_complex), intent(in) :: a
     type (qd_real), intent(in) :: b
-    call f_qd_div (a%cmp(1:4), b%re, div_qdc_qd%cmp(1:4))
-    call f_qd_div (a%cmp(5:8), b%re, div_qdc_qd%cmp(5:8))
+    call f_qd_div (a%cmp(1:4), b%re, div_qdc_qd%cmp(1:4) )
+    call f_qd_div (a%cmp(5:8), b%re, div_qdc_qd%cmp(5:8) )
   end function div_qdc_qd
 
   elemental type (qd_complex) function div_qd_qdc(a, b)
@@ -883,18 +867,17 @@ contains
     call f_qd_mul (b%cmp(1:4), b%cmp(1:4), t3%re)
     call f_qd_mul (b%cmp(5:8), b%cmp(5:8), t4%re)
     call f_qd_add (t3%re, t4%re, t5%re)
-    call f_qd_div (t1%re, t5%re, div_qd_qdc%cmp(1:4))
-    call f_qd_div (t2%re, t5%re, div_qd_qdc%cmp(5:8))
+    call f_qd_div (t1%re, t5%re, div_qd_qdc%cmp(1:4) )
+    call f_qd_div (t2%re, t5%re, div_qd_qdc%cmp(5:8) )
   end function div_qd_qdc
 
   elemental type (qd_complex) function div_qdc_d(a,b)
     type (qd_complex), intent(in) :: a
     real*8, intent(in) :: b
-    call f_qd_div_qd_d(a%cmp(1:4), b, div_qdc_d%cmp(1:4))
-    call f_qd_div_qd_d(a%cmp(5:8), b, div_qdc_d%cmp(5:8))
+    call f_qd_div_qd_d(a%cmp(1:4), b, div_qdc_d%cmp(1:4) )
+    call f_qd_div_qd_d(a%cmp(5:8), b, div_qdc_d%cmp(5:8) )
   end function div_qdc_d
 
-! Power
   elemental type (qd_real) function pwr_qd (a, b)
     type (qd_real), intent(in) :: a, b
     type (qd_real) q1, q2
@@ -930,10 +913,10 @@ contains
     intrinsic :: iabs, ishft
 
     if (n == 0) then
-      if (all(a%cmp == 0.d0)) then
+      if (all(a%cmp == 0.d0) ) then
         !write (6, *) 'pwr_qdc_i: a = 0 and n = 0'
-        call f_qd_nan(pwr_qdc_i%cmp(1:4))
-        call f_qd_nan(pwr_qdc_i%cmp(5))
+        call f_qd_nan(pwr_qdc_i%cmp(1:4) )
+        call f_qd_nan(pwr_qdc_i%cmp(5) )
         return
       endif
       pwr_qdc_i%cmp(1) = 1.d0
@@ -951,10 +934,10 @@ contains
     if (n1 >= i2) then
       call f_qd_mul (a%cmp(1:4), c1%cmp(1:4), t1%re)
       call f_qd_mul (a%cmp(5:8), c1%cmp(5:8), t2%re)
-      call f_qd_sub (t1%re, t2%re, c2%cmp(1:4))
+      call f_qd_sub (t1%re, t2%re, c2%cmp(1:4) )
       call f_qd_mul (a%cmp(1:4), c1%cmp(5:8), t1%re)
       call f_qd_mul (a%cmp(5:8), c1%cmp(1:4), t2%re)
-      call f_qd_add (t1%re, t2%re, c2%cmp(5:8))
+      call f_qd_add (t1%re, t2%re, c2%cmp(5:8) )
       c1%cmp = c2%cmp
       n1 = n1 - i2
     endif
@@ -962,7 +945,7 @@ contains
     if (i2 >= 1) then
       call f_qd_mul (c1%cmp(1:4), c1%cmp(1:4), t1%re)
       call f_qd_mul (c1%cmp(5:8), c1%cmp(5:8), t2%re)
-      call f_qd_sub (t1%re, t2%re, c2%cmp(1:4))
+      call f_qd_sub (t1%re, t2%re, c2%cmp(1:4) )
       call f_qd_mul (c1%cmp(1:4), c1%cmp(5:8), t1%re)
       c2%cmp(5:8) = 2.d0 * t1%re
       c1%cmp = c2%cmp
@@ -976,15 +959,13 @@ contains
       call f_qd_mul (c1%cmp(1:4), c1%cmp(1:4), t1%re)
       call f_qd_mul (c1%cmp(5:8), c1%cmp(5:8), t2%re)
       call f_qd_add (t1%re, t2%re, t3%re)
-      call f_qd_div (c1%cmp(1:4), t3%re, pwr_qdc_i%cmp(1:4))
-      call f_qd_div (c1%cmp(5:8), t3%re, pwr_qdc_i%cmp(5:8))
+      call f_qd_div (c1%cmp(1:4), t3%re, pwr_qdc_i%cmp(1:4) )
+      call f_qd_div (c1%cmp(5:8), t3%re, pwr_qdc_i%cmp(5:8) )
     endif
 
     return
   end function pwr_qdc_i
 
-
-! Trigonometric Functions
   elemental type (qd_real) function qdsin(a)
     type (qd_real), intent(in) :: a
     call f_qd_sin(a%re, qdsin%re)
@@ -1006,8 +987,6 @@ contains
     call f_qd_sincos(a%re, s%re, c%re)
   end subroutine qdsincos
 
-
-! Inverse Trigonometric Functions
   elemental type (qd_real) function qdasin(a)
     type (qd_real), intent(in) :: a
     call f_qd_asin(a%re, qdasin%re)
@@ -1028,7 +1007,6 @@ contains
     call f_qd_atan2(a%re, b%re, qdatan2%re)
   end function qdatan2
 
-! Exponential and Logarithms
   elemental type (qd_real) function qdexp(a)
     type (qd_real), intent(in) :: a
     call f_qd_exp(a%re, qdexp%re)
@@ -1039,8 +1017,8 @@ contains
     type (qd_real) t1, t2, t3
     call f_qd_exp (a%cmp(1:4), t1%re)
     call f_qd_sincos (a%cmp(5:8), t3%re, t2%re)
-    call f_qd_mul (t1%re, t2%re, qdcexp%cmp(1:4))
-    call f_qd_mul (t1%re, t3%re, qdcexp%cmp(5:8))
+    call f_qd_mul (t1%re, t2%re, qdcexp%cmp(1:4) )
+    call f_qd_mul (t1%re, t3%re, qdcexp%cmp(5:8) )
   end function qdcexp
 
   elemental type (qd_real) function qdlog(a)
@@ -1056,7 +1034,7 @@ contains
     call f_qd_add (t1%re, t2%re, t3%re)
     call f_qd_log (t3%re, t1%re)
     qdclog%cmp(1:4) = 0.5d0 * t1%re
-    call f_qd_atan2 (a%cmp(5:8), a%cmp(1:4), qdclog%cmp(5:8))
+    call f_qd_atan2 (a%cmp(5:8), a%cmp(1:4), qdclog%cmp(5:8) )
   end function qdclog
 
   elemental type (qd_real) function qdlog10(a)
@@ -1064,8 +1042,6 @@ contains
     call f_qd_log10(a%re, qdlog10%re)
   end function qdlog10
 
-
-! SQRT, etc.
   elemental type (qd_real) function qdsqrt(a)
     type (qd_real), intent(in) :: a
     call f_qd_sqrt(a%re, qdsqrt%re)
@@ -1082,8 +1058,6 @@ contains
     call f_qd_nroot(a%re, n, qdnroot%re)
   end function qdnroot
 
-
-! Hyperbolic Functions
   elemental type (qd_real) function qdsinh(a)
     type (qd_real), intent(in) :: a
     call f_qd_sinh(a%re, qdsinh%re)
@@ -1105,8 +1079,6 @@ contains
     call f_qd_sincosh(a%re, s%re, c%re)
   end subroutine qdsincosh
 
-
-! Inverse Hyperbolic Functions
   elemental type (qd_real) function qdasinh(a)
     type (qd_real), intent(in) :: a
     call f_qd_asinh(a%re, qdasinh%re)
@@ -1122,8 +1094,6 @@ contains
     call f_qd_atanh(a%re, qdatanh%re)
   end function qdatanh
 
-
-! Rounding
   elemental type (qd_real) function qdaint(a)
     type (qd_real), intent(in) :: a
     call f_qd_aint(a%re, qdaint%re)
@@ -1136,18 +1106,14 @@ contains
 
   elemental integer function qdnint(a)
     type (qd_real), intent(in) :: a
-    qdnint = to_int_qd(qdaint(a));
+    qdnint = to_int_qd(qdaint(a) );
   end function qdnint
 
-
-! Random Number Generator
   subroutine qdrand(harvest)
     type (qd_real), intent(out) :: harvest
     call f_qd_rand(harvest%re)
   end subroutine qdrand
 
-
-! Equality
   elemental logical function eq_qd(a, b)
     type (qd_real), intent(in) :: a, b
     integer :: r
@@ -1186,7 +1152,7 @@ contains
   elemental logical function eq_qd_i(a, b)
     type (qd_real), intent(in) :: a
     integer, intent(in) :: b
-    eq_qd_i = eq_qd_d(a, dble(b))
+    eq_qd_i = eq_qd_d(a, dble(b) )
   end function eq_qd_i
 
   elemental logical function eq_i_qd(a, b)
@@ -1212,7 +1178,7 @@ contains
     type (qd_real), intent(in) :: b
     integer :: i1
     call f_qd_comp (a%cmp(1:4), b%re, i1)
-    if (i1 == 0 .and. all(a%cmp(5:8) == 0.d0)) then
+    if (i1 == 0 .and. all(a%cmp(5:8) == 0.d0) ) then
       eq_qdc_qd = .true.
     else
       eq_qdc_qd = .false.
@@ -1224,15 +1190,13 @@ contains
     type (qd_complex), intent(in) :: b
     integer :: i1
     call f_qd_comp (a%re, b%cmp(1:4), i1)
-    if (i1 == 0 .and. all(b%cmp(5:8) == 0.d0)) then
+    if (i1 == 0 .and. all(b%cmp(5:8) == 0.d0) ) then
       eq_qd_qdc = .true.
     else
       eq_qd_qdc = .false.
     endif
   end function eq_qd_qdc
 
-
-! Non-Equality
   elemental logical function ne_qd(a, b)
     type (qd_real), intent(in) :: a, b
     integer :: r
@@ -1271,7 +1235,7 @@ contains
   elemental logical function ne_qd_i(a, b)
     type (qd_real), intent(in) :: a
     integer, intent(in) :: b
-    ne_qd_i = ne_qd_d(a, dble(b))
+    ne_qd_i = ne_qd_d(a, dble(b) )
   end function ne_qd_i
 
   elemental logical function ne_i_qd(a, b)
@@ -1297,7 +1261,7 @@ contains
     type (qd_real), intent(in) :: b
     integer :: i1
     call f_qd_comp (a%cmp(1:4), b%re, i1)
-    if (i1 /= 0 .or. any(a%cmp(5:8) /= 0.d0)) then
+    if (i1 /= 0 .or. any(a%cmp(5:8) /= 0.d0) ) then
       ne_qdc_qd = .true.
     else
       ne_qdc_qd = .false.
@@ -1309,15 +1273,13 @@ contains
     type (qd_complex), intent(in) :: b
     integer :: i1
     call f_qd_comp (a%re, b%cmp(1:4), i1)
-    if (i1 /= 0 .or. any(b%cmp(5:8) /= 0.d0)) then
+    if (i1 /= 0 .or. any(b%cmp(5:8) /= 0.d0) ) then
       ne_qd_qdc = .true.
     else
       ne_qd_qdc = .false.
     endif
   end function ne_qd_qdc
 
-
-! Greater-Than
   elemental logical function gt_qd(a, b)
     type (qd_real), intent(in) :: a, b
     integer :: r
@@ -1356,7 +1318,7 @@ contains
   elemental logical function gt_qd_i(a, b)
     type (qd_real), intent(in) :: a
     integer, intent(in) :: b
-    gt_qd_i = gt_qd_d(a, dble(b))
+    gt_qd_i = gt_qd_d(a, dble(b) )
   end function gt_qd_i
 
   elemental logical function gt_i_qd(a, b)
@@ -1365,7 +1327,6 @@ contains
     gt_i_qd = gt_d_qd(dble(a), b)
   end function gt_i_qd
 
-! Less-Than
   elemental logical function lt_qd(a, b)
     type (qd_real), intent(in) :: a, b
     integer :: r
@@ -1404,7 +1365,7 @@ contains
   elemental logical function lt_qd_i(a, b)
     type (qd_real), intent(in) :: a
     integer, intent(in) :: b
-    lt_qd_i = lt_qd_d(a, dble(b))
+    lt_qd_i = lt_qd_d(a, dble(b) )
   end function lt_qd_i
 
   elemental logical function lt_i_qd(a, b)
@@ -1413,7 +1374,6 @@ contains
     lt_i_qd = lt_d_qd(dble(a), b)
   end function lt_i_qd
 
-! Greater-Than-Or-Equal-To
   elemental logical function ge_qd(a, b)
     type (qd_real), intent(in) :: a, b
     integer :: r
@@ -1452,7 +1412,7 @@ contains
   elemental logical function ge_qd_i(a, b)
     type (qd_real), intent(in) :: a
     integer, intent(in) :: b
-    ge_qd_i = ge_qd_d(a, dble(b))
+    ge_qd_i = ge_qd_d(a, dble(b) )
   end function ge_qd_i
 
   elemental logical function ge_i_qd(a, b)
@@ -1461,7 +1421,6 @@ contains
     ge_i_qd = ge_d_qd(dble(a), b)
   end function ge_i_qd
 
-! Less-Than-Or-Equal-To
   elemental logical function le_qd(a, b)
     type (qd_real), intent(in) :: a, b
     integer :: r
@@ -1500,7 +1459,7 @@ contains
   elemental logical function le_qd_i(a, b)
     type (qd_real), intent(in) :: a
     integer, intent(in) :: b
-    le_qd_i = le_qd_d(a, dble(b))
+    le_qd_i = le_qd_d(a, dble(b) )
   end function le_qd_i
 
   elemental logical function le_i_qd(a, b)
@@ -1509,8 +1468,6 @@ contains
     le_i_qd = le_d_qd(dble(a), b)
   end function le_i_qd
 
-
-! Absolute Value
   elemental type (qd_real) function qdabs(a)
     type (qd_real), intent(in) :: a
     call f_qd_abs(a%re, qdabs%re)
@@ -1525,7 +1482,6 @@ contains
     call f_qd_sqrt (t3%re, qdcabs%re)
   end function qdcabs
 
-! Sign transfer
   elemental type (qd_real) function qdsign(a, b) result (c)
     type (qd_real), intent(in) :: a, b
     if (b%re(1) .gt. 0.0d0) then
@@ -1561,7 +1517,6 @@ contains
     endif
   end function qdsign_dd_d
 
-! Input
   subroutine qdinpq(u, q1, q2, q3, q4, q5, q6, q7, q8, q9)
     integer, intent(in) :: u
     type (qd_real), intent(in) :: q1
@@ -1569,35 +1524,35 @@ contains
 
     call qdinp (u, q1%re)
 
-    if (present(q2)) then
+    if (present(q2) ) then
       call qdinp (u, q2%re)
     end if
 
-    if (present(q3)) then
+    if (present(q3) ) then
       call qdinp (u, q3%re)
     end if
 
-    if (present(q4)) then
+    if (present(q4) ) then
       call qdinp (u, q4%re)
     end if
 
-    if (present(q5)) then
+    if (present(q5) ) then
       call qdinp (u, q5%re)
     end if
 
-    if (present(q6)) then
+    if (present(q6) ) then
       call qdinp (u, q6%re)
     end if
 
-    if (present(q7)) then
+    if (present(q7) ) then
       call qdinp (u, q7%re)
     end if
 
-    if (present(q8)) then
+    if (present(q8) ) then
       call qdinp (u, q8%re)
     end if
 
-    if (present(q9)) then
+    if (present(q9) ) then
       call qdinp (u, q9%re)
     end if
 
@@ -1608,52 +1563,51 @@ contains
     type (qd_complex), intent(in) :: q1
     type (qd_complex), intent(in), optional :: q2, q3, q4, q5, q6, q7, q8, q9
 
-    call qdinp (u, q1%cmp(1:4))
-    call qdinp (u, q1%cmp(5:8))
+    call qdinp (u, q1%cmp(1:4) )
+    call qdinp (u, q1%cmp(5:8) )
 
-    if (present(q2)) then
-      call qdinp (u, q2%cmp(1:4))
-      call qdinp (u, q2%cmp(5:8))
+    if (present(q2) ) then
+      call qdinp (u, q2%cmp(1:4) )
+      call qdinp (u, q2%cmp(5:8) )
     end if
 
-    if (present(q3)) then
-      call qdinp (u, q3%cmp(1:4))
-      call qdinp (u, q3%cmp(5:8))
+    if (present(q3) ) then
+      call qdinp (u, q3%cmp(1:4) )
+      call qdinp (u, q3%cmp(5:8) )
     end if
 
-    if (present(q4)) then
-      call qdinp (u, q4%cmp(1:4))
-      call qdinp (u, q4%cmp(5:8))
+    if (present(q4) ) then
+      call qdinp (u, q4%cmp(1:4) )
+      call qdinp (u, q4%cmp(5:8) )
     end if
 
-    if (present(q5)) then
-      call qdinp (u, q5%cmp(1:4))
-      call qdinp (u, q5%cmp(5:8))
+    if (present(q5) ) then
+      call qdinp (u, q5%cmp(1:4) )
+      call qdinp (u, q5%cmp(5:8) )
     end if
 
-    if (present(q6)) then
-      call qdinp (u, q6%cmp(1:4))
-      call qdinp (u, q6%cmp(5:8))
+    if (present(q6) ) then
+      call qdinp (u, q6%cmp(1:4) )
+      call qdinp (u, q6%cmp(5:8) )
     end if
 
-    if (present(q7)) then
-      call qdinp (u, q7%cmp(1:4))
-      call qdinp (u, q7%cmp(5:8))
+    if (present(q7) ) then
+      call qdinp (u, q7%cmp(1:4) )
+      call qdinp (u, q7%cmp(5:8) )
     end if
 
-    if (present(q8)) then
-      call qdinp (u, q8%cmp(1:4))
-      call qdinp (u, q8%cmp(5:8))
+    if (present(q8) ) then
+      call qdinp (u, q8%cmp(1:4) )
+      call qdinp (u, q8%cmp(5:8) )
     end if
 
-    if (present(q9)) then
-      call qdinp (u, q9%cmp(1:4))
-      call qdinp (u, q9%cmp(5:8))
+    if (present(q9) ) then
+      call qdinp (u, q9%cmp(1:4) )
+      call qdinp (u, q9%cmp(5:8) )
     end if
 
   end subroutine qdcinpq
 
-! Output
   subroutine qdoutq(u, q1, q2, q3, q4, q5, q6, q7, q8, q9)
     integer, intent(in) :: u
     type (qd_real), intent(in) :: q1
@@ -1661,35 +1615,35 @@ contains
 
     call qdout (u, q1%re)
 
-    if (present(q2)) then
+    if (present(q2) ) then
       call qdout (u, q2%re)
     end if
 
-    if (present(q3)) then
+    if (present(q3) ) then
       call qdout (u, q3%re)
     end if
 
-    if (present(q4)) then
+    if (present(q4) ) then
       call qdout (u, q4%re)
     end if
 
-    if (present(q5)) then
+    if (present(q5) ) then
       call qdout (u, q5%re)
     end if
 
-    if (present(q6)) then
+    if (present(q6) ) then
       call qdout (u, q6%re)
     end if
 
-    if (present(q7)) then
+    if (present(q7) ) then
       call qdout (u, q7%re)
     end if
 
-    if (present(q8)) then
+    if (present(q8) ) then
       call qdout (u, q8%re)
     end if
 
-    if (present(q9)) then
+    if (present(q9) ) then
       call qdout (u, q9%re)
     end if
 
@@ -1700,47 +1654,47 @@ contains
     type (qd_complex), intent(in) :: q1
     type (qd_complex), intent(in), optional :: q2, q3, q4, q5, q6, q7, q8, q9
 
-    call qdout (u, q1%cmp(1:4))
-    call qdout (u, q1%cmp(5:8))
+    call qdout (u, q1%cmp(1:4) )
+    call qdout (u, q1%cmp(5:8) )
 
-    if (present(q2)) then
-      call qdout (u, q2%cmp(1:4))
-      call qdout (u, q2%cmp(5:8))
+    if (present(q2) ) then
+      call qdout (u, q2%cmp(1:4) )
+      call qdout (u, q2%cmp(5:8) )
     end if
 
-    if (present(q3)) then
-      call qdout (u, q3%cmp(1:4))
-      call qdout (u, q3%cmp(5:8))
+    if (present(q3) ) then
+      call qdout (u, q3%cmp(1:4) )
+      call qdout (u, q3%cmp(5:8) )
     end if
 
-    if (present(q4)) then
-      call qdout (u, q4%cmp(1:4))
-      call qdout (u, q4%cmp(5:8))
+    if (present(q4) ) then
+      call qdout (u, q4%cmp(1:4) )
+      call qdout (u, q4%cmp(5:8) )
     end if
 
-    if (present(q5)) then
-      call qdout (u, q5%cmp(1:4))
-      call qdout (u, q5%cmp(5:8))
+    if (present(q5) ) then
+      call qdout (u, q5%cmp(1:4) )
+      call qdout (u, q5%cmp(5:8) )
     end if
 
-    if (present(q6)) then
-      call qdout (u, q6%cmp(1:4))
-      call qdout (u, q6%cmp(5:8))
+    if (present(q6) ) then
+      call qdout (u, q6%cmp(1:4) )
+      call qdout (u, q6%cmp(5:8) )
     end if
 
-    if (present(q7)) then
-      call qdout (u, q7%cmp(1:4))
-      call qdout (u, q7%cmp(5:8))
+    if (present(q7) ) then
+      call qdout (u, q7%cmp(1:4) )
+      call qdout (u, q7%cmp(5:8) )
     end if
 
-    if (present(q8)) then
-      call qdout (u, q8%cmp(1:4))
-      call qdout (u, q8%cmp(5:8))
+    if (present(q8) ) then
+      call qdout (u, q8%cmp(1:4) )
+      call qdout (u, q8%cmp(5:8) )
     end if
 
-    if (present(q9)) then
-      call qdout (u, q9%cmp(1:4))
-      call qdout (u, q9%cmp(5:8))
+    if (present(q9) ) then
+      call qdout (u, q9%cmp(1:4) )
+      call qdout (u, q9%cmp(5:8) )
     end if
 
   end subroutine qdcoutq
@@ -1765,12 +1719,12 @@ contains
     type (qd_real), intent(in) :: a1, a2, a3
     type (qd_real), intent(in), optional :: a4, a5, a6, a7, a8, a9
     qdmin = qdmin2(qdmin2(a1, a2), a3)
-    if (present(a4)) qdmin = qdmin2(qdmin, a4)
-    if (present(a5)) qdmin = qdmin2(qdmin, a5)
-    if (present(a6)) qdmin = qdmin2(qdmin, a6)
-    if (present(a7)) qdmin = qdmin2(qdmin, a7)
-    if (present(a8)) qdmin = qdmin2(qdmin, a8)
-    if (present(a9)) qdmin = qdmin2(qdmin, a9)
+    if (present(a4) ) qdmin = qdmin2(qdmin, a4)
+    if (present(a5) ) qdmin = qdmin2(qdmin, a5)
+    if (present(a6) ) qdmin = qdmin2(qdmin, a6)
+    if (present(a7) ) qdmin = qdmin2(qdmin, a7)
+    if (present(a8) ) qdmin = qdmin2(qdmin, a8)
+    if (present(a9) ) qdmin = qdmin2(qdmin, a9)
   end function qdmin
 
   elemental type (qd_real) function qdmax2(a, b)
@@ -1788,12 +1742,12 @@ contains
     type (qd_real), intent(in) :: a1, a2, a3
     type (qd_real), intent(in), optional :: a4, a5, a6, a7, a8, a9
     qdmax = qdmax2(qdmax2(a1, a2), a3)
-    if (present(a4)) qdmax = qdmax2(qdmax, a4)
-    if (present(a5)) qdmax = qdmax2(qdmax, a5)
-    if (present(a6)) qdmax = qdmax2(qdmax, a6)
-    if (present(a7)) qdmax = qdmax2(qdmax, a7)
-    if (present(a8)) qdmax = qdmax2(qdmax, a8)
-    if (present(a9)) qdmax = qdmax2(qdmax, a9)
+    if (present(a4) ) qdmax = qdmax2(qdmax, a4)
+    if (present(a5) ) qdmax = qdmax2(qdmax, a5)
+    if (present(a6) ) qdmax = qdmax2(qdmax, a6)
+    if (present(a7) ) qdmax = qdmax2(qdmax, a7)
+    if (present(a8) ) qdmax = qdmax2(qdmax, a8)
+    if (present(a9) ) qdmax = qdmax2(qdmax, a9)
   end function qdmax
 
   elemental type (qd_real) function qdmod (a, b)
@@ -1810,9 +1764,6 @@ contains
   end function qd_pi
 
 subroutine qdinp (iu, a)
-
-!   This routine reads the DD number A from logical unit IU.  The input
-!   value must be placed on a single line of not more than 80 characters.
 
 implicit none
 integer iu, ln
@@ -1834,8 +1785,6 @@ stop
 end subroutine
 
 subroutine qdinpc (a, b)
-
-!   Converts the CHARACTER*80 array A into the DD number B.
 
 implicit none
 integer i, id, ie, inz, ip, is, k, ln, lnn, beg
@@ -1877,8 +1826,6 @@ enddo
 
 lnn = 80
 90 continue
-
-!   Scan for digits, looking for the period also.
 
 do i = beg, lnn
   ai = a(i:i)
@@ -1971,9 +1918,6 @@ end subroutine
 
 subroutine qdout (iu, a)
 
-!   This routine writes the QD number A on logical unit iu using a standard
-!   E format, with lines 72 characters long.
-
 implicit none
 integer iu, ln
 parameter (ln = 72)
@@ -2003,9 +1947,9 @@ end function qdhuge
 
 elemental type (qd_real) function qd_safe_huge(a)
   type (qd_real), intent(in) :: a
-  qd_safe_huge = qd_real((/ &
+  qd_safe_huge = qd_real( (/ &
     1.7976931080746007281d+308,  9.97920154767359795037d+291, &
-    5.53956966280111259858d+275, 3.07507889307840487279d+259/))
+    5.53956966280111259858d+275, 3.07507889307840487279d+259/) )
 end function qd_safe_huge
 
 elemental type (qd_real) function qdtiny(a)

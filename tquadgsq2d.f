@@ -3,36 +3,6 @@
 
 module quadglobal
 
-!   This work was supported by the Director, Office of Science, Division
-!   of Mathematical, Information, and Computational Sciences of the
-!   U.S. Department of Energy under contract number DE-AC02-05CH11231.
-
-!   This program demonstrates the 2D quadrature routine 'quadgsq2d'.
-
-!   David H. Bailey      2007-03-23
-
-!   The function quadgsq2d is suitable to integrate any function that is
-!   continuous, infinitely differentiable and integrable on a 2D finite open
-!   interval.  Singularities or vertical derivatives are permitted on the
-!   boundaries.  This can also be used for certain integrals on infinite
-!   intervals, by making a suitable change of variable.
-
-!   The function(s) to be integrated is(are) defined in external function
-!   subprogram(s) -- see the sample function subprograms below.  The name(s) of
-!   the function subprogram(s) must be included in appropriate type and external
-!   statements in the main program.
-
-!   Inputs set in parameter statement below:
-!   ndebug Debug level setting.  Default = 2.
-!   ndigits1  Primary working precision.  With QD precision, set to 64.
-!   nepsilson1  Log10 of the desired tolerance.  Normally set to - ndigits1.
-!   nquadl  Max number of phases in quadrature routine; adding 1 increases
-!           (possibly doubles) the number of accurate digits in the result,
-!           but also roughly *quadruples* the run time.
-!   nq2     Space parameter for wk and xk arrays in the calling program.  By
-!           default it is set to 8 * 2^nq1.  Increase nq2 if directed by a
-!           message in subroutine initqts.
-
 use qdmodule
 implicit none
 integer ndebug, nquadl, ndigits1, nepsilon1, nwords1, nq1, nq2, nqmx
@@ -41,7 +11,6 @@ parameter (ndebug = 2, nquadl = 6, ndigits1 = 64, nepsilon1 = -64, &
 type (qd_real) xk(-nq2:nq2), wk(-nq2:nq2)
 end module
 
-! program tquadgsq2d
 subroutine f_main
 use qdmodule
 use quadglobal
@@ -52,15 +21,11 @@ type (qd_real) cat, catalan, err, quadgsq2d, fun01, fun02, fun03, fun04, &
   t1, t2, t3, t4, x1, x2, y1, y2
 external quadgsq2d, catalan, fun01, fun02, fun03, fun04, second
 
-!  This line must be present in DD and QD main programs.
-
 ! integer*4 old_cw
 ! call f_fpu_fix_start (old_cw)
 
 write (6, 1) ndigits1, nepsilon1, nquadl
 1 format ('Quadgsq2d test'/'Digits =',i6,'  Epsilon =',i6,'   Quadlevel =',i6)
-
-!   Initialize quadrature tables wk and xk (weights and abscissas).
 
 tm0 = second ()
 call initqgs
@@ -69,11 +34,9 @@ write (6, 2) tm1 - tm0
 2 format ('Quadrature initialization completed: cpu time =',f12.6)
 cat = catalan ()
 
-!   Begin quadrature tests.
-
 write (6, 11)
 11 format (/ &
-  'Problem 1: Int_-1^1 Int_-1^1 1/(1+x^2+y^2) dx dy = 4*log(2+sqrt(3))-2*pi/3')
+  'Problem 1: Int_-1^1 Int_-1^1 1/(1+x^2+y^2) dx dy = 4*log(2+sqrt(3) )-2*pi/3')
 x1 = -1.d0
 x2 = 1.d0
 y1 = -1.d0
@@ -84,14 +47,14 @@ tm1 = second ()
 write (6, 3) tm1 - tm0
 3 format ('Quadrature completed: CPU time =',f12.6/'Result =')
 call qdwrite (6, t1)
-t2 = 4.d0 * log (2.d0 + sqrt (qdreal (3.d0))) - 2.d0 * qdpi () / 3.d0
+t2 = 4.d0 * log (2.d0 + sqrt (qdreal (3.d0) ) ) - 2.d0 * qdpi () / 3.d0
 call decmdq (t2 - t1, d1, n1)
 write (6, 4) d1, n1
 4 format ('Actual error =',f10.6,'x10^',i5)
 
 write (6, 12)
 12 format (/&
-  'Problem 2: Int_0^pi Int_0^pi log (2-cos(s)-cos(t)) = 4*pi*cat- pi^2*log(2)')
+  'Problem 2: Int_0^pi Int_0^pi log (2-cos(s)-cos(t) ) = 4*pi*cat- pi^2*log(2)')
 x1 = 0.d0
 x2 = qdpi()
 y1 = 0.d0
@@ -99,7 +62,7 @@ y2 = qdpi()
 tm0 = second ()
 t1 = quadgsq2d (fun02, x1, x2, y1, y2)
 tm1 = second ()
-t2 = 4.d0 * qdpi() * cat - qdpi()**2 * log (qdreal (2.d0))
+t2 = 4.d0 * qdpi() * cat - qdpi()**2 * log (qdreal (2.d0) )
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
 call decmdq (t2 - t1, d1, n1)
@@ -115,7 +78,7 @@ y2 = 1.d0
 tm0 = second ()
 t1 = quadgsq2d (fun03, x1, x2, y1, y2)
 tm1 = second ()
-t2 = 1.d0 + 0.75d0 * log (qdreal (3.d0))
+t2 = 1.d0 + 0.75d0 * log (qdreal (3.d0) )
 write (6, 3) tm1 - tm0
 call qdwrite (6, t1)
 call decmdq (t2 - t1, d1, n1)
@@ -123,7 +86,7 @@ write (6, 4) d1, n1
 
 write (6, 14)
 14 format (/&
-  'Problem 4: Int_0^1 Int_0^1 1/(sqrt((1-x)*(1-y))*(x+y)) dx dy = 4*cat')
+  'Problem 4: Int_0^1 Int_0^1 1/(sqrt( (1-x)*(1-y) )*(x+y) ) dx dy = 4*cat')
 x1 = 0.d0
 x2 = 1.d0
 y1 = 0.d0
@@ -144,8 +107,6 @@ end
 
 function fun01 (s, t)
 
-!   fun01 (s,t) = 1/sqrt[1+s^2+t^2]
-
 use qdmodule
 implicit none
 type (qd_real) fun01, s, t
@@ -156,15 +117,13 @@ end
 
 function fun02 (s, t)
 
-!   fun02 (s,t) = log (2 - cos(s) - cos(t))
-
 use qdmodule
 implicit none
 type (qd_real) fun02, s, t, t1
 
 t1 = 2.d0 - cos (s) - cos (t)
 if (t1 > 0.d0) then
-  fun02 = log (2.d0 - cos (s) - cos (t))
+  fun02 = log (2.d0 - cos (s) - cos (t) )
 else
   fun02 = 0.d0
 endif
@@ -172,9 +131,6 @@ return
 end
 
 function fun03 (s, t)
-
-!   fun03 (s,t) = ((1/s-1)^2 + (1/s-1)*(1/t-1) + (1/t-1)^2)
-!                / (s^2 * t^2 * exp(1/s + 1/t - 2)
 
 use qdmodule
 implicit none
@@ -195,25 +151,15 @@ end
 
 function fun04 (s, t)
 
-!   fun04 (s,t) = 1/(sqrt((1-s)*(1-t)) * (s+t))
-
 use qdmodule
 implicit none
 type (qd_real) fun04, s, t
 
-fun04 = 1.d0 / (sqrt ((1.d0 - s) * (1.d0 - t)) * (s + t))
+fun04 = 1.d0 / (sqrt ( (1.d0 - s) * (1.d0 - t) ) * (s + t) )
 return
 end
 
 subroutine initqgs
-
-!   This subroutine initializes the quadrature arays xk and wk for Gaussian
-!   quadrature.  It employs a Newton iteration scheme with a dynamic precision
-!   level.  The argument nq2, which is the space allocated for wk and xk in
-!   the calling program, should be at least 8 * 2^nq1 + 100, although a higher
-!   value may be required, depending on precision level.  Monitor the space
-!   figure given in the message below during initialization to be certain.
-!   David H Bailey    2002-11-04
 
 use qdmodule
 use quadglobal
@@ -236,13 +182,8 @@ write (6, *) 'n, nq2 =', n, nq2
 
 do j = 1, n / 2
 
-!   Compute a double precision estimate of the root.
-
   is = 0
-  r = cos ((pi * (j - 0.25d0)) / (n + 0.5d0))
-
-!   Compute the j-th root of the n-degree Legendre polynomial using Newton's
-!   iteration.
+  r = cos ( (pi * (j - 0.25d0) ) / (n + 0.5d0) )
 
 100 continue
 
@@ -259,9 +200,6 @@ do j = 1, n / 2
   t5 = r
   r = r - t1 / t4
 
-!   Once convergence is achieved at nwp = 3, then start doubling (almost) the
-!   working precision level at each iteration until full precision is reached.
-
   if (abs (r - t5) > eps) goto 100
 
   i = i + 1
@@ -269,7 +207,7 @@ do j = 1, n / 2
   xk(i) = r
   xk(-i) = -xk(i)
   t4 = dble (n) * (r * t1 - t2) / (r ** 2  - 1.d0)
-  wk(i) = 2.d0 / ((1.d0 - r ** 2) * t4 ** 2)
+  wk(i) = 2.d0 / ( (1.d0 - r ** 2) * t4 ** 2)
   wk(-i) = wk(i)
 enddo
 
@@ -291,10 +229,6 @@ return
 end
 
 function quadgsq2d (fun, x1, x2, y1, y2)
-
-!   This performs 2-D tanh-sinh quadrature.  No attempt is made in this code
-!   to estimate errors.
-!   David H. Bailey     2007-03-23
 
 use qdmodule
 use quadglobal
@@ -370,21 +304,19 @@ end
 
 function dplog10q (a)
 
-!   For input MP value a, this routine returns a DP approximation to log10 (a).
-
 use qdmodule
 implicit none
 integer ia
 double precision da, dplog10q, t1
 type (qd_real) a
 
-! call mpmdc (a%mpr, da, ia)
+! call mpmdc (a % mpr, da, ia)
 da = a
 ia = 0
 if (da .eq. 0.d0) then
   dplog10q = -9999.d0
 else
-  dplog10q = log10 (abs (da)) + ia * log10 (2.d0)
+  dplog10q = log10 (abs (da) ) + ia * log10 (2.d0)
 endif
 
 100 continue
@@ -393,9 +325,6 @@ end
 
 subroutine decmdq (a, b, ib)
 
-!   For input MP value a, this routine returns DP b and integer ib such that
-!   a = b * 10^ib, with 1 <= abs (b) < 10 for nonzero a.
-
 use qdmodule
 implicit none
 integer ia, ib
@@ -403,11 +332,11 @@ double precision da, b, t1, xlt
 parameter (xlt = 0.3010299956639812d0)
 type (qd_real) a
 
-! call mpmdc (a%mpr, da, ia)
+! call mpmdc (a % mpr, da, ia)
 da = a
 ia = 0
 if (da .ne. 0.d0) then
-  t1 = xlt * ia + log10 (abs (da))
+  t1 = xlt * ia + log10 (abs (da) )
   ib = t1
   if (t1 .lt. 0.d0) ib = ib - 1
   b = sign (10.d0 ** (t1 - ib), da)

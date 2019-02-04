@@ -5,22 +5,15 @@
 
 int main2(int argc, const char* argv[] )
 {
-  // ensure that 80-bit arithmetic is not in place
-  // this call forces 64-bit arithmetic
-
 //unsigned int old_cw;
 //fpu_fix_start(&old_cw);
 
   cout.precision(60);
 
-  // simple read example
-  /*
-  qd_real readTest;
-  cin >> readTest;
-  cout << "readTest = " << readTest << endl;
-   */
+//qd_real readTest;
+//cin >> readTest;
+//cout << "readTest = " << readTest << endl;
 
-  // simple demo
   qd_real x = "1.0";
   x /= 3.0;
 

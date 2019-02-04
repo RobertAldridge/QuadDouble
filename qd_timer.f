@@ -1,8 +1,6 @@
 
 ! qd_timer.f
 
-! program to time the various routines
-
 subroutine f_main
 
   use qdmodule
@@ -128,8 +126,8 @@ subroutine f_main
   do k = 1, 25
     n = n * 2
     a = 0.0d0
-    c = exp(qdreal(-50.1d0));
-    d = exp(qdreal(100.2d0) / dble(n))
+    c = exp(qdreal(-50.1d0) );
+    d = exp(qdreal(100.2d0) / dble(n) )
     t = second()
     do i = 1, n
       a = a + log(c)
@@ -146,4 +144,3 @@ subroutine f_main
 
 stop
 end
-

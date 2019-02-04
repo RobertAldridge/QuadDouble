@@ -242,7 +242,7 @@ F90 functions defined with dd_real arguments:
   Comparison tests:  == < > <= >= /=
   Others: abs, acos, aint, anint, asin, atan, atan2, cos, cosh, dble, erf,
   erfc, exp, int, log, log10, max, min, mod, ddcsshf (cosh and sinh),
-  ddcssnf (cos and sin), ddranf (random number generator in (0,1)),
+  ddcssnf (cos and sin), ddranf (random number generator in (0,1) ),
   ddnrtf (n-th root), sign, sin, sinh, sqr, sqrt, tan, tanh
 Similar functions are provided for qd_real arguments (with function
   names qdcsshf, qdcssnf, qdranf and qdnrtf instead of the names in
@@ -258,7 +258,7 @@ arguments) are scalar variables or array elements of the appropriate type.  Exam
    ...
    call qdwrite (6, qda, qdb)
    do j = 1, n
-   call qdwrite (6, qdc(j))
+   call qdwrite (6, qdc(j) )
    enddo
 
 Each input values must be on a separate line, and may include D or E exponents.  Double-
@@ -288,7 +288,8 @@ fpu_fix_end   This restores the control flag.
 
 These functions must be called by the main program, as follows:
 
-  int main() {
+  int main()
+  {
     unsigned int old_cw;
     fpu_fix_start(&old_cw);
 

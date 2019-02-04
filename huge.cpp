@@ -1,14 +1,8 @@
 
 // huge.cpp
 
-/*
- * This contains tests for check for accuracy when dealing with numbers
- * near overflow.
- */
-
 #include "include.h"
 
-// Global flags passed to the main program.
 static bool flag_test_dd = false;
 static bool flag_test_qd = false;
 static bool flag_verbose = false;
@@ -200,4 +194,3 @@ int main3(int argc, const char* argv[] )
 
   return pass ? 0 : 1;
 }
-

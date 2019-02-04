@@ -1,10 +1,6 @@
 
 // tictoc.h
 
-/*
- * Contains function used for timing.
- */
-
 #ifdef HAVE_CLOCK_GETTIME
 typedef struct timespec tictoc;
 #elif HAVE_GETTIMEOFDAY
@@ -15,6 +11,6 @@ typedef DWORD tictoc;
 typedef time_t tictoc;
 #endif
 
-void tic(tictoc* tv); /* start timing. */
+void tic(tictoc* tv);
 
-double toc(tictoc* tv); /* stop  timing. */
+double toc(tictoc* tv);

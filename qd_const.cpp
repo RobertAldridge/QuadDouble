@@ -1,13 +1,8 @@
 
 // qd_const.cpp
 
-/*
- * Defines constants used in quad-double package.
- */
-
 #include "include.h"
 
-/* Some useful constants. */
 const qd_real qd_real::_2pi = qd_real(6.283185307179586232e+00,
                                       2.449293598294706414e-16,
                                       -5.989539619436679332e-33,

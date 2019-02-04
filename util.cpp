@@ -10,7 +10,8 @@ void append_expn(std::string &str, int expn)
   str += (expn < 0 ? '-' : '+');
   expn = std::abs(expn);
 
-  if (expn >= 100) {
+  if (expn >= 100)
+  {
     k = (expn / 100);
     str += '0' + k;
     expn -= 100*k;

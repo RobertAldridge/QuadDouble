@@ -1,14 +1,8 @@
 
 // quadt_test.cpp
 
-/*
- * This class contains a test suite for the quadt integration
- * code (see quadt.h).
- */
-
 #include "include.h"
 
-/** Various flags passed to the main program. */
 static bool flag_verbose   = false;
 static bool flag_test_d    = false;
 static bool flag_test_dd   = false;
@@ -42,20 +36,19 @@ const double &constants<double>::pi4 = 0.785398163397448;
 template <>
 const double &constants<double>::log2 = 0.693147180559945;
 
-
-/* Sample Functions */
 template <class T>
 class CircleFunction {
   T r, r2;
 public:
-  CircleFunction(T radius) {
+  CircleFunction(T radius)
+  {
     r = radius;
     r2 = sqr(r);
   }
   T operator() (T x) const {
     if (abs(x) >= r)
       return 0;
-    return sqrt(r2 - sqr(x));
+    return sqrt(r2 - sqr(x) );
   }
 };
 
@@ -89,7 +82,7 @@ public:
   T operator() (T x) const {
     if (x <= 0.0)
       return 0.0;
-    return sqr(log(x));
+    return sqr(log(x) );
   }
 };
 
@@ -116,25 +109,31 @@ public:
     if (x <= 0.0)
       return 0.0;
 
-    if (x > 0.00146) {
+    if (x > 0.00146)
+  {
       T rt = 1.0 / x;
-      t = 1.0 / (exp(rt) * sqrt(rt) * sqr(x));
-    } else
+      t = 1.0 / (exp(rt) * sqrt(rt) * sqr(x) );
+    }
+    else
+    {
       t = 0.0;
+    }
 
-    t = 1.0 / (exp(x) * sqrt(x)) + t;
+    t = 1.0 / (exp(x) * sqrt(x) ) + t;
 
     return t;
   }
 };
 
 template <class T>
-void convert(char *s, T *x) {
+void convert(char *s, T *x)
+{
   *x = s;
 }
 
 template <>
-void convert(char *s, double *x) {
+void convert(char *s, double *x)
+{
   *x = atof(s);
 }
 
@@ -143,19 +142,22 @@ class CosineProduct {
 private:
   T coeff[32];
 public:
-  CosineProduct() {
+  CosineProduct()
+  {
     const char *f_name = "coeff.dat";
     char s[100];
 
     FILE *f = fopen(f_name, "r");
-    if (f == NULL) {
+    if (f == NULL)
+    {
       cerr << "Failed to open coefficient file " << f_name << "." << endl;
       exit(-1);
     }
 
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < 32; i++)
+    {
       fscanf(f, "%s", s);
-      convert(s, &coeff[i]);
+      convert(s, &coeff[i] );
     }
 
     fclose(f);
@@ -167,10 +169,12 @@ public:
     T tmp = 0.0;
     T xp = sqr(xx);
     T x2 = xp;
-    for (int i = 1; i < 512; i++) {
-      val *= cos(xx / static_cast<double>(i));
+    for (int i = 1; i < 512; i++)
+    {
+      val *= cos(xx / static_cast<double>(i) );
     }
-    for (int i = 0; i < 32; i++, xp *= x2) {
+    for (int i = 0; i < 32; i++, xp *= x2)
+    {
       tmp += coeff[i] * xp;
     }
     val *= exp(tmp);
@@ -184,19 +188,22 @@ class InvCosineProduct {
 private:
   T coeff[32];
 public:
-  InvCosineProduct() {
+  InvCosineProduct()
+  {
     const char *f_name = "coeff.dat";
     char s[100];
 
     FILE *f = fopen(f_name, "r");
-    if (f == NULL) {
+    if (f == NULL)
+    {
       cerr << "Failed to open coefficient file " << f_name << "." << endl;
       exit(-1);
     }
 
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < 32; i++)
+    {
       fscanf(f, "%s", s);
-      convert(s, &coeff[i]);
+      convert(s, &coeff[i] );
     }
 
     fclose(f);
@@ -213,10 +220,12 @@ public:
     T tmp = 0.0;
     T xp = sqr(inv_x);
     T x2 = xp;
-    for (int i = 1; i < 512; i++) {
-      val *= cos(inv_x / static_cast<double>(i));
+    for (int i = 1; i < 512; i++)
+    {
+      val *= cos(inv_x / static_cast<double>(i) );
     }
-    for (int i = 0; i < 32; i++, xp *= x2) {
+    for (int i = 0; i < 32; i++, xp *= x2)
+    {
       tmp += coeff[i] * xp;
     }
     val *= exp(tmp);
@@ -232,12 +241,14 @@ private:
   double eps;
   quadt<T> *q;
 public:
-  quadt_tester(double eps) {
+  quadt_tester(double eps)
+  {
     this->eps = eps;
     q = new quadt<T>(eps);
   }
 
-  ~quadt_tester() {
+  ~quadt_tester()
+  {
     delete q;
   }
 
@@ -248,15 +259,17 @@ public:
 };
 
 template <class T> template <class F>
-void quadt_tester<T>::test_integral(F &f, T a, T b, T truth) {
+void quadt_tester<T>::test_integral(F &f, T a, T b, T truth)
+  {
   int r;
   T result;
   double err_est, err;
   double tol = eps * 1024;
 
   r = q->integrate(f, a, b, tol, result, err_est);
-  err = abs(to_double(result - truth));
-  if (flag_verbose) {
+  err = abs(to_double(result - truth) );
+  if (flag_verbose)
+  {
     cout << "    Result: " << result << endl;
     cout << "     Truth: " << truth << endl;
     cout << "Est. Error: " << err_est << endl;
@@ -266,11 +279,13 @@ void quadt_tester<T>::test_integral(F &f, T a, T b, T truth) {
 }
 
 template <class T>
-void quadt_tester<T>::test() {
+void quadt_tester<T>::test()
+  {
   CosineProduct<T> f8;
   InvCosineProduct<T> invf8;
 
-  if (!flag_last_only) {
+  if (!flag_last_only)
+  {
     CircleFunction<T> f1(1.0);
     SecantFunction<T> f2;
     TestFunction1<T> f3;
@@ -283,24 +298,24 @@ void quadt_tester<T>::test() {
     test_integral(f1, T(-1.0), T(1.0), constants<T>::pi2);
 
     cout << "Test 2." << endl;
-    test_integral(f2, T(0.0), constants<T>::pi4, log(1.0 + sqrt(T(2.0))));
+    test_integral(f2, T(0.0), constants<T>::pi4, log(1.0 + sqrt(T(2.0) ) ) );
 
     cout << "Test 3." << endl;
-    test_integral(f3, T(0.0), T(1.0), T(0.25));
+    test_integral(f3, T(0.0), T(1.0), T(0.25) );
 
     cout << "Test 4." << endl;
     test_integral(f4, T(0.0), T(1.0),
-                  constants<T>::pi4/3.0 - T(1.0) / 6.0 + log(T(2.0)) / 6.0);
+                  constants<T>::pi4/3.0 - T(1.0) / 6.0 + log(T(2.0) ) / 6.0);
 
     cout << "Test 5." << endl;
-    test_integral(f5, T(0.0), T(1.0), T(2.0));
+    test_integral(f5, T(0.0), T(1.0), T(2.0) );
 
     cout << "Test 6." << endl;
     test_integral(f6, T(0.0), constants<T>::pi2,
-                  constants<T>::pi2 * sqrt(T(2.0)));
+                  constants<T>::pi2 * sqrt(T(2.0) ) );
 
     cout << "Test 7." << endl;
-    test_integral(f7, T(0.0), T(1.0), sqrt(constants<T>::pi));
+    test_integral(f7, T(0.0), T(1.0), sqrt(constants<T>::pi) );
   }
 
   cout << "Test 8." << endl;
@@ -313,7 +328,8 @@ void quadt_tester<T>::test() {
   q->integrate_u(f8, tol, r1, err);
 
   r1 *= 0.5;
-  if (flag_verbose) {
+  if (flag_verbose)
+  {
     cout << "  Result 1: " << r1 << endl;
     cout << "Est. Error: " << err << endl;
   }
@@ -321,15 +337,17 @@ void quadt_tester<T>::test() {
   q->integrate_u(invf8, tol, r2, err);
 
   r2 *= 0.5;
-  if (flag_verbose) {
+  if (flag_verbose)
+  {
     cout << "  Result 2: " << r2 << endl;
     cout << "Est. Error: " << err << endl;
   }
 
   r = r1 + r2;
-  err = abs(to_double(r - truth));
+  err = abs(to_double(r - truth) );
 
-  if (flag_verbose) {
+  if (flag_verbose)
+  {
     cout << "    Result: " << r << endl;
     cout << "     Truth: " << truth << endl;
     cout << "True Error: " << err << endl;
@@ -339,7 +357,8 @@ void quadt_tester<T>::test() {
 }
 
 template <class T>
-void test_quadt(double eps) {
+void test_quadt(double eps)
+  {
 
   tictoc tv;
   double tm1, tm2;

@@ -1,8 +1,6 @@
 
 ! dd_timer.f
 
-! program to time the various routines
-
 subroutine f_main
 
   use ddmodule
@@ -128,8 +126,8 @@ subroutine f_main
   do k = 1, 25
     n = n * 2
     a = 0.0d0
-    c = exp(ddreal(-50.1d0));
-    d = exp(ddreal(100.2d0) / dble(n))
+    c = exp(ddreal(-50.1d0) );
+    d = exp(ddreal(100.2d0) / dble(n) )
     t = second()
     do i = 1, n
       a = a + log(c)

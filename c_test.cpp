@@ -3,13 +3,12 @@
 
 #include "include.h"
 
-/* Test 1.  Salamin-Brent quadratically convergent formula for pi. */
-int test_1() {
+int test_1()
+{
 
   double a[4], b[4], s[4], p[4], t[4], t2[4];
   double a_new[4], b_new[4], p_old[4];
   double m;
-//double err;
   int r, i;
   const int max_iter = 20;
 
@@ -27,7 +26,8 @@ int test_1() {
 
   printf("  iteration 0: ");
   c_qd_write(p);
-  for (i = 1; i <= max_iter; i++) {
+  for (i = 1; i <= max_iter; i++)
+  {
     m *= 2.0;
 
     /* a_new = 0.5 * (a + b) */
@@ -46,12 +46,10 @@ int test_1() {
     c_qd_sqrt(b_new, b);
     c_qd_copy(p, p_old);
 
-    /* Compute  p = 2.0 * a^2 / s */
     c_qd_sqr(a, p);
     c_qd_selfmul_d(2.0, p);
     c_qd_selfdiv(s, p);
 
-    /* Test for convergence by looking at |p - p_old|. */
     c_qd_sub(p, p_old, t);
     c_qd_abs(t, t2);
     c_qd_comp_qd_d(t2, 1e-60, &r);
@@ -64,7 +62,7 @@ int test_1() {
   c_qd_pi(p);   /* p = pi */
   printf("          _pi: ");
   c_qd_write(p);
-  printf("        error: %.5e = %g eps\n", t2[0], t2[0] / ldexp(1.0, -209));
+  printf(" error: %.5e = %g eps\n", t2[0], t2[0] / ldexp(1.0, -209) );
 
   return 0;
 }

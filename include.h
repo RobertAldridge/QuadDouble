@@ -40,8 +40,6 @@ namespace qd
 
 #include "config.h"
 
-#include "qd_config.h"
-
 #include "small.h"
 
 #include "dd_large.h"

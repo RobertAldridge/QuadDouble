@@ -1,60 +1,14 @@
 
 // quadt.h
 
-/*
- * This contains a C++ class template for a tanh-sinh quadrature
- * algorithm, which employs the transformation
- *
- *   t  <--  tanh (sinh (x))
- *
- * This quadrature scheme is suitable for any function that is
- * continuous, infinitely differentiable and integrable on a finite
- * open interval.  It can also be used for certain integrals on
- * infinite intervals by making a suitable change of variable.
- * While this routine is not quite as efficient as Gaussian quadrature,
- * it can be used for functions with an integrable singularity at one
- * or both of the endpoints.  Further, this scheme has the advantage
- * that function evaluation at one level are all utilized at the next
- * level, thus saving significant computation.
- *
- * This program is based on David Bailey's tquadt.f program (written
- * in Fortran 90).  C++ conversion, quad-double precision support,
- * and few other changes have been added.
- */
-
-/* Suppose we are given the integral
- *
- *        / 1
- *   I =  |     f(x) dx
- *        / -1
- *
- * Then the substitution  t = tanh (sinh (x))  gives
- *
- *   dt = (tanh (sinh (x))' dx = (sech (sinh (x)))^2 * cosh(x) dx
- *
- * Also the limit point x = 1 corresponds to t =
- */
-
 template<class T> class quadt
 {
 public:
-  /* Constructor.  This will create a tanh-sinh quadrature class.
-     Parameters
-       eps    -- The machine epsilon of the variable type to be used. */
-
   quadt(double eps);
-
-  /* Destructor.  This will take care of disposing internal tables, etc. */
 
   ~quadt();
 
-  /* Computes the integral of the function f from -1 to 1.
-     The class F is any class with overloaded operator() (T &). */
-
   template <class F> int integrate_u(const F& f, double tol, T& result, double& err);
-
-  /* Computes the integral of the function f from a to b.
-     The class F is any class with overloaded operator() (T &). */
 
   template <class F> int integrate(const F& f, T a, T b, double tol, T& result, double& err);
 
@@ -69,15 +23,9 @@ private:
 
   double eps;
 
-  /* Pre-computed quadrature points. */
-
   T* weights;
 
   T* points;
-
-  /* Scales and translates the given function f from the
-     interval  [a, b] to [-1, 1] so it can be evaluated using
-     the tanh-sinh substitution.                             */
 
   template <class F> class UnitFunction
   {
@@ -102,12 +50,8 @@ private:
     }
   };
 
-  /* Initializes the weight and abcissa table. */
-
   void init_table();
 };
-
-/*-**** Class Template Implementations ****-*/
 
 template <class T> quadt<T>::quadt(double eps)
 {
@@ -173,7 +117,7 @@ template <class T> void quadt<T>::init_table()
 
 //w = (cosh_t / cosh_s) / cosh_s;
 
-      w = (cosh_t / sqr(cosh_s));
+      w = (cosh_t / sqr(cosh_s) );
 
       if(x == 1.0 || w < eps)
       {
@@ -224,8 +168,6 @@ template <class T> template <class F> int quadt<T>::integrate_u(const F& f, doub
 
   for(level = 1; level <= max_level; level++, h *= 0.5)
   {
-    /* Compute the integral */
-
     for(/* nop */; /* nop */; /* nop */)
     {
       x = points[i];
@@ -243,8 +185,6 @@ template <class T> template <class F> int quadt<T>::integrate_u(const F& f, doub
     }
 
     r1 = s * h;
-
-    /* Check for convergence. */
 
     if(level > 2)
     {
@@ -301,8 +241,6 @@ template <class T> template <class F> int quadt<T>::integrate_u(const F& f, doub
 
   if( !conv)
   {
-    /* No convergence. */
-
     return -1;
   }
 
