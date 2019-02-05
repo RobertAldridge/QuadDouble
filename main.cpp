@@ -3,9 +3,9 @@
 
 #include "include.h"
 
-//#define f_main FC_FUNC_(f_main, F_MAIN)
+/*#define f_main FC_FUNC_(f_main, F_MAIN)*/
 
-//extern void f_main();
+/*extern void f_main();*/
 
 extern int main1(int argc, const char* argv[] );
 extern int main2(int argc, const char* argv[] );
@@ -17,19 +17,50 @@ extern int main7(int argc, const char* argv[] );
 
 int main(int argc, const char* argv[] )
 {
-  const char* argv1[] = {"c_test"};
+  const char* argv1[] =
+  {
+    "c_test"
+  };
 
-  const char* argv2[] = {"compileExample"};
+  const char* argv2[] =
+  {
+    "compileExample"
+  };
 
-  const char* argv3[] = {"huge", "--all", "--verbose"};
+  const char* argv3[] =
+  {
+    "huge",
+    "--all",
+    "--verbose"
+  };
 
-  const char* argv4[] = {"pslq_test", "--all", "--verbose"};
+  const char* argv4[] =
+  {
+    "pslq_test",
+    "--all",
+    "--verbose"
+  };
 
-  const char* argv5[] = {"qd_test", "--all", "--verbose"};
+  const char* argv5[] =
+  {
+    "qd_test",
+    "--all",
+    "--verbose"
+  };
 
-  const char* argv6[] = {"qd_timer", "--all", "--verbose"};
+  const char* argv6[] =
+  {
+    "qd_timer",
+    "--all",
+    "--verbose"
+  };
 
-  const char* argv7[] = {"quadt_test", "--all", "--verbose"};
+  const char* argv7[] =
+  {
+    "quadt_test",
+    "--all",
+    "--verbose"
+  };
 
   int argc1 = sizeof(argv1) / sizeof(argv1[0] );
 
@@ -48,9 +79,9 @@ int main(int argc, const char* argv[] )
 //unsigned int old_cw;
 //fpu_fix_start(&old_cw);
 
-printf("blah1\n");
+printf("blah1\r\n");
 
-//f_main();
+/*f_main();*/
 
 main1(argc1, argv1);
 main2(argc2, argv2);
@@ -60,7 +91,7 @@ main5(argc5, argv5);
 main6(argc6, argv6);
 main7(argc7, argv7);
 
-printf("blah2\n");
+printf("blah2\r\n");
 
 //fpu_fix_end(&old_cw);
 

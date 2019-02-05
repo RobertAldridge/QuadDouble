@@ -10,22 +10,22 @@
 #endif
 
 #ifndef _FPU_GETCW
-//#define _FPU_GETCW(x) asm volatile ("fnstcw %0":"=m" (x) );
+/*#define _FPU_GETCW(x) asm volatile ("fnstcw %0":"=m" (x) )*/
 #endif
 
 #ifndef _FPU_SETCW
-//#define _FPU_SETCW(x) asm volatile ("fldcw %0": :"m" (x) );
+/*#define _FPU_SETCW(x) asm volatile ("fldcw %0": :"m" (x) )*/
 #endif
 
 #ifndef _FPU_EXTENDED
-//#define _FPU_EXTENDED 0x0300
+/*#define _FPU_EXTENDED 0x0300*/
 #endif
 
 #ifndef _FPU_DOUBLE
-//#define _FPU_DOUBLE 0x0200
+/*#define _FPU_DOUBLE 0x0200*/
 #endif
 
-void fpu_fix_start(unsigned int *old_cw)
+void fpu_fix_start(unsigned int* old_cw)
 {
 #ifdef X86
 
@@ -34,14 +34,14 @@ void fpu_fix_start(unsigned int *old_cw)
 #ifdef __BORLANDC__
   unsigned short cw = _control87(0, 0);
   _control87(0x0200, 0x0300);
-  if (old_cw)
+  if(old_cw)
   {
     *old_cw = cw;
   }
 #else
   unsigned int cw = _control87(0, 0);
   _control87(0x00010000, 0x00030000);
-  if (old_cw)
+  if(old_cw)
   {
     *old_cw = cw;
   }
@@ -54,7 +54,7 @@ void fpu_fix_start(unsigned int *old_cw)
   new_cw = (cw & ~_FPU_EXTENDED) | _FPU_DOUBLE;
   _FPU_SETCW(new_cw);
 
-  if (old_cw)
+  if(old_cw)
   {
     *old_cw = cw;
   }
@@ -63,27 +63,27 @@ void fpu_fix_start(unsigned int *old_cw)
 #endif
 }
 
-void fpu_fix_end(unsigned int *old_cw)
+void fpu_fix_end(unsigned int* old_cw)
 {
 #ifdef X86
 
 #ifdef _WIN32
 
 #ifdef __BORLANDC__
-  if (old_cw)
+  if(old_cw)
   {
-    unsigned short cw = (unsigned short) *old_cw;
+    unsigned short cw = (unsigned short)*old_cw;
     _control87(cw, 0xFFFF);
   }
 #else
-  if (old_cw)
+  if(old_cw)
   {
     _control87(*old_cw, 0xFFFFFFFF);
   }
 #endif
 
 #else
-  if (old_cw)
+  if(old_cw)
   {
     int cw;
     cw = *old_cw;

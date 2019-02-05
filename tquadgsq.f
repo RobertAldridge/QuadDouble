@@ -34,7 +34,7 @@ write (6, 1) ndigits, neps, nquadl
 tm0 = second ()
 call initqgsq (nq1, nq2, wk, xk)
 tm1 = second ()
-if (nerror > 0) stop
+if(nerror > 0) stop
 write (6, 2) tm1 - tm0
 2 format ('Quadrature initialization completed: cpu time =',f12.6)
 
@@ -417,7 +417,7 @@ use quadglobal
 implicit none
 type (qd_real) fun15b, t
 
-if (abs (t) > 1.d-10) then
+if(abs (t) > 1.d-10) then
   fun15b = t**7 * sin (1.d0 / t)
 else
   fun15b = 0.d0
@@ -436,7 +436,7 @@ parameter (pi = 3.141592653589793238d0)
 type (qd_real) eps, r, t1, t2, t3, t4, t5, wk(-1:nq2), xk(-1:nq2)
 parameter (ik0 = 100)
 
-if (ndebug >= 1) then
+if(ndebug >= 1) then
   write (6, 1)
 1 format ('initqgsq: Gaussian quadrature initialization')
 endif
@@ -455,7 +455,7 @@ do j = 2, ik0
 enddo
 
 do k = 1, nq1
-  if (ndebug >= 2) write (6, *) k, i, nq2
+  if(ndebug >= 2) write (6, *) k, i, nq2
   n = 3 * 2 ** (k + 1)
 
   do j = 1, n / 2
@@ -478,10 +478,10 @@ do k = 1, nq1
     t5 = r
     r = r - t1 / t4
 
-    if (abs (r - t5) > eps) goto 100
+    if(abs (r - t5) > eps) goto 100
 
     i = i + 1
-    if (i > nq2) goto 110
+    if(i > nq2) goto 110
     xk(i) = r
     t4 = dble (n) * (r * t1 - t2) / (r ** 2  - 1.d0)
     wk(i) = 2.d0 / ( (1.d0 - r ** 2) * t4 ** 2)
@@ -491,7 +491,7 @@ do k = 1, nq1
 enddo
 
 xk(-1) = dble (i)
-if (ndebug >= 2) then
+if(ndebug >= 2) then
   write (6, 2) i
 2 format ('initqerf: Table spaced used =',i8)
 endif
@@ -534,7 +534,7 @@ s2 = 0.d0
 c10 = 10.d0
 eps = 1.d-64
 eps1 = 1.d-61
-  if (wk(-1) < dble (nq1) ) then
+  if(wk(-1) < dble (nq1) ) then
   write (6, 1) nq1
 1 format ('quadgsq: quadrature arrays have not been initialized; nq1 =',i6)
   nerror = 70
@@ -553,12 +553,12 @@ do k = 1, nq1
     i = i + 1
     xx1 = - a * xk(i) + b
     xx2 = a * xk(i) + b
-    if (xx1 > x1) then
+    if(xx1 > x1) then
       t1 = fun (xx1)
     else
       t1 = 0.d0
     endif
-    if (xx2 < x2 .and. j + k > 2) then
+    if(xx2 < x2 .and. j + k > 2) then
       t2 = fun (xx2)
     else
       t2 = 0.d0
@@ -573,29 +573,29 @@ do k = 1, nq1
   d2 = dplog10q (abs (s1 - s3) )
   d3 = dplog10q (eps2) - 1.d0
 
-  if (k <= 2) then
+  if(k <= 2) then
     err = 1.d0
-  elseif (d1 .eq. -9999.d0) then
+  elseif(d1 .eq. -9999.d0) then
     err = 0.d0
   else
     d4 = min (0.d0, max (d1 ** 2 / d2, 2.d0 * d1, d3) )
     err = c10 ** nint (d4)
   endif
 
-  if (ndebug >= 2) then
+  if(ndebug >= 2) then
     write (6, 2) k, nq1, nint (dplog10q (abs (err) ) )
 2   format ('quadgsq: Iteration',i3,' of',i3,'; est error = 10^',i5, &
       '; approx value =')
     call qdwrite (6, s1)
   endif
-  if (k >= 3 .and. err < eps1) goto 130
-  if (k >= 3 .and. err < eps2) goto 110
+  if(k >= 3 .and. err < eps1) goto 130
+  if(k >= 3 .and. err < eps2) goto 110
 enddo
 
 write (6, 3) nint (dplog10q (abs (err) ) ), nquadl
 3 format ('quadgsq: Estimated error = 10^',i5/&
   'Increase Quadlevel for greater accuracy. Current Quadlevel =',i4)
-if (err > 1.d-20) then
+if(err > 1.d-20) then
   write (6, 4)
 4 format ('quadgsq: Poor results may be due to singularities at endpoints.'/&
   'If so, try the erf or tanh-sinh quadrature routines (Quadtype = 2 or 3).')
@@ -631,7 +631,7 @@ double precision da, dplog10q, t1
 type (qd_real) a
 
 da = a
-if (da .eq. 0.d0) then
+if(da .eq. 0.d0) then
   dplog10q = -9999.d0
 else
   dplog10q = log10 (abs (da) )
@@ -651,10 +651,10 @@ parameter (xlt = 0.3010299956639812d0)
 type (qd_real) a
 
 da = a
-if (da .ne. 0.d0) then
+if(da .ne. 0.d0) then
   t1 = log10 (abs (da) )
   ib = t1
-  if (t1 .lt. 0.d0) ib = ib - 1
+  if(t1 .lt. 0.d0) ib = ib - 1
   b = sign (10.d0 ** (t1 - ib), da)
 else
   b = 0.d0

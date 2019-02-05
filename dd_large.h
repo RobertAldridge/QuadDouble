@@ -1,25 +1,15 @@
 
 // dd_large.h
 
-#ifdef isnan
 #undef isnan
-#endif
 
-#ifdef isfinite
 #undef isfinite
-#endif
 
-#ifdef isinf
 #undef isinf
-#endif
 
-#ifdef max
 #undef max
-#endif
 
-#ifdef min
 #undef min
-#endif
 
 struct dd_real
 {
@@ -55,7 +45,7 @@ struct dd_real
 
   dd_real (const char* s);
 
-  explicit dd_real (const double* d)
+  explicit dd_real(const double* d)
   {
     x[0] = d[0];
 
@@ -91,40 +81,49 @@ struct dd_real
   static const dd_real _safe_max;
   static const int _ndigits;
 
-  bool isnan() const { return QD_ISNAN(x[0] ) || QD_ISNAN(x[1] ); }
+  bool isnan() const
+  {
+    return QD_ISNAN(x[0] ) || QD_ISNAN(x[1] );
+  }
 
-  bool isfinite() const { return QD_ISFINITE(x[0] ); }
+  bool isfinite() const
+  {
+    return QD_ISFINITE(x[0] );
+  }
 
-  bool isinf() const { return QD_ISINF(x[0] ); }
+  bool isinf() const
+  {
+    return QD_ISINF(x[0] );
+  }
 
   static dd_real add(double a, double b);
-  static dd_real ieee_add(const dd_real &a, const dd_real &b);
-  static dd_real sloppy_add(const dd_real &a, const dd_real &b);
+  static dd_real ieee_add(const dd_real& a, const dd_real& b);
+  static dd_real sloppy_add(const dd_real& a, const dd_real& b);
 
-  dd_real &operator+=(double a);
-  dd_real &operator+=(const dd_real &a);
+  dd_real& operator+=(double a);
+  dd_real& operator+=(const dd_real& a);
 
   static dd_real sub(double a, double b);
 
-  dd_real &operator-=(double a);
-  dd_real &operator-=(const dd_real &a);
+  dd_real& operator-=(double a);
+  dd_real& operator-=(const dd_real& a);
 
   dd_real operator-() const;
 
   static dd_real mul(double a, double b);
 
-  dd_real &operator*=(double a);
-  dd_real &operator*=(const dd_real &a);
+  dd_real& operator*=(double a);
+  dd_real& operator*=(const dd_real& a);
 
   static dd_real div(double a, double b);
-  static dd_real sloppy_div(const dd_real &a, const dd_real &b);
-  static dd_real accurate_div(const dd_real &a, const dd_real &b);
+  static dd_real sloppy_div(const dd_real& a, const dd_real& b);
+  static dd_real accurate_div(const dd_real& a, const dd_real& b);
 
-  dd_real &operator/=(double a);
-  dd_real &operator/=(const dd_real &a);
+  dd_real& operator/=(double a);
+  dd_real& operator/=(const dd_real& a);
 
-  dd_real &operator=(double a);
-  dd_real &operator=(const char* s);
+  dd_real& operator=(double a);
+  dd_real& operator=(const char* s);
 
   dd_real operator^(int n);
   static dd_real sqr(double d);
@@ -138,7 +137,7 @@ struct dd_real
 
   static dd_real rand(void);
 
-  void to_digits(char* s, int &expn, int precision = _ndigits) const;
+  void to_digits(char* s, int& expn, int precision = _ndigits) const;
 
   void write(char* s, int len, int precision = _ndigits, bool showpos = false, bool uppercase = false) const;
 
@@ -146,8 +145,8 @@ struct dd_real
 
   int read(const char* s, dd_real& a);
 
-  void dump(const std::string &name = "", std::ostream &os = std::cerr) const;
-  void dump_bits(const std::string &name = "", std::ostream &os = std::cerr) const;
+  void dump(const std::string& name = "", std::ostream& os = std::cerr) const;
+  void dump_bits(const std::string& name = "", std::ostream& os = std::cerr) const;
 
   static dd_real debug_rand();
 };
@@ -184,7 +183,7 @@ namespace std
 }
 
 dd_real ddrand(void);
-dd_real sqrt(const dd_real &a);
+dd_real sqrt(const dd_real& a);
 
 dd_real polyeval(const dd_real* c, int n, const dd_real& x);
 
@@ -205,101 +204,101 @@ bool isinf(const dd_real& a)
   return a.isinf();
 }
 
-dd_real mul_pwr2(const dd_real &dd, double d);
+dd_real mul_pwr2(const dd_real& dd, double d);
 
-dd_real operator+(const dd_real &a, double b);
-dd_real operator+(double a, const dd_real &b);
-dd_real operator+(const dd_real &a, const dd_real &b);
+dd_real operator+(const dd_real& a, double b);
+dd_real operator+(double a, const dd_real& b);
+dd_real operator+(const dd_real& a, const dd_real& b);
 
-dd_real operator-(const dd_real &a, double b);
-dd_real operator-(double a, const dd_real &b);
-dd_real operator-(const dd_real &a, const dd_real &b);
+dd_real operator-(const dd_real& a, double b);
+dd_real operator-(double a, const dd_real& b);
+dd_real operator-(const dd_real& a, const dd_real& b);
 
-dd_real operator*(const dd_real &a, double b);
-dd_real operator*(double a, const dd_real &b);
-dd_real operator*(const dd_real &a, const dd_real &b);
+dd_real operator*(const dd_real& a, double b);
+dd_real operator*(double a, const dd_real& b);
+dd_real operator*(const dd_real& a, const dd_real& b);
 
-dd_real operator/(const dd_real &a, double b);
-dd_real operator/(double a, const dd_real &b);
-dd_real operator/(const dd_real &a, const dd_real &b);
+dd_real operator/(const dd_real& a, double b);
+dd_real operator/(double a, const dd_real& b);
+dd_real operator/(const dd_real& a, const dd_real& b);
 
-dd_real inv(const dd_real &a);
+dd_real inv(const dd_real& a);
 
-dd_real rem(const dd_real &a, const dd_real &b);
-dd_real drem(const dd_real &a, const dd_real &b);
-dd_real divrem(const dd_real &a, const dd_real &b, dd_real &r);
+dd_real rem(const dd_real& a, const dd_real& b);
+dd_real drem(const dd_real& a, const dd_real& b);
+dd_real divrem(const dd_real& a, const dd_real& b, dd_real& r);
 
-dd_real pow(const dd_real &a, int n);
-dd_real pow(const dd_real &a, const dd_real &b);
-dd_real npwr(const dd_real &a, int n);
-dd_real sqr(const dd_real &a);
+dd_real pow(const dd_real& a, int n);
+dd_real pow(const dd_real& a, const dd_real& b);
+dd_real npwr(const dd_real& a, int n);
+dd_real sqr(const dd_real& a);
 
-dd_real sqrt(const dd_real &a);
-dd_real nroot(const dd_real &a, int n);
+dd_real sqrt(const dd_real& a);
+dd_real nroot(const dd_real& a, int n);
 
-bool operator==(const dd_real &a, double b);
-bool operator==(double a, const dd_real &b);
-bool operator==(const dd_real &a, const dd_real &b);
+bool operator==(const dd_real& a, double b);
+bool operator==(double a, const dd_real& b);
+bool operator==(const dd_real& a, const dd_real& b);
 
-bool operator<=(const dd_real &a, double b);
-bool operator<=(double a, const dd_real &b);
-bool operator<=(const dd_real &a, const dd_real &b);
+bool operator<=(const dd_real& a, double b);
+bool operator<=(double a, const dd_real& b);
+bool operator<=(const dd_real& a, const dd_real& b);
 
-bool operator>=(const dd_real &a, double b);
-bool operator>=(double a, const dd_real &b);
-bool operator>=(const dd_real &a, const dd_real &b);
+bool operator>=(const dd_real& a, double b);
+bool operator>=(double a, const dd_real& b);
+bool operator>=(const dd_real& a, const dd_real& b);
 
-bool operator<(const dd_real &a, double b);
-bool operator<(double a, const dd_real &b);
-bool operator<(const dd_real &a, const dd_real &b);
+bool operator<(const dd_real& a, double b);
+bool operator<(double a, const dd_real& b);
+bool operator<(const dd_real& a, const dd_real& b);
 
-bool operator>(const dd_real &a, double b);
-bool operator>(double a, const dd_real &b);
-bool operator>(const dd_real &a, const dd_real &b);
+bool operator>(const dd_real& a, double b);
+bool operator>(double a, const dd_real& b);
+bool operator>(const dd_real& a, const dd_real& b);
 
-bool operator!=(const dd_real &a, double b);
-bool operator!=(double a, const dd_real &b);
-bool operator!=(const dd_real &a, const dd_real &b);
+bool operator!=(const dd_real& a, double b);
+bool operator!=(double a, const dd_real& b);
+bool operator!=(const dd_real& a, const dd_real& b);
 
-dd_real nint(const dd_real &a);
-dd_real floor(const dd_real &a);
-dd_real ceil(const dd_real &a);
-dd_real aint(const dd_real &a);
+dd_real nint(const dd_real& a);
+dd_real floor(const dd_real& a);
+dd_real ceil(const dd_real& a);
+dd_real aint(const dd_real& a);
 
 dd_real ddrand(void);
 
-double to_double(const dd_real &a);
+double to_double(const dd_real& a);
 
-int to_int(const dd_real &a);
+int to_int(const dd_real& a);
 
-dd_real exp(const dd_real &a);
-dd_real ldexp(const dd_real &a, int exp);
-dd_real log(const dd_real &a);
-dd_real log10(const dd_real &a);
+dd_real exp(const dd_real& a);
+dd_real ldexp(const dd_real& a, int exp);
+dd_real log(const dd_real& a);
+dd_real log10(const dd_real& a);
 
-dd_real sin(const dd_real &a);
-dd_real cos(const dd_real &a);
-dd_real tan(const dd_real &a);
-void sincos(const dd_real &a, dd_real &sin_a, dd_real &cos_a);
+dd_real sin(const dd_real& a);
+dd_real cos(const dd_real& a);
+dd_real tan(const dd_real& a);
+void sincos(const dd_real& a, dd_real& sin_a, dd_real& cos_a);
 
-dd_real asin(const dd_real &a);
-dd_real acos(const dd_real &a);
-dd_real atan(const dd_real &a);
-dd_real atan2(const dd_real &y, const dd_real &x);
+dd_real asin(const dd_real& a);
+dd_real acos(const dd_real& a);
+dd_real atan(const dd_real& a);
+dd_real atan2(const dd_real& y, const dd_real& x);
 
-dd_real sinh(const dd_real &a);
-dd_real cosh(const dd_real &a);
-dd_real tanh(const dd_real &a);
-void sincosh(const dd_real &a, dd_real &sinh_a, dd_real &cosh_a);
+dd_real sinh(const dd_real& a);
+dd_real cosh(const dd_real& a);
+dd_real tanh(const dd_real& a);
+void sincosh(const dd_real& a, dd_real& sinh_a, dd_real& cosh_a);
 
-dd_real asinh(const dd_real &a);
-dd_real acosh(const dd_real &a);
-dd_real atanh(const dd_real &a);
+dd_real asinh(const dd_real& a);
+dd_real acosh(const dd_real& a);
+dd_real atanh(const dd_real& a);
 
-dd_real fabs(const dd_real &a);
-dd_real abs(const dd_real &a);
+dd_real fabs(const dd_real& a);
+dd_real abs(const dd_real& a);
 
-dd_real fmod(const dd_real &a, const dd_real &b);
+dd_real fmod(const dd_real& a, const dd_real& b);
 
-std::ostream& operator<<(std::ostream &s, const dd_real &a);
-std::istream& operator>>(std::istream &s, dd_real &a);
+std::ostream& operator<<(std::ostream& s, const dd_real& a);
+std::istream& operator>>(std::istream& s, dd_real& a);

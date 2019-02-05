@@ -876,8 +876,8 @@ contains
 
     intrinsic :: iabs, ishft
 
-    if (n == 0) then
-      if (all(a%cmp == 0.d0) ) then
+    if(n == 0) then
+      if(all(a%cmp == 0.d0) ) then
         !write (6, *) 'pwr_ddc_i: a = 0 and n = 0'
         call f_dd_nan(pwr_ddc_i%cmp(1:2) )
         call f_dd_nan(pwr_ddc_i%cmp(3:4) )
@@ -895,7 +895,7 @@ contains
 
 110 continue
 
-    if (n1 >= i2) then
+    if(n1 >= i2) then
       call f_dd_mul (a%cmp(1:2), c1%cmp(1:2), t1%re)
       call f_dd_mul (a%cmp(3:4), c1%cmp(3:4), t2%re)
       call f_dd_sub (t1%re, t2%re, c2%cmp(1:2) )
@@ -908,7 +908,7 @@ contains
       n1 = n1 - i2
     endif
     i2 = i2 / 2
-    if (i2 >= 1) then
+    if(i2 >= 1) then
       call f_dd_mul (c1%cmp(1:2), c1%cmp(1:2), t1%re)
       call f_dd_mul (c1%cmp(3:4), c1%cmp(3:4), t2%re)
       call f_dd_sub (t1%re, t2%re, c2%cmp(1:2) )
@@ -918,7 +918,7 @@ contains
       goto 110
     endif
 
-    if (n > 0) then
+    if(n > 0) then
       pwr_ddc_i%cmp = c1%cmp
     else
       c1%cmp(3:4) = - c1%cmp(3:4)
@@ -1085,7 +1085,7 @@ contains
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r == 0) then
+    if(r == 0) then
       eq_dd = .true.
     else
       eq_dd = .false.
@@ -1097,7 +1097,7 @@ contains
     real*8, intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(a%re, b, r)
-    if (r == 0) then
+    if(r == 0) then
       eq_dd_d = .true.
     else
       eq_dd_d = .false.
@@ -1109,7 +1109,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(b%re, a, r)
-    if (r == 0) then
+    if(r == 0) then
       eq_d_dd = .true.
     else
       eq_d_dd = .false.
@@ -1133,7 +1133,7 @@ contains
     integer :: i1, i2
     call f_dd_comp (a%cmp(1:2), b%cmp(1:2), i1)
     call f_dd_comp (a%cmp(3:4), b%cmp(3:4), i2)
-    if (i1 == 0 .and. i2 == 0) then
+    if(i1 == 0 .and. i2 == 0) then
       eq_ddc = .true.
     else
       eq_ddc = .false.
@@ -1145,7 +1145,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: i1
     call f_dd_comp (a%cmp(1:2), b%re, i1)
-    if (i1 == 0 .and. all(a%cmp(3:4) == 0.d0) ) then
+    if(i1 == 0 .and. all(a%cmp(3:4) == 0.d0) ) then
       eq_ddc_dd = .true.
     else
       eq_ddc_dd = .false.
@@ -1157,7 +1157,7 @@ contains
     type (dd_complex), intent(in) :: b
     integer :: i1
     call f_dd_comp (a%re, b%cmp(1:2), i1)
-    if (i1 == 0 .and. all(b%cmp(3:4) == 0.d0) ) then
+    if(i1 == 0 .and. all(b%cmp(3:4) == 0.d0) ) then
       eq_dd_ddc = .true.
     else
       eq_dd_ddc = .false.
@@ -1168,7 +1168,7 @@ contains
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r == 0) then
+    if(r == 0) then
       ne_dd = .false.
     else
       ne_dd = .true.
@@ -1180,7 +1180,7 @@ contains
     real*8, intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(a%re, b, r)
-    if (r == 0) then
+    if(r == 0) then
       ne_dd_d = .false.
     else
       ne_dd_d = .true.
@@ -1192,7 +1192,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(b%re, a, r)
-    if (r == 0) then
+    if(r == 0) then
       ne_d_dd = .false.
     else
       ne_d_dd = .true.
@@ -1216,7 +1216,7 @@ contains
     integer :: i1, i2
     call f_dd_comp (a%cmp(1:2), b%cmp(1:2), i1)
     call f_dd_comp (a%cmp(3:4), b%cmp(3:4), i2)
-    if (i1 /= 0 .or. i2 /= 0) then
+    if(i1 /= 0 .or. i2 /= 0) then
       ne_ddc = .true.
     else
       ne_ddc = .false.
@@ -1228,7 +1228,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: i1
     call f_dd_comp (a%cmp(1:2), b%re, i1)
-    if (i1 /= 0 .or. any(a%cmp(3:4) /= 0.d0) ) then
+    if(i1 /= 0 .or. any(a%cmp(3:4) /= 0.d0) ) then
       ne_ddc_dd = .true.
     else
       ne_ddc_dd = .false.
@@ -1240,7 +1240,7 @@ contains
     type (dd_complex), intent(in) :: b
     integer :: i1
     call f_dd_comp (a%re, b%cmp(1:2), i1)
-    if (i1 /= 0 .or. any(b%cmp(3:4) /= 0.d0) ) then
+    if(i1 /= 0 .or. any(b%cmp(3:4) /= 0.d0) ) then
       ne_dd_ddc = .true.
     else
       ne_dd_ddc = .false.
@@ -1251,7 +1251,7 @@ contains
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r == 1) then
+    if(r == 1) then
       gt_dd = .true.
     else
       gt_dd = .false.
@@ -1263,7 +1263,7 @@ contains
     real*8, intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(a%re, b, r)
-    if (r == 1) then
+    if(r == 1) then
       gt_dd_d = .true.
     else
       gt_dd_d = .false.
@@ -1275,7 +1275,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(b%re, a, r)
-    if (r == -1) then
+    if(r == -1) then
       gt_d_dd = .true.
     else
       gt_d_dd = .false.
@@ -1298,7 +1298,7 @@ contains
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r == -1) then
+    if(r == -1) then
       lt_dd = .true.
     else
       lt_dd = .false.
@@ -1310,7 +1310,7 @@ contains
     real*8, intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(a%re, b, r)
-    if (r == -1) then
+    if(r == -1) then
       lt_dd_d = .true.
     else
       lt_dd_d = .false.
@@ -1322,7 +1322,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(b%re, a, r)
-    if (r == 1) then
+    if(r == 1) then
       lt_d_dd = .true.
     else
       lt_d_dd = .false.
@@ -1345,7 +1345,7 @@ contains
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r >= 0) then
+    if(r >= 0) then
       ge_dd = .true.
     else
       ge_dd = .false.
@@ -1357,7 +1357,7 @@ contains
     real*8, intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(a%re, b, r)
-    if (r >= 0) then
+    if(r >= 0) then
       ge_dd_d = .true.
     else
       ge_dd_d = .false.
@@ -1369,7 +1369,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(b%re, a, r)
-    if (r <= 0) then
+    if(r <= 0) then
       ge_d_dd = .true.
     else
       ge_d_dd = .false.
@@ -1392,7 +1392,7 @@ contains
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r <= 0) then
+    if(r <= 0) then
       le_dd = .true.
     else
       le_dd = .false.
@@ -1404,7 +1404,7 @@ contains
     real*8, intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(a%re, b, r)
-    if (r <= 0) then
+    if(r <= 0) then
       le_dd_d = .true.
     else
       le_dd_d = .false.
@@ -1416,7 +1416,7 @@ contains
     type (dd_real), intent(in) :: b
     integer :: r
     call f_dd_comp_dd_d(b%re, a, r)
-    if (r >= 0) then
+    if(r >= 0) then
       le_d_dd = .true.
     else
       le_d_dd = .false.
@@ -1451,14 +1451,14 @@ contains
 
   elemental type (dd_real) function ddsign(a, b) result (c)
     type (dd_real), intent(in) :: a, b
-    if (b%re(1) .gt. 0.0d0) then
-      if (a%re(1) .gt. 0.0d0) then
+    if(b%re(1) .gt. 0.0d0) then
+      if(a%re(1) .gt. 0.0d0) then
         c%re = a%re
       else
         c%re = -a%re
       end if
     else
-      if (a%re(1) .gt. 0.0d0) then
+      if(a%re(1) .gt. 0.0d0) then
         c%re = -a%re
       else
         c%re = a%re
@@ -1469,14 +1469,14 @@ contains
   elemental type (dd_real) function ddsign_dd_d(a, b) result (c)
     type (dd_real), intent(in) :: a
     real*8, intent(in) ::  b
-    if (b .gt. 0.0d0) then
-      if (a%re(1) .gt. 0.0d0) then
+    if(b .gt. 0.0d0) then
+      if(a%re(1) .gt. 0.0d0) then
         c%re = a%re
       else
         c%re = -a%re
       end if
     else
-      if (a%re(1) .gt. 0.0d0) then
+      if(a%re(1) .gt. 0.0d0) then
         c%re = -a%re
       else
         c%re = a%re
@@ -1492,35 +1492,35 @@ contains
 
     call ddinp (u, q1%re)
 
-    if (present(q2) ) then
+    if(present(q2) ) then
       call ddinp (u, q2%re)
     end if
 
-    if (present(q3) ) then
+    if(present(q3) ) then
       call ddinp (u, q3%re)
     end if
 
-    if (present(q4) ) then
+    if(present(q4) ) then
       call ddinp (u, q4%re)
     end if
 
-    if (present(q5) ) then
+    if(present(q5) ) then
       call ddinp (u, q5%re)
     end if
 
-    if (present(q6) ) then
+    if(present(q6) ) then
       call ddinp (u, q6%re)
     end if
 
-    if (present(q7) ) then
+    if(present(q7) ) then
       call ddinp (u, q7%re)
     end if
 
-    if (present(q8) ) then
+    if(present(q8) ) then
       call ddinp (u, q8%re)
     end if
 
-    if (present(q9) ) then
+    if(present(q9) ) then
       call ddinp (u, q9%re)
    end if
 
@@ -1534,42 +1534,42 @@ contains
     call ddinp (u, q1%cmp(1:2) )
     call ddinp (u, q1%cmp(3:4) )
 
-    if (present(q2) ) then
+    if(present(q2) ) then
       call ddinp (u, q2%cmp(1:2) )
       call ddinp (u, q2%cmp(3:4) )
     end if
 
-    if (present(q3) ) then
+    if(present(q3) ) then
       call ddinp (u, q3%cmp(1:2) )
       call ddinp (u, q3%cmp(3:4) )
     end if
 
-    if (present(q4) ) then
+    if(present(q4) ) then
       call ddinp (u, q4%cmp(1:2) )
       call ddinp (u, q4%cmp(3:4) )
     end if
 
-    if (present(q5) ) then
+    if(present(q5) ) then
       call ddinp (u, q5%cmp(1:2) )
       call ddinp (u, q5%cmp(3:4) )
     end if
 
-    if (present(q6) ) then
+    if(present(q6) ) then
       call ddinp (u, q6%cmp(1:2) )
       call ddinp (u, q6%cmp(3:4) )
     end if
 
-    if (present(q7) ) then
+    if(present(q7) ) then
       call ddinp (u, q7%cmp(1:2) )
       call ddinp (u, q7%cmp(3:4) )
     end if
 
-    if (present(q8) ) then
+    if(present(q8) ) then
       call ddinp (u, q8%cmp(1:2) )
       call ddinp (u, q8%cmp(3:4) )
     end if
 
-    if (present(q9) ) then
+    if(present(q9) ) then
       call ddinp (u, q9%cmp(1:2) )
       call ddinp (u, q9%cmp(3:4) )
     end if
@@ -1584,35 +1584,35 @@ contains
 
     call ddout (u, q1%re)
 
-    if (present(q2) ) then
+    if(present(q2) ) then
       call ddout (u, q2%re)
     end if
 
-    if (present(q3) ) then
+    if(present(q3) ) then
       call ddout (u, q3%re)
     end if
 
-    if (present(q4) ) then
+    if(present(q4) ) then
       call ddout (u, q4%re)
     end if
 
-    if (present(q5) ) then
+    if(present(q5) ) then
       call ddout (u, q5%re)
     end if
 
-    if (present(q6) ) then
+    if(present(q6) ) then
       call ddout (u, q6%re)
     end if
 
-    if (present(q7) ) then
+    if(present(q7) ) then
       call ddout (u, q7%re)
     end if
 
-    if (present(q8) ) then
+    if(present(q8) ) then
       call ddout (u, q8%re)
     end if
 
-    if (present(q9) ) then
+    if(present(q9) ) then
       call ddout (u, q9%re)
    end if
 
@@ -1626,42 +1626,42 @@ contains
     call ddout (u, q1%cmp(1:2) )
     call ddout (u, q1%cmp(3:4) )
 
-    if (present(q2) ) then
+    if(present(q2) ) then
       call ddout (u, q2%cmp(1:2) )
       call ddout (u, q2%cmp(3:4) )
     end if
 
-    if (present(q3) ) then
+    if(present(q3) ) then
       call ddout (u, q3%cmp(1:2) )
       call ddout (u, q3%cmp(3:4) )
     end if
 
-    if (present(q4) ) then
+    if(present(q4) ) then
       call ddout (u, q4%cmp(1:2) )
       call ddout (u, q4%cmp(3:4) )
     end if
 
-    if (present(q5) ) then
+    if(present(q5) ) then
       call ddout (u, q5%cmp(1:2) )
       call ddout (u, q5%cmp(3:4) )
     end if
 
-    if (present(q6) ) then
+    if(present(q6) ) then
       call ddout (u, q6%cmp(1:2) )
       call ddout (u, q6%cmp(3:4) )
     end if
 
-    if (present(q7) ) then
+    if(present(q7) ) then
       call ddout (u, q7%cmp(1:2) )
       call ddout (u, q7%cmp(3:4) )
     end if
 
-    if (present(q8) ) then
+    if(present(q8) ) then
       call ddout (u, q8%cmp(1:2) )
       call ddout (u, q8%cmp(3:4) )
     end if
 
-    if (present(q9) ) then
+    if(present(q9) ) then
       call ddout (u, q9%cmp(1:2) )
       call ddout (u, q9%cmp(3:4) )
     end if
@@ -1672,7 +1672,7 @@ contains
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r == 1) then
+    if(r == 1) then
       ddmin2 = b
     else
       ddmin2 = a
@@ -1683,19 +1683,19 @@ contains
     type (dd_real), intent(in) :: a1, a2, a3
     type (dd_real), intent(in), optional :: a4, a5, a6, a7, a8, a9
     ddmin = ddmin2(ddmin2(a1, a2), a3)
-    if (present(a4) ) ddmin = ddmin2(ddmin, a4)
-    if (present(a5) ) ddmin = ddmin2(ddmin, a5)
-    if (present(a6) ) ddmin = ddmin2(ddmin, a6)
-    if (present(a7) ) ddmin = ddmin2(ddmin, a7)
-    if (present(a8) ) ddmin = ddmin2(ddmin, a8)
-    if (present(a9) ) ddmin = ddmin2(ddmin, a9)
+    if(present(a4) ) ddmin = ddmin2(ddmin, a4)
+    if(present(a5) ) ddmin = ddmin2(ddmin, a5)
+    if(present(a6) ) ddmin = ddmin2(ddmin, a6)
+    if(present(a7) ) ddmin = ddmin2(ddmin, a7)
+    if(present(a8) ) ddmin = ddmin2(ddmin, a8)
+    if(present(a9) ) ddmin = ddmin2(ddmin, a9)
   end function ddmin
 
   elemental type (dd_real) function ddmax2(a, b)
     type (dd_real), intent(in) :: a, b
     integer :: r
     call f_dd_comp(a%re, b%re, r)
-    if (r == -1) then
+    if(r == -1) then
       ddmax2 = b
     else
       ddmax2 = a
@@ -1706,12 +1706,12 @@ contains
     type (dd_real), intent(in) :: a1, a2, a3
     type (dd_real), intent(in), optional :: a4, a5, a6, a7, a8, a9
     ddmax = ddmax2(ddmax2(a1, a2), a3)
-    if (present(a4) ) ddmax = ddmax2(ddmax, a4)
-    if (present(a5) ) ddmax = ddmax2(ddmax, a5)
-    if (present(a6) ) ddmax = ddmax2(ddmax, a6)
-    if (present(a7) ) ddmax = ddmax2(ddmax, a7)
-    if (present(a8) ) ddmax = ddmax2(ddmax, a8)
-    if (present(a9) ) ddmax = ddmax2(ddmax, a9)
+    if(present(a4) ) ddmax = ddmax2(ddmax, a4)
+    if(present(a5) ) ddmax = ddmax2(ddmax, a5)
+    if(present(a6) ) ddmax = ddmax2(ddmax, a6)
+    if(present(a7) ) ddmax = ddmax2(ddmax, a7)
+    if(present(a8) ) ddmax = ddmax2(ddmax, a8)
+    if(present(a9) ) ddmax = ddmax2(ddmax, a9)
   end function ddmax
 
   elemental type (dd_real) function ddmod (a, b)
@@ -1769,7 +1769,7 @@ s1(2) = 0.d0
 
 beg = 0
 do i = 1, 80
-  if (a(i:i) /= ' ') then
+  if(a(i:i) /= ' ') then
     beg = i
     goto 80
   end if
@@ -1779,7 +1779,7 @@ goto 210
 80 continue
 
 do i = beg, 80
-  if (a(i:i) == ' ') then
+  if(a(i:i) == ' ') then
     lnn = i-1
     goto 90
   end if
@@ -1790,24 +1790,24 @@ lnn = 80
 
 do i = beg, lnn
   ai = a(i:i)
-  if (ai .eq. '.') then
-    if (ip >= 0) goto 210
+  if(ai .eq. '.') then
+    if(ip >= 0) goto 210
     ip = id
     inz = 1
-  elseif (ai .eq. '+') then
-    if (id .ne. 0 .or. ip >= 0 .or. is .ne. 0) goto 210
+  elseif(ai .eq. '+') then
+    if(id .ne. 0 .or. ip >= 0 .or. is .ne. 0) goto 210
     is = 1
-  elseif (ai .eq. '-') then
-    if (id .ne. 0 .or. ip >= 0 .or. is .ne. 0) goto 210
+  elseif(ai .eq. '-') then
+    if(id .ne. 0 .or. ip >= 0 .or. is .ne. 0) goto 210
     is = -1
-  elseif (ai .eq. 'e' .or. ai .eq. 'E' .or. ai .eq. 'd' .or. ai .eq. 'D') then
+  elseif(ai .eq. 'e' .or. ai .eq. 'E' .or. ai .eq. 'd' .or. ai .eq. 'D') then
     goto 100
-  elseif (index (dig, ai) .eq. 0) then
+  elseif(index (dig, ai) .eq. 0) then
     goto 210
   else
 !    read (ai, '(f1.0)') bi
     bi = index (dig, ai) - 1
-    if (inz > 0 .or. bi > 0.d0) then
+    if(inz > 0 .or. bi > 0.d0) then
       inz = 1
       id = id + 1
 !    call ddmuld (s1, 10.d0, s0)
@@ -1822,37 +1822,37 @@ do i = beg, lnn
 enddo
 
 100   continue
-if (is .eq. -1) then
+if(is .eq. -1) then
   s1(1) = - s1(1)
   s1(2) = - s1(2)
 endif
 k = i
-if (ip == -1) ip = id
+if(ip == -1) ip = id
 ie = 0
 is = 0
 ca = ' '
 
 do i = k + 1, lnn
   ai = a(i:i)
-  if (ai .eq. ' ') then
-  elseif (ai .eq. '+') then
-    if (ie .ne. 0 .or. is .ne. 0) goto 210
+  if(ai .eq. ' ') then
+  elseif(ai .eq. '+') then
+    if(ie .ne. 0 .or. is .ne. 0) goto 210
     is = 1
-  elseif (ai .eq. '-') then
-    if (ie .ne. 0 .or. is .ne. 0) goto 210
+  elseif(ai .eq. '-') then
+    if(ie .ne. 0 .or. is .ne. 0) goto 210
     is = -1
-  elseif (index (dig, ai) .eq. 0) then
+  elseif(index (dig, ai) .eq. 0) then
     goto 210
   else
     ie = ie + 1
-    if (ie .gt. 3) goto 210
+    if(ie .gt. 3) goto 210
     ca(ie:ie) = ai
   endif
 enddo
 
 ! read (ca, '(i4)') ie
 ie = dddigin (ca, 4)
-if (is .eq. -1) ie = - ie
+if(is .eq. -1) ie = - ie
 ie = ie + ip - id
 s0(1) = 10.d0
 s0(2) = 0.d0
@@ -1906,9 +1906,9 @@ end subroutine
 
     do i = 1, n
       k = index (digits, ca(i:i) ) - 1
-      if (k < 0) then
+      if(k < 0) then
         write (6, *) 'dddigin: non-digit in character string'
-      elseif (k <= 9) then
+      elseif(k <= 9) then
         d1 = 10.d0 * d1 + k
       endif
     enddo
@@ -1935,16 +1935,16 @@ end subroutine
       k = 1.d0 + (d1 - 10.d0 * d2)
       d1 = d2
       ca(i:i) = digits(k:k)
-      if (d1 == 0.d0) goto 100
+      if(d1 == 0.d0) goto 100
     enddo
 
     i = 0
 
 100 continue
 
-    if (is < 0 .and. i > 1) then
+    if(is < 0 .and. i > 1) then
       ca(i-1:i-1) = '-'
-    elseif (i == 0 .or. is < 0 .and. i == 1) then
+    elseif(i == 0 .or. is < 0 .and. i == 1) then
       ca = '****************'
     endif
 

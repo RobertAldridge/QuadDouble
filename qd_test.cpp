@@ -9,17 +9,19 @@ static bool flag_verbose = false;
 
 static bool print_result(bool result)
 {
-  if (result)
+  if(result)
     cout << "Test passed." << endl;
   else
     cout << "Test FAILED." << endl;
   return result;
 }
 
-template <class T>
-class TestSuite {
+template<class T> class TestSuite
+{
   static const int double_digits;
+
 public:
+
   bool test1();
   bool test2();
   bool test3();
@@ -41,16 +43,16 @@ bool TestSuite<T>::test1()
   cout << "Test 1.  (Polynomial)." << endl;
 
   static const int n = 8;
-  T *c = new T[n];
+  T* c = new T[n];
   T x, y;
 
-  for (int i = 0; i < n; i++)
+  for(int i = 0; i < n; i++)
     c[i] = static_cast<double>(i+1);
 
   x = polyroot(c, n-1, T(0.0) );
   y = polyeval(c, n-1, x);
 
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout.precision(T::_ndigits);
     cout << "Root Found:  x  = " << x << endl;
@@ -80,10 +82,10 @@ bool TestSuite<T>::test2()
   k = 0;
 
   sign = 1;
-  while (t > T::_eps)
+  while(t > T::_eps)
   {
     k++;
-    if (sign < 0)
+    if(sign < 0)
       s1 -= (t / d);
     else
       s1 += (t / d);
@@ -93,7 +95,7 @@ bool TestSuite<T>::test2()
     sign = -sign;
   }
 
-  if (flag_verbose)
+  if(flag_verbose)
     cout << k << " Iterations" << endl;
 
   d = 1.0;
@@ -103,10 +105,10 @@ bool TestSuite<T>::test2()
   k = 0;
 
   sign = 1;
-  while (t > T::_eps)
+  while(t > T::_eps)
   {
     k++;
-    if (sign < 0)
+    if(sign < 0)
       s2 -= (t / d);
     else
       s2 += (t / d);
@@ -116,7 +118,7 @@ bool TestSuite<T>::test2()
     sign = -sign;
   }
 
-  if (flag_verbose)
+  if(flag_verbose)
     cout << k << " Iterations" << endl;
 
   T p = 4.0 * s1 - s2;
@@ -124,7 +126,7 @@ bool TestSuite<T>::test2()
   p *= 4.0;
   err = abs(to_double(p - T::_pi) );
 
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout.precision(T::_ndigits);
     cout << "   pi = " << p << endl;
@@ -156,9 +158,9 @@ bool TestSuite<T>::test3()
   m = 1.0;
 
   p = 2.0 * sqr(a) / s;
-  if (flag_verbose)
+  if(flag_verbose)
     cout << "Iteration  0: " << p << endl;
-  for (int i = 1; i <= max_iter; i++)
+  for(int i = 1; i <= max_iter; i++)
   {
     m *= 2.0;
     a_new = 0.5 * (a + b);
@@ -168,15 +170,15 @@ bool TestSuite<T>::test3()
     b = sqrt(b_new);
     p_old = p;
     p = 2.0 * sqr(a) / s;
-    if (flag_verbose)
+    if(flag_verbose)
       cout << "Iteration " << std::setw(2) << i << ": " << p << endl;
-    if (abs(to_double(p - p_old) ) < 64 * T::_eps)
+    if(abs(to_double(p - p_old) ) < 64 * T::_eps)
       break;
   }
 
   err = abs(to_double(p - T::_pi) );
 
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "         _pi: " << T::_pi << endl;
     cout.precision(double_digits);
@@ -203,10 +205,10 @@ bool TestSuite<T>::test4()
   m = 2.0;
 
   p = 1.0 / a;
-  if (flag_verbose)
+  if(flag_verbose)
     cout << "Iteration  0: " << p << endl;
 
-  for (int i = 1; i <= max_iter; i++)
+  for(int i = 1; i <= max_iter; i++)
   {
     m *= 4.0;
     r = nroot(1.0 - sqr(sqr(y) ), 4);
@@ -215,14 +217,14 @@ bool TestSuite<T>::test4()
 
     p_old = p;
     p = 1.0 / a;
-    if (flag_verbose)
+    if(flag_verbose)
       cout << "Iteration " << std::setw(2) << i << ": " << p << endl;
-    if (abs(to_double(p - p_old) ) < 16 * T::_eps)
+    if(abs(to_double(p - p_old) ) < 16 * T::_eps)
       break;
   }
 
   err = abs(to_double(p - T::_pi) );
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "         _pi: " << T::_pi << endl;
     cout.precision(double_digits);
@@ -244,7 +246,7 @@ bool TestSuite<T>::test5()
   double delta;
   int i = 0;
 
-  while (t > T::_eps)
+  while(t > T::_eps)
   {
     i++;
     n += 1.0;
@@ -254,7 +256,7 @@ bool TestSuite<T>::test5()
 
   delta = abs(to_double(s - T::_e) );
 
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "    e = " << s << endl;
     cout << "   _e = " << T::_e << endl;
@@ -280,7 +282,7 @@ bool TestSuite<T>::test6()
   double n = 1.0;
   double i = 0;
 
-  while (abs(t) > T::_eps)
+  while(abs(t) > T::_eps)
   {
     i++;
     n += 1.0;
@@ -290,7 +292,7 @@ bool TestSuite<T>::test6()
 
   delta = abs(to_double(s - T::_log2) );
 
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << " log2 = " << s << endl;
     cout << "_log2 = " << T::_log2 << endl;
@@ -314,7 +316,7 @@ bool TestSuite<T>::test7()
   T t = -3.25;
   T p =  1.0;
 
-  for (int i = 0; i < 8; i++, t += 1.0)
+  for(int i = 0; i < 8; i++, t += 1.0)
   {
     p = p * exp(t);
   }
@@ -323,7 +325,7 @@ bool TestSuite<T>::test7()
   T t2 = sqr(T::_e);
   double delta = std::max(abs(to_double(t1 - p) ), abs(to_double(t2 - p) ) );
 
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "result = " << p << endl;
     cout << "exp(2) = " << t1 << endl;
@@ -356,7 +358,7 @@ bool TestSuite<T>::test8()
 
   double delta = std::max(abs(to_double(t1 - r1) ), abs(to_double(t2 - r2) ) );
 
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "  r1 = " << r1 << endl;
     cout << "  t1 = " << t1 << endl;

@@ -34,7 +34,7 @@ write (6, 1) ndigits, neps, nquadl
 tm0 = second ()
 call initqtsq (nq1, nq2, wk, xk)
 tm1 = second ()
-if (nerror > 0) stop
+if(nerror > 0) stop
 write (6, 2) tm1 - tm0
 2 format ('Quadrature initialization completed: cpu time =',f12.6)
 
@@ -417,7 +417,7 @@ use quadglobal
 implicit none
 type (qd_real) fun15b, t
 
-if (abs (t) > 1.d-10) then
+if(abs (t) > 1.d-10) then
   fun15b = t**7 * sin (1.d0 / t)
 else
   fun15b = 0.d0
@@ -435,7 +435,7 @@ real*8 eps, h
 parameter (iprint = 1000)
 type (qd_real) p2, t1, t2, t3, t4, t5, u1, u2, wk(-1:nq2), xk(-1:nq2)
 
-if (ndebug >= 1) then
+if(ndebug >= 1) then
   write (6, 1)
 1 format ('initqtsq: Tanh-sinh quadrature initialization')
 endif
@@ -446,7 +446,7 @@ h = 0.5d0 ** nq1
 wk(-1) = dble (nq1)
 
 do k = 0, nq2
-  if (ndebug >= 2 .and. mod (k, iprint) == 0) write (6, *) k, nq2
+  if(ndebug >= 2 .and. mod (k, iprint) == 0) write (6, *) k, nq2
   t1 = dble (k) * h
 
   t2 = exp (t1)
@@ -456,7 +456,7 @@ do k = 0, nq2
   t4 = 0.5d0 * (t3 + 1.d0 / t3)
   xk(k) = 1.d0 / (t3 * t4)
   wk(k) = u1 / t4 ** 2
-  if (wk(k) < eps) goto 100
+  if(wk(k) < eps) goto 100
 enddo
 
 write (6, 2) nq2
@@ -467,7 +467,7 @@ goto 130
 100 continue
 
 xk(-1) = dble (k)
-if (ndebug >= 2) then
+if(ndebug >= 2) then
   write (6, 3) k
 3 format ('initqtsq: Table spaced used =',i8)
 endif
@@ -508,7 +508,7 @@ h = 1.d0
 c10 = 10.d0
 eps = 1.d-64
 
-if (wk(-1) < dble (nq1) ) then
+if(wk(-1) < dble (nq1) ) then
   write (6, 1) nq1
 1 format ('quadtsq: quadrature arrays have not been initialized; nq1 =',i6)
   nerror = 70
@@ -532,7 +532,7 @@ do k = 1, nq1
   twmx = 0.d0
 
   do i = 0, n, k1
-    if (mod (i, k2) /= 0 .or. k == 1) then
+    if(mod (i, k2) /= 0 .or. k == 1) then
       xki = xk(i)
       xt1 = 1.d0 - xki
       xx1 = - ax * xt1 + bx
@@ -540,11 +540,11 @@ do k = 1, nq1
       log1 = xx1 > x1
       log2 = xx2 < x2
 
-      if (log1 .and. iz1 < izx) then
+      if(log1 .and. iz1 < izx) then
         t1 = fun (xx1)
         tw1 = t1 * wk(i)
         twi1 = abs (tw1)
-        if (twi1 < eps) then
+        if(twi1 < eps) then
           iz1 = iz1 + 1
         else
           iz1 = 0
@@ -554,11 +554,11 @@ do k = 1, nq1
         tw1 = 0.d0
       endif
 
-      if (i > 0 .and. log2 .and. iz2 < izx) then
+      if(i > 0 .and. log2 .and. iz2 < izx) then
         t2 = fun (xx2)
         tw2 = t2 * wk(i)
         twi2 = abs (tw2)
-        if (twi2 < eps) then
+        if(twi2 < eps) then
           iz2 = iz2 + 1
         else
           iz2 = 0
@@ -581,22 +581,22 @@ do k = 1, nq1
   d3 = dplog10q (eps1) - 1.d0
   d4 = dplog10q (eps2) - 1.d0
 
-  if (k <= 2) then
+  if(k <= 2) then
     err = 1.d0
-  elseif (d1 .eq. -9999.d0) then
+  elseif(d1 .eq. -9999.d0) then
     err = 0.d0
   else
     err = c10 ** nint (min (0.d0, max (d1 ** 2 / d2, 2.d0 * d1, d3, d4) ) )
   endif
 
-  if (ndebug >= 2) then
+  if(ndebug >= 2) then
     write (6, 2) k, nq1, nint (dplog10q (abs (err) ) )
 2   format ('quadtsq: Iteration',i3,' of',i3,'; est error = 10^',i5, &
       '; approx value =')
     call qdwrite (6, s1)
   endif
-  if (k >= 3 .and. err < eps1) goto 140
-  if (k >= 3 .and. err < eps2) goto 120
+  if(k >= 3 .and. err < eps1) goto 140
+  if(k >= 3 .and. err < eps2) goto 120
 enddo
 
 write (6, 3) nint (dplog10q (abs (err) ) ), nquadl
@@ -613,7 +613,7 @@ goto 140
 
 130 continue
 
-if (ierror > 0) nerror = ierror + 100
+if(ierror > 0) nerror = ierror + 100
 write (6, 5) nerror
 5 format ('quadtsq: Error in quadrature calculation; code =',i5)
 s1 = 0.d0
@@ -637,11 +637,11 @@ neps = -64
 ndp = 64
 eps = 1d-64
 
-if (abs (t) > 170.d0) then
+if(abs (t) > 170.d0) then
   write (6, *) 'gamma: argument too large'
   goto 120
-elseif (t == anint (t) ) then
-  if (t <= 0.d0) then
+elseif(t == anint (t) ) then
+  if(t <= 0.d0) then
     write (6, *) 'gamma: invalid negative argument'
     z = 0.d0
     goto 120
@@ -666,7 +666,7 @@ sum1 = t3
 do j = 1, 1000000000
   t3 = t3 * d2 / (dble (j) * (t1 + dble (j) ) )
   sum1 = sum1 + t3
-  if (abs (t3) < abs (sum1) * eps) goto 100
+  if(abs (t3) < abs (sum1) * eps) goto 100
 enddo
 
 write (6, *) 'gamma: loop overflow 1'
@@ -682,7 +682,7 @@ sum2 = t3
 do j = 1, 1000000000
   t3 = t3 * d2 / (dble (j) * (t1 + dble (j) ) )
   sum2 = sum2 + t3
-  if (abs (t3) < abs (sum2) * eps) goto 110
+  if(abs (t3) < abs (sum2) * eps) goto 110
 enddo
 
 write (6, *) 'gamma: loop overflow 2'
@@ -709,7 +709,7 @@ double precision da, dplog10q, t1
 type (qd_real) a
 
 da = a
-if (da .eq. 0.d0) then
+if(da .eq. 0.d0) then
   dplog10q = -9999.d0
 else
   dplog10q = log10 (abs (da) )
@@ -729,10 +729,10 @@ parameter (xlt = 0.3010299956639812d0)
 type (qd_real) a
 
 da = a
-if (da .ne. 0.d0) then
+if(da .ne. 0.d0) then
   t1 = log10 (abs (da) )
   ib = t1
-  if (t1 .lt. 0.d0) ib = ib - 1
+  if(t1 .lt. 0.d0) ib = ib - 1
   b = sign (10.d0 ** (t1 - ib), da)
 else
   b = 0.d0

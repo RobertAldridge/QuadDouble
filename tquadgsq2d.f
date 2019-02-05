@@ -122,7 +122,7 @@ implicit none
 type (qd_real) fun02, s, t, t1
 
 t1 = 2.d0 - cos (s) - cos (t)
-if (t1 > 0.d0) then
+if(t1 > 0.d0) then
   fun02 = log (2.d0 - cos (s) - cos (t) )
 else
   fun02 = 0.d0
@@ -137,7 +137,7 @@ implicit none
 type (qd_real) fun03, s, t, s1, t1, sq
 external dplog10q
 
-if (s > 3.d-3 .and. t > 3.d-3) then
+if(s > 3.d-3 .and. t > 3.d-3) then
   s1 = 1.d0 / s - 1.d0
   t1 = 1.d0 / t - 1.d0
   sq = sqrt (s1**2 + s1 * t1 + t1**2)
@@ -169,7 +169,7 @@ double precision pi
 parameter (pi = 3.141592653589793238d0)
 type (qd_real) eps, r, t1, t2, t3, t4, t5
 
-if (ndebug >= 1) then
+if(ndebug >= 1) then
   write (6, 1)
 1 format ('initqgs: Gaussian quadrature initialization')
 endif
@@ -200,10 +200,10 @@ do j = 1, n / 2
   t5 = r
   r = r - t1 / t4
 
-  if (abs (r - t5) > eps) goto 100
+  if(abs (r - t5) > eps) goto 100
 
   i = i + 1
-  if (i > nq2) goto 110
+  if(i > nq2) goto 110
   xk(i) = r
   xk(-i) = -xk(i)
   t4 = dble (n) * (r * t1 - t2) / (r ** 2  - 1.d0)
@@ -212,7 +212,7 @@ do j = 1, n / 2
 enddo
 
 nqmx = i
-if (ndebug >= 2) then
+if(ndebug >= 2) then
   write (6, 2) i
 2 format ('initqgs: Table spaced used =',i8)
 endif
@@ -244,7 +244,7 @@ bx = 0.5d0 * (x2 + x1)
 ay = 0.5d0 * (y2 - y1)
 by = 0.5d0 * (y2 + y1)
 
-if (nqmx == 0) then
+if(nqmx == 0) then
   write (6, 1)
 1 format ('quadgsq2d: quadrature arrays have not been initialized')
   stop
@@ -291,7 +291,7 @@ do k = 0, 10000000
        - c2 / (8.d0 * dk + 6.d0) ** 2 - c1 / (8.d0 * dk + 7.d0) ** 2)
   t1 = t1 + t3
   t2 = r16 * t2
-  if (t3 < 1.d-5 * eps) goto 100
+  if(t3 < 1.d-5 * eps) goto 100
 enddo
 
 write (6, *) 'catalan: error - contact author'
@@ -313,7 +313,7 @@ type (qd_real) a
 ! call mpmdc (a % mpr, da, ia)
 da = a
 ia = 0
-if (da .eq. 0.d0) then
+if(da .eq. 0.d0) then
   dplog10q = -9999.d0
 else
   dplog10q = log10 (abs (da) ) + ia * log10 (2.d0)
@@ -335,10 +335,10 @@ type (qd_real) a
 ! call mpmdc (a % mpr, da, ia)
 da = a
 ia = 0
-if (da .ne. 0.d0) then
+if(da .ne. 0.d0) then
   t1 = xlt * ia + log10 (abs (da) )
   ib = t1
-  if (t1 .lt. 0.d0) ib = ib - 1
+  if(t1 .lt. 0.d0) ib = ib - 1
   b = sign (10.d0 ** (t1 - ib), da)
 else
   b = 0.d0

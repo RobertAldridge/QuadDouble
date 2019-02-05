@@ -69,252 +69,252 @@
 
 #define TO_DOUBLE_PTR(a, ptr) ptr[0] = a.x[0]; ptr[1] = a.x[1];
 
-void f_dd_add(const double *a, const double *b, double *c)
+void f_dd_add(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) + dd_real(b);
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_add_dd_d(const double *a, const double *b, double *c)
+void f_dd_add_dd_d(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) + *b;
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_sub(const double *a, const double *b, double *c)
+void f_dd_sub(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) - dd_real(b);
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_sub_dd_d(const double *a, const double *b, double *c)
+void f_dd_sub_dd_d(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) - *b;
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_sub_d_dd(const double *a, const double *b, double *c)
+void f_dd_sub_d_dd(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = *a - dd_real(b);
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_mul(const double *a, const double *b, double *c)
+void f_dd_mul(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) * dd_real(b);
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_mul_dd_d(const double *a, const double *b, double *c)
+void f_dd_mul_dd_d(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) * *b;
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_div(const double *a, const double *b, double *c)
+void f_dd_div(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) / dd_real(b);
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_div_dd_d(const double *a, const double *b, double *c)
+void f_dd_div_dd_d(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = dd_real(a) / *b;
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_div_d_dd(const double *a, const double *b, double *c)
+void f_dd_div_d_dd(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = *a / dd_real(b);
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_sqrt(const double *a, double *b)
+void f_dd_sqrt(const double* a, double* b)
 {
   dd_real bb;
   bb = sqrt(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_sqr(const double *a, double *b)
+void f_dd_sqr(const double* a, double* b)
 {
   dd_real bb;
   bb = sqr(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_abs(const double *a, double *b)
+void f_dd_abs(const double* a, double* b)
 {
   dd_real bb;
   bb = abs(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_npwr(const double *a, const int *n, double *b)
+void f_dd_npwr(const double* a, const int* n, double* b)
 {
   dd_real bb;
   bb = npwr(dd_real(a), *n);
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_nroot(const double *a, const int *n, double *b)
+void f_dd_nroot(const double* a, const int* n, double* b)
 {
   dd_real bb;
   bb = nroot(dd_real(a), *n);
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_nint(const double *a, double *b)
+void f_dd_nint(const double* a, double* b)
 {
   dd_real bb;
   bb = nint(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_aint(const double *a, double *b)
+void f_dd_aint(const double* a, double* b)
 {
   dd_real bb;
   bb = aint(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_floor(const double *a, double *b)
+void f_dd_floor(const double* a, double* b)
 {
   dd_real bb;
   bb = floor(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_ceil(const double *a, double *b)
+void f_dd_ceil(const double* a, double* b)
 {
   dd_real bb;
   bb = ceil(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_log(const double *a, double *b)
+void f_dd_log(const double* a, double* b)
 {
   dd_real bb;
   bb = log(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_log10(const double *a, double *b)
+void f_dd_log10(const double* a, double* b)
 {
   dd_real bb;
   bb = log10(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_exp(const double *a, double *b)
+void f_dd_exp(const double* a, double* b)
 {
   dd_real bb;
   bb = exp(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_sin(const double *a, double *b)
+void f_dd_sin(const double* a, double* b)
 {
   dd_real bb;
   bb = sin(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_cos(const double *a, double *b)
+void f_dd_cos(const double* a, double* b)
 {
   dd_real bb;
   bb = cos(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_tan(const double *a, double *b)
+void f_dd_tan(const double* a, double* b)
 {
   dd_real bb;
   bb = tan(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_asin(const double *a, double *b)
+void f_dd_asin(const double* a, double* b)
 {
   dd_real bb;
   bb = asin(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_acos(const double *a, double *b)
+void f_dd_acos(const double* a, double* b)
 {
   dd_real bb;
   bb = acos(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_atan(const double *a, double *b)
+void f_dd_atan(const double* a, double* b)
 {
   dd_real bb;
   bb = atan(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_atan2(const double *a, const double *b, double *c)
+void f_dd_atan2(const double* a, const double* b, double* c)
 {
   dd_real cc;
   cc = atan2(dd_real(a), dd_real(b) );
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_sinh(const double *a, double *b)
+void f_dd_sinh(const double* a, double* b)
 {
   dd_real bb;
   bb = sinh(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_cosh(const double *a, double *b)
+void f_dd_cosh(const double* a, double* b)
 {
   dd_real bb;
   bb = cosh(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_tanh(const double *a, double *b)
+void f_dd_tanh(const double* a, double* b)
 {
   dd_real bb;
   bb = tanh(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_asinh(const double *a, double *b)
+void f_dd_asinh(const double* a, double* b)
 {
   dd_real bb;
   bb = asinh(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_acosh(const double *a, double *b)
+void f_dd_acosh(const double* a, double* b)
 {
   dd_real bb;
   bb = acosh(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_atanh(const double *a, double *b)
+void f_dd_atanh(const double* a, double* b)
 {
   dd_real bb;
   bb = atanh(dd_real(a) );
   TO_DOUBLE_PTR(bb, b);
 }
 
-void f_dd_sincos(const double *a, double *s, double *c)
+void f_dd_sincos(const double* a, double* s, double* c)
 {
   dd_real ss, cc;
   sincos(dd_real(a), ss, cc);
@@ -322,7 +322,7 @@ void f_dd_sincos(const double *a, double *s, double *c)
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_sincosh(const double *a, double *s, double *c)
+void f_dd_sincosh(const double* a, double* s, double* c)
 {
   dd_real ss, cc;
   sincosh(dd_real(a), ss, cc);
@@ -330,84 +330,86 @@ void f_dd_sincosh(const double *a, double *s, double *c)
   TO_DOUBLE_PTR(cc, c);
 }
 
-void f_dd_swrite(const double *a, int *precision, char *s, int *maxlen)
+void f_dd_swrite(const double* a, int* precision, char* s, int* maxlen)
 {
   int prec = *precision;
-  if (prec <= 0 || prec > dd_real::_ndigits) prec = dd_real::_ndigits;
+  if(prec <= 0 || prec > dd_real::_ndigits) prec = dd_real::_ndigits;
   std::ios_base::fmtflags fmt = static_cast<std::ios_base::fmtflags>(0);
   std::string str = dd_real(a).to_string(prec, 0, fmt, false, true);
 
   int len = 0;
-  if (a[0] < 0.0)
+  if(a[0] < 0.0)
   {
     strncpy(&s[len], str.c_str(), *maxlen - len);
-  } else {
+  }
+  else
+  {
     s[len++] = ' ';
     strncpy(&s[len], str.c_str(), *maxlen - len);
   }
 
   len += str.length();
-  for (int i = len; i < *maxlen; i++)
+  for(int i = len; i < *maxlen; i++)
     s[i] = ' ';
 }
 
-void f_dd_write(const double *a)
+void f_dd_write(const double* a)
 {
   std::cout << dd_real(a) << std::endl;
 }
 
-void f_dd_neg(const double *a, double *b)
+void f_dd_neg(const double* a, double* b)
 {
   b[0] = -a[0];
   b[1] = -a[1];
 }
 
-void f_dd_rand(double *a)
+void f_dd_rand(double* a)
 {
   dd_real aa;
   aa = ddrand();
   TO_DOUBLE_PTR(aa, a);
 }
 
-void f_dd_comp(const double *a, const double *b, int *result)
+void f_dd_comp(const double* a, const double* b, int* result)
 {
   dd_real aa(a), bb(b);
-  if (aa < bb)
+  if(aa < bb)
     *result = -1;
-  else if (aa > bb)
+  else if(aa > bb)
     *result = 1;
   else
     *result = 0;
 }
 
-void f_dd_comp_dd_d(const double *a, const double *b, int *result)
+void f_dd_comp_dd_d(const double* a, const double* b, int* result)
 {
   dd_real aa(a);
-  if (aa < *b)
+  if(aa < *b)
     *result = -1;
-  else if (aa > *b)
+  else if(aa > *b)
     *result = 1;
   else
     *result = 0;
 }
 
-void f_dd_comp_d_dd(const double *a, const double *b, int *result)
+void f_dd_comp_d_dd(const double* a, const double* b, int* result)
 {
   dd_real bb(b);
-  if (*a < bb)
+  if(*a < bb)
     *result = -1;
-  else if (*a > bb)
+  else if(*a > bb)
     *result = 1;
   else
     *result = 0;
 }
 
-void f_dd_pi(double *a)
+void f_dd_pi(double* a)
 {
   TO_DOUBLE_PTR(dd_real::_pi, a);
 }
 
-void f_dd_nan(double *a)
+void f_dd_nan(double* a)
 {
   TO_DOUBLE_PTR(dd_real::_nan, a);
 }

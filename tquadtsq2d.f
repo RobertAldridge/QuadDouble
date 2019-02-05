@@ -122,7 +122,7 @@ implicit none
 type (qd_real) fun02, s, t, t1
 
 t1 = 2.d0 - cos (s) - cos (t)
-if (t1 > 0.d0) then
+if(t1 > 0.d0) then
   fun02 = log (2.d0 - cos (s) - cos (t) )
 else
   fun02 = 0.d0
@@ -137,7 +137,7 @@ implicit none
 type (qd_real) fun03, s, t, s1, t1, sq
 external dplog10q
 
-if (s > 3.d-3 .and. t > 3.d-3) then
+if(s > 3.d-3 .and. t > 3.d-3) then
   s1 = 1.d0 / s - 1.d0
   t1 = 1.d0 / t - 1.d0
   sq = sqrt (s1**2 + s1 * t1 + t1**2)
@@ -171,7 +171,7 @@ type (qd_real) pi, p2, t1, t2, t3, t4, t5, u1, u2
 
 pi = qdpi()
 eps = 10.d0 ** nepsilon1
-if (ndebug >= 1) then
+if(ndebug >= 1) then
   write (6, 1)
 1 format ('initqts: Tanh-sinh quadrature initialization')
 endif
@@ -180,7 +180,7 @@ p2 = 0.5d0 * pi
 h = 0.5d0 ** nq1
 
 do k = 0, nq2
-  if (ndebug >= 2 .and. mod (k, iprint) == 0) write (6, *) k, nq2
+  if(ndebug >= 2 .and. mod (k, iprint) == 0) write (6, *) k, nq2
   t1 = dble (k) * h
 
   t2 = exp (t1)
@@ -190,11 +190,11 @@ do k = 0, nq2
   t4 = 0.5d0 * (t3 + 1.d0 / t3)
   xk(k) = 1.d0 - 1.d0 / (t3 * t4)
   wk(k) = u1 / t4 ** 2
-  if (k > 0) then
+  if(k > 0) then
     xk(-k) = - xk(k)
     wk(-k) = wk(k)
   endif
-  if (wk(k) < eps) goto 100
+  if(wk(k) < eps) goto 100
 enddo
 
 write (6, 2) nq2
@@ -204,7 +204,7 @@ stop
 100 continue
 
 nqmx = k
-if (ndebug >= 2) then
+if(ndebug >= 2) then
   write (6, 3) k
 3 format ('initqts: Table spaced used =',i8)
   write (6, *) 'final xk, wk ='
@@ -230,7 +230,7 @@ bx = 0.5d0 * (x2 + x1)
 ay = 0.5d0 * (y2 - y1)
 by = 0.5d0 * (y2 + y1)
 
-if (nqmx == 0) then
+if(nqmx == 0) then
   write (6, 1)
 1 format ('quadtsq2d: quadrature arrays have not been initialized')
   stop
@@ -277,7 +277,7 @@ do k = 0, 10000000
        - c2 / (8.d0 * dk + 6.d0) ** 2 - c1 / (8.d0 * dk + 7.d0) ** 2)
   t1 = t1 + t3
   t2 = r16 * t2
-  if (t3 < 1.d-5 * eps) goto 100
+  if(t3 < 1.d-5 * eps) goto 100
 enddo
 
 write (6, *) 'catalan: error - contact author'
@@ -299,7 +299,7 @@ type (qd_real) a
 ! call mpmdc (a % mpr, da, ia)
 da = a
 ia = 0
-if (da .eq. 0.d0) then
+if(da .eq. 0.d0) then
   dplog10q = -9999.d0
 else
   dplog10q = log10 (abs (da) ) + ia * log10 (2.d0)
@@ -321,10 +321,10 @@ type (qd_real) a
 ! call mpmdc (a % mpr, da, ia)
 da = a
 ia = 0
-if (da .ne. 0.d0) then
+if(da .ne. 0.d0) then
   t1 = xlt * ia + log10 (abs (da) )
   ib = t1
-  if (t1 .lt. 0.d0) ib = ib - 1
+  if(t1 .lt. 0.d0) ib = ib - 1
   b = sign (10.d0 ** (t1 - ib), da)
 else
   b = 0.d0

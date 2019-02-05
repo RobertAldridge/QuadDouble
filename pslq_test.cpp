@@ -12,11 +12,11 @@ bool flag_dd_pslq = false;
 bool flag_qd_pslq = false;
 
 template <class T>
-T polyeval(T *a, int n, T &x, double &err_bnd)
+T polyeval(T* a, int n, T& x, double& err_bnd)
 {
   T t = a[n];
   err_bnd = std::abs(to_double(t) ) * 0.5;
-  for (int i = n-1; i >= 0; i--)
+  for(int i = n-1; i >= 0; i--)
   {
     t *= x;
     t += a[i];
@@ -35,14 +35,14 @@ double nroot(double x, int n)
 
 bool is_int(double x)
 {
-  return (std::abs(x) <= std::numeric_limits<int>::max() &&
-          static_cast<int>(x) == x);
+  return (std::abs(x) <= std::numeric_limits<int>::max() && static_cast<int>(x) == x);
 }
 
 template <class T>
 bool pslq_test(int p, int q, double eps, int max_itr = 100000)
 {
-  T *x, *b;
+  T* x;
+  T* b;
   T r = nroot(T(2.0), p) + nroot(T(3.0), q);
   T t;
   int err;
@@ -57,10 +57,10 @@ bool pslq_test(int p, int q, double eps, int max_itr = 100000)
   x[0] = 1.0;
   x[1] = r;
   t = r*r;
-  for (int i = 2; i < n; i++, t *= r) x[i] = t;
+  for(int i = 2; i < n; i++, t *= r) x[i] = t;
 
   cout << "  testing pslq_test(" << p << ", " << q << ") ..." << endl;
-  if (g_verbose) cout << std::setprecision(std::numeric_limits<T>::digits10) << "    r = " << r << endl;
+  if(g_verbose) cout << std::setprecision(std::numeric_limits<T>::digits10) << "    r = " << r << endl;
 
   tic(&tv);
   err = pslq<T>(x, n, b, eps, max_itr);
@@ -68,14 +68,14 @@ bool pslq_test(int p, int q, double eps, int max_itr = 100000)
 
   cout << "    elapsed time = " << std::setprecision(4) << tm << " seconds." << endl;
   cout << std::right << std::setprecision(2) << std::fixed;
-  if (!err)
+  if( !err)
   {
-    if (g_verbose)
+    if(g_verbose)
     {
       cout << "    polynomial: ";
-      for (int i = 0; i < n; i++)
+      for(int i = 0; i < n; i++)
       {
-        if (i > 0) cout << "                ";
+        if(i > 0) cout << "                ";
         cout << std::setprecision(0) << std::setw(24) << b[i] << endl;
       }
     }
@@ -84,7 +84,7 @@ bool pslq_test(int p, int q, double eps, int max_itr = 100000)
     t = abs(polyeval<T>(b, n-1, r, err_bnd) );
     err = t > 10.0 * err_bnd;
     cout << std::scientific << std::setprecision(4);
-    if (err || g_verbose)
+    if(err || g_verbose)
     {
       cout << "    residual    = " << t << endl;
       cout << "    error bound = " << err_bnd << endl;
@@ -94,7 +94,7 @@ bool pslq_test(int p, int q, double eps, int max_itr = 100000)
   delete [] x;
   delete [] b;
 
-  if (err)
+  if(err)
     cout << "  test FAILED." << endl;
   else
     cout << "  test passed." << endl;
@@ -113,7 +113,7 @@ bool pslq_test(int p, int q)
 static void print_usage()
 {
   cout << "pslq_test [-h] [-n N] [-d] [--dd] [--qd] [--all] [-v]" << endl;
-  cout << "  Performs the PSLQ algorithm on 1, r, r^2, ..., r^{n-1}" << endl;
+  cout << "  Performs the PSLQ algorithm on 1, r, r^2, ..., r^(n - 1)" << endl;
   cout << "  where r is a root of a constructed integer coefficient" << endl;
   cout << "  polynomial.  PSLQ algorithm should reconstruct the polynomial" << endl;
   cout << "  in most cases where the degree is not too high and the" << endl;

@@ -1,6 +1,12 @@
 
 // tictoc.h
 
+#ifdef CLOCK_HIGHRES
+#define SAMPLED_CLOCK CLOCK_HIGHRES
+#else
+#define SAMPLED_CLOCK CLOCK_REALTIME
+#endif
+
 #ifdef HAVE_CLOCK_GETTIME
 typedef struct timespec tictoc;
 #elif HAVE_GETTIMEOFDAY

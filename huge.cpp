@@ -38,7 +38,7 @@ bool check(string str, string true_str)
 {
   bool pass = (str == true_str);
 
-  if(!pass)
+  if( !pass)
   {
     cout << "     fail: " << str << endl;
     cout << "should be: " << true_str << endl;
@@ -57,7 +57,7 @@ template <class T> bool test_huge()
 
   int digits = T::_ndigits - 1;
 
-  T x = T::_pi * T("1.0e290");
+  T x = T::_pi* T("1.0e290");
 
   string pi_str = T::_pi.to_string(digits, 0, std::ios_base::fixed);
 
@@ -75,7 +75,7 @@ template <class T> bool test_huge()
     pass &= check(x.to_string(digits), os.str() );
   }
 
-  x = -T::_pi * T("1.0e290");
+  x = -T::_pi* T("1.0e290");
 
   pi_str = "-" + pi_str;
 

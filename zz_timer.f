@@ -52,7 +52,7 @@ subroutine f_main
     enddo
 
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
 
   n = n * 4
@@ -83,7 +83,7 @@ subroutine f_main
     enddo
 
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
 
   n = n * 4
@@ -114,7 +114,7 @@ subroutine f_main
     enddo
 
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
 
   n = n * 4
@@ -140,7 +140,7 @@ subroutine f_main
     enddo
 
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
 
   write (6, *) n, ' operations in ', t, ' seconds.'
@@ -166,7 +166,7 @@ subroutine f_main
     enddo
 
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
 
   write (6, *) n, ' operations in ', t, ' seconds.'
@@ -192,7 +192,7 @@ subroutine f_main
     enddo
 
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
 
   write (6, *) n, ' operations in ', t, ' seconds.'

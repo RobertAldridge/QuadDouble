@@ -32,7 +32,7 @@ subroutine f_main
       b = a - d
     enddo
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
   n = n * 4
   write (6, *) n, ' operations in ', t, ' seconds.'
@@ -55,7 +55,7 @@ subroutine f_main
       b = a * d
     enddo
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
   n = n * 4
   write (6, *) n, ' operations in ', t, ' seconds.'
@@ -78,7 +78,7 @@ subroutine f_main
       b = a / d
     enddo
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
   n = n * 4
   write (6, *) n, ' operations in ', t, ' seconds.'
@@ -96,7 +96,7 @@ subroutine f_main
       a = sqrt(a + b)
     enddo
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
   write (6, *) n, ' operations in ', t, ' seconds.'
   write (6, *) t/n*1.0d6, ' usec'
@@ -115,7 +115,7 @@ subroutine f_main
       c = c + d
     enddo
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
   write (6, *) n, ' operations in ', t, ' seconds.'
   write (6, *) t/n*1.0d6, ' usec'
@@ -134,7 +134,7 @@ subroutine f_main
       c = c * d
     enddo
     t = second() - t
-    if (t .ge. time_thresh) exit
+    if(t .ge. time_thresh) exit
   enddo
   write (6, *) n, ' operations in ', t, ' seconds.'
   write (6, *) t/n*1.0d6, ' usec'

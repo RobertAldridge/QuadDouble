@@ -14,25 +14,25 @@
 #include <sstream>
 #include <algorithm>
 
-//#include <float.h>
+/*#include <float.h>*/
 
-//#include <math.h>
+/*#include <math.h>*/
 
-//#include <stdio.h>
+/*#include <stdio.h>*/
 
-//#include <string.h>
+/*#include <string.h>*/
 
-//#include <time.h>
+/*#include <time.h>*/
 
-//#include <builtins.h>
+/*#include <builtins.h>*/
 
-//#include <fpu_control.h>
+/*#include <fpu_control.h>*/
 
-/* #include <ieeefp.h> */
+/*#include <ieeefp.h>*/
 
-//#include <sys/time.h>
+/*#include <sys/time.h>*/
 
-//#include <windows.h>
+/*#include <windows.h>*/
 
 namespace qd
 {

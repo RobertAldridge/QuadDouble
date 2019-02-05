@@ -1,21 +1,21 @@
 
 // config.h
 
-//#define FC_DUMMY_MAIN main
+/*#define FC_DUMMY_MAIN main*/
 
-//#define FC_DUMMY_MAIN_EQ_F77 1
+/*#define FC_DUMMY_MAIN_EQ_F77 1*/
 
-//#define FC_FUNC(name, NAME) name ## _
+/*#define FC_FUNC(name, NAME) name ## _*/
 
-//#define FC_FUNC_(name, NAME) name ## _
+/*#define FC_FUNC_(name, NAME) name ## _*/
 
-//#define FC_MAIN main
+/*#define FC_MAIN main*/
 
 #define HAVE_CLOCK_GETTIME 1
 
 #define HAVE_DLFCN_H 1
 
-/* #define HAVE_FORTRAN 1 */
+/*#define HAVE_FORTRAN 1*/
 
 #define HAVE_FPU_CONTROL_H 1
 
@@ -47,7 +47,7 @@
 
 #define HAVE__BOOL 1
 
-//#define LT_OBJDIR ".libs/"
+/*#define LT_OBJDIR ".libs/"*/
 
 #define MAJOR_VERSION 2
 
@@ -73,9 +73,9 @@
 
 #define QD_DEBUG 1
 
-//#define QD_FMA
+/*#define QD_FMA*/
 
-//#define QD_FMS
+/*#define QD_FMS*/
 
 #define QD_HAVE_STD 1
 
@@ -87,11 +87,11 @@
 
 #define QD_ISNAN(x) std::isnan(x)
 
-//#define QD_SLOPPY_DIV 1
+/*#define QD_SLOPPY_DIV 1*/
 
-//#define QD_SLOPPY_MUL 1
+/*#define QD_SLOPPY_MUL 1*/
 
-//#define QD_VACPP_BUILTINS_H 1
+/*#define QD_VACPP_BUILTINS_H 1*/
 
 #define STDC_HEADERS 1
 
@@ -101,4 +101,4 @@
 
 #define VERSION "2.3.20"
 
-//#define X86 1
+/*#define X86 1*/

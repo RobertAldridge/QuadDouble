@@ -9,8 +9,8 @@ static bool flag_test_qd = false;
 static bool flag_verbose = false;
 static int  long_factor = 1;
 
-template <class T>
-class TestSuite {
+template<class T> class TestSuite
+{
 public:
   void test1();
   void test2();
@@ -27,11 +27,15 @@ public:
 
 template <class T>
 T TestSuite<T>::pi()
-{ return T::_pi; }
+{
+  return T::_pi;
+}
 
 template <>
 double TestSuite<double>::pi()
-{ return 3.141592653589793116; }
+{
+  return 3.141592653589793116;
+}
 
 void print_timing(double nops, double t)
 {
@@ -44,7 +48,7 @@ void print_timing(double nops, double t)
 template <class T>
 void TestSuite<T>::test1()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing addition..." << endl;
@@ -62,7 +66,7 @@ void TestSuite<T>::test1()
   T b1 = 0.0, b2 = 0.0, b3 = 0.0, b4 = 0.0;
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     b1 += a1;
     b2 += a2;
@@ -70,12 +74,14 @@ void TestSuite<T>::test1()
     b4 += a4;
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "r = " << b1+b2+b3+b4 << endl;
     cout << 4*n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   add: ";
   }
 
@@ -85,7 +91,7 @@ void TestSuite<T>::test1()
 template <class T>
 void TestSuite<T>::test2()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing multiplication ..." << endl;
@@ -103,7 +109,7 @@ void TestSuite<T>::test2()
   T b1 = 1.0, b2 = 1.0, b3 = 1.0, b4 = 1.0;
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     b1 *= a1;
     b2 *= a2;
@@ -111,22 +117,23 @@ void TestSuite<T>::test2()
     b4 *= a4;
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "r = " << b1+b2+b3+b4 << endl;
     cout << 4*n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   mul: ";
   }
 
   print_timing(4.0*n, t);
 }
 
-template <class T>
-void TestSuite<T>::test3()
+template<class T> void TestSuite<T>::test3()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing division ..." << endl;
@@ -144,7 +151,7 @@ void TestSuite<T>::test3()
   T b1 = 1.0, b2 = 1.0, b3 = 1.0, b4 = 1.0;
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     b1 /= a1;
     b2 /= a2;
@@ -152,12 +159,14 @@ void TestSuite<T>::test3()
     b4 /= a4;
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "r = " << b1+b2+b3+b4 << endl;
     cout << 4*n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   div: ";
   }
 
@@ -167,7 +176,7 @@ void TestSuite<T>::test3()
 template <class T>
 void TestSuite<T>::test4()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing square root ..." << endl;
@@ -185,7 +194,7 @@ void TestSuite<T>::test4()
   T b4 = 4.0 + pi();
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     a1 = sqrt(a1 + b1);
     a2 = sqrt(a2 + b2);
@@ -193,12 +202,14 @@ void TestSuite<T>::test4()
     a4 = sqrt(a4 + b4);
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "r = " << a1+a2+a3+a4 << endl;
     cout << 4*n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "  sqrt: ";
   }
 
@@ -208,7 +219,7 @@ void TestSuite<T>::test4()
 template <class T>
 void TestSuite<T>::test5()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing sin ..." << endl;
@@ -224,18 +235,20 @@ void TestSuite<T>::test5()
   T c = 0.0;
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     a += b;
     c += sin(a);
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "r = " << c << endl;
     cout << n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   sin: ";
   }
 
@@ -245,7 +258,7 @@ void TestSuite<T>::test5()
 template <class T>
 void TestSuite<T>::test6()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing log ..." << endl;
@@ -261,18 +274,20 @@ void TestSuite<T>::test6()
   T d = exp(T(100.2) / double(n) );
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     a = a + log(c);
     c *= d;
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "a = " << a << endl;
     cout << n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   log: ";
   }
 
@@ -282,7 +297,7 @@ void TestSuite<T>::test6()
 template <class T>
 void TestSuite<T>::test7()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing dot ..." << endl;
@@ -304,7 +319,7 @@ void TestSuite<T>::test7()
   T x1 = 1.0, x2 = 1.0, x3 = 1.0, x4 = 1.0;
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     x1 = a1 + b1 * x1;
     x2 = a2 + b2 * x2;
@@ -312,12 +327,14 @@ void TestSuite<T>::test7()
     x4 = a4 + b4 * x4;
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "r = " << x1+x2+x3+x4 << endl;
     cout << 8*n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   dot: ";
   }
 
@@ -327,7 +344,7 @@ void TestSuite<T>::test7()
 template <class T>
 void TestSuite<T>::test8()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing exp ..." << endl;
@@ -343,18 +360,20 @@ void TestSuite<T>::test8()
   T d = 10.0 / static_cast<double>(n);
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     a = a + exp(c);
     c += d;
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "a = " << a << endl;
     cout << n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   exp: ";
   }
 
@@ -364,7 +383,7 @@ void TestSuite<T>::test8()
 template <class T>
 void TestSuite<T>::test9()
 {
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << endl;
     cout << "Timing cos ..." << endl;
@@ -380,18 +399,20 @@ void TestSuite<T>::test9()
   T c = 0.0;
 
   tic(&tv);
-  for (i = 0; i < n; i++)
+  for(i = 0; i < n; i++)
   {
     a += b;
     c += cos(a);
   }
   t = toc(&tv);
-  if (flag_verbose)
+  if(flag_verbose)
   {
     cout << "n = " << n << "   t = " << t << endl;
     cout << "r = " << c << endl;
     cout << n << " operations in " << t << " s." << endl;
-  } else {
+  }
+  else
+  {
     cout << "   cos: ";
   }
 

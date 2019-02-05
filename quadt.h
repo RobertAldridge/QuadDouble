@@ -4,15 +4,17 @@
 template<class T> class quadt
 {
 public:
+
   quadt(double eps);
 
   ~quadt();
 
-  template <class F> int integrate_u(const F& f, double tol, T& result, double& err);
+  template<class F> int integrate_u(const F& f, double tol, T& result, double& err);
 
-  template <class F> int integrate(const F& f, T a, T b, double tol, T& result, double& err);
+  template<class F> int integrate(const F& f, T a, T b, double tol, T& result, double& err);
 
 private:
+
   int max_level;
 
   double initial_width;
@@ -27,9 +29,8 @@ private:
 
   T* points;
 
-  template <class F> class UnitFunction
+  template<class F> class UnitFunction
   {
-  private:
     F f;
 
     T offset;
@@ -37,6 +38,7 @@ private:
     T h;
 
   public:
+
     UnitFunction(const F& f, const T& a, const T& b) : f(f)
     {
       offset = 0.5 * (a + b);
@@ -53,7 +55,7 @@ private:
   void init_table();
 };
 
-template <class T> quadt<T>::quadt(double eps)
+template<class T> quadt<T>::quadt(double eps)
 {
   max_level = 11;
 
@@ -68,14 +70,14 @@ template <class T> quadt<T>::quadt(double eps)
   init_table();
 }
 
-template <class T> quadt<T>::~quadt()
+template<class T> quadt<T>::~quadt()
 {
   delete[] weights;
 
   delete[] points;
 }
 
-template <class T> void quadt<T>::init_table()
+template<class T> void quadt<T>::init_table()
 {
   double h = initial_width * 2.0;
 
@@ -107,7 +109,7 @@ template <class T> void quadt<T>::init_table()
 
     dt = (level == 1) ? t : h;
 
-    for(/* nop */; /* nop */; t += dt)
+    for(/*nop*/; /*nop*/; t += dt)
     {
       sincosh(T(t), sinh_t, cosh_t);
 
@@ -115,7 +117,7 @@ template <class T> void quadt<T>::init_table()
 
       x = sinh_s / cosh_s;
 
-//w = (cosh_t / cosh_s) / cosh_s;
+/*w = (cosh_t / cosh_s) / cosh_s;*/
 
       w = (cosh_t / sqr(cosh_s) );
 
@@ -136,7 +138,7 @@ template <class T> void quadt<T>::init_table()
 
 }
 
-template <class T> template <class F> int quadt<T>::integrate_u(const F& f, double tol, T& result, double& err)
+template<class T> template<class F> int quadt<T>::integrate_u(const F& f, double tol, T& result, double& err)
 {
   T r1;
 
@@ -168,7 +170,7 @@ template <class T> template <class F> int quadt<T>::integrate_u(const F& f, doub
 
   for(level = 1; level <= max_level; level++, h *= 0.5)
   {
-    for(/* nop */; /* nop */; /* nop */)
+    for(/*nop*/; /*nop*/; /*nop*/)
     {
       x = points[i];
 
@@ -188,13 +190,13 @@ template <class T> template <class F> int quadt<T>::integrate_u(const F& f, doub
 
     if(level > 2)
     {
-      double e1;
+      double e1 = 0.0;
 
-      double e2;
+      double e2 = 0.0;
 
-      double d1;
+      double d1 = 0.0;
 
-      double d2;
+      double d2 = 0.0;
 
       e1 = abs(to_double(r1 - r2) );
 
@@ -247,7 +249,7 @@ template <class T> template <class F> int quadt<T>::integrate_u(const F& f, doub
   return 0;
 }
 
-template <class T> template <class F> int quadt<T>::integrate(const F& f, T a, T b, double tol, T& result, double& err)
+template<class T> template<class F> int quadt<T>::integrate(const F& f, T a, T b, double tol, T& result, double& err)
 {
   if(a == -1.0 && b == 1.0)
   {
@@ -257,6 +259,6 @@ template <class T> template <class F> int quadt<T>::integrate(const F& f, T a, T
   {
     UnitFunction<F> unit_f(f, a, b);
 
-    return integrate_u< UnitFunction<F> >(unit_f, tol, result, err);
+    return integrate_u<UnitFunction<F> >(unit_f, tol, result, err);
   }
 }
