@@ -4,7 +4,9 @@
 #include "include.h"
 
 static bool flag_test_dd = false;
+
 static bool flag_test_qd = false;
+
 static bool flag_verbose = false;
 
 static bool print_result(bool result)
@@ -24,13 +26,21 @@ static bool print_result(bool result)
 static void print_usage()
 {
   cout << "qd_test [-h] [--dd] [--qd] [--all] [-v]" << endl;
+
   cout << "  Tests output of large numbers." << endl;
+
   cout << endl;
+
   cout << "-h --help    Prints this usage message." << endl;
+
   cout << "--dd         Perform tests with double-double types." << endl;
+
   cout << "--qd         Perform tests with quad-double types." << endl;
+
   cout << "               This is the default." << endl;
+
   cout << "--all        Perform both double-double and quad-double tests." << endl;
+
   cout << "-v --verbose Print detailed information for each test." << endl;
 }
 
@@ -41,6 +51,7 @@ bool check(string str, string true_str)
   if( !pass)
   {
     cout << "     fail: " << str << endl;
+
     cout << "should be: " << true_str << endl;
   }
   else if(flag_verbose)
@@ -51,7 +62,7 @@ bool check(string str, string true_str)
   return pass;
 }
 
-template <class T> bool test_huge()
+template<class T> bool test_huge()
 {
   bool pass = true;
 
@@ -91,7 +102,7 @@ template <class T> bool test_huge()
   return pass;
 }
 
-template <class T> bool test_max(string true_str)
+template<class T> bool test_max(string true_str)
 {
   bool pass = true;
 
@@ -109,6 +120,7 @@ int main3(int argc, const char* argv[] )
   bool pass = true;
 
 //unsigned int old_cw = 0;
+
 //fpu_fix_start(&old_cw);
 
   for(int i = 1; i < argc; i++)
@@ -163,6 +175,7 @@ int main3(int argc, const char* argv[] )
   if( !flag_test_dd && !flag_test_qd)
   {
     flag_test_dd = true;
+
     flag_test_qd = true;
   }
 
@@ -171,9 +184,11 @@ int main3(int argc, const char* argv[] )
   if(flag_test_dd)
   {
     cout << endl;
+
     cout << "Testing dd_real ..." << endl;
 
     pass &= test_huge<dd_real>();
+
     pass &= test_max<dd_real>("1.797693134862315807937289714053e+308");
 
     print_result(pass);
@@ -182,9 +197,11 @@ int main3(int argc, const char* argv[] )
   if(flag_test_qd)
   {
     cout << endl;
+
     cout << "Testing qd_real ..." << endl;
 
     pass &= test_huge<qd_real>();
+
     pass &= test_max<qd_real>("1.7976931348623158079372897140530286112296785259868571699620069e+308");
 
     print_result(pass);

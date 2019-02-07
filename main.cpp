@@ -8,11 +8,17 @@
 /*extern void f_main();*/
 
 extern int main1(int argc, const char* argv[] );
+
 extern int main2(int argc, const char* argv[] );
+
 extern int main3(int argc, const char* argv[] );
+
 extern int main4(int argc, const char* argv[] );
+
 extern int main5(int argc, const char* argv[] );
+
 extern int main6(int argc, const char* argv[] );
+
 extern int main7(int argc, const char* argv[] );
 
 int main(int argc, const char* argv[] )
@@ -77,6 +83,7 @@ int main(int argc, const char* argv[] )
   int argc7 = sizeof(argv7) / sizeof(argv7[0] );
 
 //unsigned int old_cw;
+
 //fpu_fix_start(&old_cw);
 
 printf("blah1\r\n");
@@ -84,11 +91,17 @@ printf("blah1\r\n");
 /*f_main();*/
 
 main1(argc1, argv1);
+
 main2(argc2, argv2);
+
 main3(argc3, argv3);
+
 main4(argc4, argv4);
+
 main5(argc5, argv5);
+
 main6(argc6, argv6);
+
 main7(argc7, argv7);
 
 printf("blah2\r\n");

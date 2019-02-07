@@ -51,7 +51,7 @@ double two_diff(double a, double b, double& err)
   return s;
 }
 
-#ifndef QD_FMS
+#if !defined(QD_FMS)
 void split(double a, double& hi, double& lo)
 {
   double temp = 0.0;
@@ -83,7 +83,7 @@ void split(double a, double& hi, double& lo)
 
 double two_prod(double a, double b, double& err)
 {
-#ifdef QD_FMS
+#if defined(QD_FMS)
   double p = a * b;
 
   err = QD_FMS(a, b, p);
@@ -112,7 +112,7 @@ double two_prod(double a, double b, double& err)
 
 double two_sqr(double a, double& err)
 {
-#ifdef QD_FMS
+#if defined(QD_FMS)
   double p = a * a;
 
   err = QD_FMS(a, a, p);

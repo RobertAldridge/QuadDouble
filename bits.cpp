@@ -6,12 +6,19 @@
 int get_double_expn(double x)
 {
   if(x == 0.0)
+  {
     return INT_MIN;
-  if(QD_ISINF(x) || QD_ISNAN(x) )
+  }
+
+  if(std::isinf(x) || std::isnan(x) )
+  {
     return INT_MAX;
+  }
 
   double y = std::abs(x);
+
   int i = 0;
+
   if(y < 1.0)
   {
     while(y < 1.0)
@@ -19,6 +26,7 @@ int get_double_expn(double x)
       y *= 2.0;
       i++;
     }
+
     return -i;
   }
   else if(y >= 2.0)
@@ -28,33 +36,43 @@ int get_double_expn(double x)
       y *= 0.5;
       i++;
     }
+
     return i;
   }
+
   return 0;
 }
 
 void print_double_info(std::ostream& os, double x)
 {
   std::streamsize old_prec = os.precision(19);
+
   std::ios_base::fmtflags old_flags  = os.flags();
+
   os << std::scientific;
 
   os << setw(27) << x << ' ';
-  if(QD_ISNAN(x) || QD_ISINF(x) || (x == 0.0) )
+
+  if(std::isnan(x) || std::isinf(x) || (x == 0.0) )
   {
-    os << "                                                           ";
+    os << " ";
   }
   else
   {
     x = std::abs(x);
+
     int expn = get_double_expn(x);
+
     double d = std::ldexp(1.0, expn);
+
     os << setw(5) << expn << " ";
+
     for(int i = 0; i < 53; i++)
     {
       if(x >= d)
       {
         x -= d;
+
         os << '1';
       }
       else
@@ -72,5 +90,6 @@ void print_double_info(std::ostream& os, double x)
   }
 
   os.precision(old_prec);
+
   os.flags(old_flags);
 }

@@ -71,12 +71,12 @@ struct qd_real
 
   bool isfinite() const
   {
-    return QD_ISFINITE(x[0] );
+    return std::isfinite(x[0] );
   }
 
   bool isinf() const
   {
-    return QD_ISINF(x[0] );
+    return std::isinf(x[0] );
   }
 
   static qd_real ieee_add(const qd_real& a, const qd_real& b);

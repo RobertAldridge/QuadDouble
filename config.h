@@ -69,8 +69,6 @@
 
 #define PATCH_VERSION 12
 
-#define QD_COPYSIGN(x, y) std::copysign(x, y)
-
 #define QD_DEBUG 1
 
 /*#define QD_FMA*/
@@ -80,12 +78,6 @@
 #define QD_HAVE_STD 1
 
 #define QD_IEEE_ADD 1
-
-#define QD_ISFINITE(x) std::isfinite(x)
-
-#define QD_ISINF(x) std::isinf(x)
-
-#define QD_ISNAN(x) std::isnan(x)
 
 /*#define QD_SLOPPY_DIV 1*/
 

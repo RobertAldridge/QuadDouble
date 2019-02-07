@@ -79,7 +79,7 @@ double& qd_real::operator[](int i)
 
 bool qd_real::isnan() const
 {
-  return QD_ISNAN(x[0] ) || QD_ISNAN(x[1] ) || QD_ISNAN(x[2] ) || QD_ISNAN(x[3] );
+  return std::isnan(x[0] ) || std::isnan(x[1] ) || std::isnan(x[2] ) || std::isnan(x[3] );
 }
 
 namespace qd
@@ -128,7 +128,7 @@ void renorm(double& c0, double& c1, double& c2, double& c3)
 
   double s3 = 0.0;
 
-  if(QD_ISINF(c0) )
+  if(std::isinf(c0) )
   {
     return;
   }
@@ -186,7 +186,7 @@ void renorm(double& c0, double& c1, double& c2, double& c3, double& c4)
 
   double s3 = 0.0;
 
-  if(QD_ISINF(c0) )
+  if(std::isinf(c0) )
   {
     return;
   }
@@ -635,10 +635,10 @@ qd_real qd_real::sloppy_add(const qd_real& a, const qd_real& b)
 
 qd_real operator+(const qd_real& a, const qd_real& b)
 {
-#ifndef QD_IEEE_ADD
-  return qd_real::sloppy_add(a, b);
-#else
+#if defined(QD_IEEE_ADD)
   return qd_real::ieee_add(a, b);
+#else
+  return qd_real::sloppy_add(a, b);
 #endif
 }
 
@@ -1040,7 +1040,7 @@ qd_real qd_real::accurate_mul(const qd_real& a, const qd_real& b)
 
 qd_real operator*(const qd_real& a, const qd_real& b)
 {
-#ifdef QD_SLOPPY_MUL
+#if defined(QD_SLOPPY_MUL)
   return qd_real::sloppy_mul(a, b);
 #else
   return qd_real::accurate_mul(a, b);
@@ -1124,7 +1124,6 @@ qd_real sqr(const qd_real& a)
   qd::renorm(p0, p1, p2, p3, p4);
 
   return qd_real(p0, p1, p2, p3);
-
 }
 
 qd_real& qd_real::operator*=(double a)
@@ -1148,9 +1147,9 @@ qd_real& qd_real::operator*=(const qd_real& a)
   return *this;
 }
 
-qd_real operator/ (const qd_real& a, const dd_real& b)
+qd_real operator/(const qd_real& a, const dd_real& b)
 {
-#ifdef QD_SLOPPY_DIV
+#if defined(QD_SLOPPY_DIV)
   return qd_real::sloppy_div(a, b);
 #else
   return qd_real::accurate_div(a, b);
@@ -1159,7 +1158,7 @@ qd_real operator/ (const qd_real& a, const dd_real& b)
 
 qd_real operator/(const qd_real& a, const qd_real& b)
 {
-#ifdef QD_SLOPPY_DIV
+#if defined(QD_SLOPPY_DIV)
   return qd_real::sloppy_div(a, b);
 #else
   return qd_real::accurate_div(a, b);
@@ -1225,7 +1224,11 @@ qd_real& qd_real::operator=(double a)
 {
   x[0] = a;
 
-  x[1] = x[2] = x[3] = 0.0;
+  x[1] = 0.0;
+
+  x[2] = 0.0;
+
+  x[3] = 0.0;
 
   return *this;
 }
@@ -1236,7 +1239,9 @@ qd_real& qd_real::operator=(const dd_real& a)
 
   x[1] = a._lo();
 
-  x[2] = x[3] = 0.0;
+  x[2] = 0.0;
+
+  x[3] = 0.0;
 
   return *this;
 }

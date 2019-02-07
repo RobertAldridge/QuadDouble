@@ -98,21 +98,7 @@ dd_real& dd_real::operator+=(double a)
 
 dd_real& dd_real::operator+=(const dd_real& a)
 {
-#ifndef QD_IEEE_ADD
-  double s = 0.0;
-
-  double e = 0.0;
-
-  s = qd::two_sum(x[0], a.x[0], e);
-
-  e += x[1];
-
-  e += a.x[1];
-
-  x[0] = qd::quick_two_sum(s, e, x[1] );
-
-  return *this;
-#else
+#if defined(QD_IEEE_ADD)
   double s1 = 0.0;
 
   double s2 = 0.0;
@@ -132,6 +118,20 @@ dd_real& dd_real::operator+=(const dd_real& a)
   s2 += t2;
 
   x[0] = qd::quick_two_sum(s1, s2, x[1] );
+
+  return *this;
+#else
+  double s = 0.0;
+
+  double e = 0.0;
+
+  s = qd::two_sum(x[0], a.x[0], e);
+
+  e += x[1];
+
+  e += a.x[1];
+
+  x[0] = qd::quick_two_sum(s, e, x[1] );
 
   return *this;
 #endif
@@ -165,21 +165,7 @@ dd_real operator-(const dd_real& a, double b)
 
 dd_real operator-(const dd_real& a, const dd_real& b)
 {
-#ifndef QD_IEEE_ADD
-  double s = 0.0;
-
-  double e = 0.0;
-
-  s = qd::two_diff(a.x[0], b.x[0], e);
-
-  e += a.x[1];
-
-  e -= b.x[1];
-
-  s = qd::quick_two_sum(s, e, e);
-
-  return dd_real(s, e);
-#else
+#if defined(QD_IEEE_ADD)
   double s1 = 0.0;
 
   double s2 = 0.0;
@@ -201,6 +187,20 @@ dd_real operator-(const dd_real& a, const dd_real& b)
   s1 = qd::quick_two_sum(s1, s2, s2);
 
   return dd_real(s1, s2);
+#else
+  double s = 0.0;
+
+  double e = 0.0;
+
+  s = qd::two_diff(a.x[0], b.x[0], e);
+
+  e += a.x[1];
+
+  e -= b.x[1];
+
+  s = qd::quick_two_sum(s, e, e);
+
+  return dd_real(s, e);
 #endif
 }
 
@@ -236,21 +236,7 @@ dd_real& dd_real::operator-=(double a)
 
 dd_real& dd_real::operator-=(const dd_real& a)
 {
-#ifndef QD_IEEE_ADD
-  double s = 0.0;
-
-  double e = 0.0;
-
-  s = qd::two_diff(x[0], a.x[0], e);
-
-  e += x[1];
-
-  e -= a.x[1];
-
-  x[0] = qd::quick_two_sum(s, e, x[1] );
-
-  return *this;
-#else
+#if defined(QD_IEEE_ADD)
   double s1 = 0.0;
 
   double s2 = 0.0;
@@ -270,6 +256,20 @@ dd_real& dd_real::operator-=(const dd_real& a)
   s2 += t2;
 
   x[0] = qd::quick_two_sum(s1, s2, x[1] );
+
+  return *this;
+#else
+  double s = 0.0;
+
+  double e = 0.0;
+
+  s = qd::two_diff(x[0], a.x[0], e);
+
+  e += x[1];
+
+  e -= a.x[1];
+
+  x[0] = qd::quick_two_sum(s, e, x[1] );
 
   return *this;
 #endif
@@ -488,7 +488,7 @@ dd_real dd_real::accurate_div(const dd_real& a, const dd_real& b)
 
 dd_real operator/(const dd_real& a, const dd_real& b)
 {
-#ifdef QD_SLOPPY_DIV
+#if defined(QD_SLOPPY_DIV)
   return dd_real::sloppy_div(a, b);
 #else
   return dd_real::accurate_div(a, b);

@@ -1,13 +1,29 @@
 
 // pslq.h
 
-#define MIN(a, b) ( ( (a) < (b) ) ? (a) : (b) )
+int minimum(int lhs, int rhs)
+{
+  return (lhs <= rhs)? lhs : rhs;
+}
 
-#define MAX(a, b) ( ( (a) > (b) ) ? (a) : (b) )
+int maximum(int lhs, int rhs)
+{
+  return (lhs >= rhs)? lhs : rhs;
+}
 
-#define SWAP(a, b) { t = a; a = b; b = t; }
+template<class T> void swap(T* lhs, T* rhs, int index)
+{
+  T temporary = lhs[index];
 
-#define SQR(a) ( (a) * (a) )
+  lhs[index] = rhs[index];
+
+  rhs[index] = temporary;
+}
+
+template<class T> T square(T lhs)
+{
+  return lhs * lhs;
+}
 
 template<class T> T** new_matrix(int nr_rows, int nr_cols, T diag = 0.0, T elem = 0.0)
 {
@@ -113,7 +129,7 @@ template<class T> int pslq(const T* x, int n, T* r, double eps, int max_itr)
 
   for(i = 0; i < n; i++)
   {
-    for(j = 0; j <= MIN(i, n - 2); j++)
+    for(j = 0; j <= minimum<T>(i, n - 2); j++)
     {
       h[i][j] = (i == j) ? s[j + 1] / s[j] : - y[i] * y[j] / (s[j] * s[j + 1] );
     }
@@ -176,21 +192,21 @@ template<class T> int pslq(const T* x, int n, T* r, double eps, int max_itr)
       break;
     }
 
-    SWAP(y[m], y[m + 1] )
+    swap<T>(y/*[m]*/, y + 1/*[m + 1]*/, m);
 
     for(i = 0; i < n; i++)
     {
-      SWAP(a[m][i], a[m + 1][i] )
+      swap<T>(a[m]/*[m][i]*/, a[m + 1]/*[m + 1][i]*/, i);
     }
 
     for(i = 0; i < n - 1; i++)
     {
-      SWAP(h[m][i], h[m + 1][i] )
+      swap<T>(h[m]/*[m][i]*/, h[m + 1]/*[m + 1][i]*/, i);
     }
 
     for(i = 0; i < n; i++)
     {
-      SWAP(b[i][m], b[i][m + 1] )
+      swap<T>(b[i]/*[i][m]*/, b[i] + 1/*[i][m + 1]*/, m);
     }
 
     if(m < n-2)
@@ -205,7 +221,7 @@ template<class T> int pslq(const T* x, int n, T* r, double eps, int max_itr)
 
       T t4;
 
-      t0 = sqrt(SQR(h[m][m] ) + SQR(h[m][m + 1] ) );
+      t0 = sqrt(square<T>(h[m][m] ) + square<T>(h[m][m + 1] ) );
 
       t1 = h[m][m] / t0;
 
@@ -225,7 +241,7 @@ template<class T> int pslq(const T* x, int n, T* r, double eps, int max_itr)
 
     for(i = m + 1; i < n; i++)
     {
-      for(j = MIN(i - 1, m + 1); j >= 0; j--)
+      for(j = minimum<T>(i - 1, m + 1); j >= 0; j--)
       {
         t = nint(h[i][j] / h[j][j] );
 

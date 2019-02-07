@@ -11,18 +11,23 @@ bool flag_dd_pslq = false;
 
 bool flag_qd_pslq = false;
 
-template <class T>
-T polyeval(T* a, int n, T& x, double& err_bnd)
+template<class T> T polyeval(T* a, int n, T& x, double& err_bnd)
 {
   T t = a[n];
+
   err_bnd = std::abs(to_double(t) ) * 0.5;
+
   for(int i = n-1; i >= 0; i--)
   {
     t *= x;
+
     t += a[i];
+
     err_bnd *= std::abs(to_double(x) );
+
     err_bnd += std::abs(to_double(t) );
   }
+
   err_bnd = (2.0 * err_bnd - to_double(t) ) * std::numeric_limits<T>::epsilon();
 
   return t;
@@ -38,74 +43,108 @@ bool is_int(double x)
   return (std::abs(x) <= std::numeric_limits<int>::max() && static_cast<int>(x) == x);
 }
 
-template <class T>
-bool pslq_test(int p, int q, double eps, int max_itr = 100000)
+template<class T> bool pslq_test(int p, int q, double eps, int max_itr = 100000)
 {
-  T* x;
-  T* b;
+  T* x = nullptr;
+
+  T* b = nullptr;
+
   T r = nroot(T(2.0), p) + nroot(T(3.0), q);
+
   T t;
-  int err;
+
+  int err = 0;
+
   tictoc tv;
-  double tm;
+
+  double tm = 0.0;
+
   int n = p * q + 1;
+
   std::ios_base::fmtflags fmt = cout.flags();
 
   b = new T[n];
+
   x = new T[n];
 
   x[0] = 1.0;
+
   x[1] = r;
-  t = r*r;
-  for(int i = 2; i < n; i++, t *= r) x[i] = t;
+
+  t = r * r;
+
+  for(int i = 2; i < n; i++, t *= r)
+  {
+    x[i] = t;
+  }
 
   cout << "  testing pslq_test(" << p << ", " << q << ") ..." << endl;
-  if(g_verbose) cout << std::setprecision(std::numeric_limits<T>::digits10) << "    r = " << r << endl;
+
+  if(g_verbose)
+  {
+    cout << std::setprecision(std::numeric_limits<T>::digits10) << "    r = " << r << endl;
+  }
 
   tic(&tv);
+
   err = pslq<T>(x, n, b, eps, max_itr);
+
   tm = toc(&tv);
 
   cout << "    elapsed time = " << std::setprecision(4) << tm << " seconds." << endl;
+
   cout << std::right << std::setprecision(2) << std::fixed;
+
   if( !err)
   {
     if(g_verbose)
     {
       cout << "    polynomial: ";
+
       for(int i = 0; i < n; i++)
       {
         if(i > 0) cout << "                ";
+
         cout << std::setprecision(0) << std::setw(24) << b[i] << endl;
       }
     }
 
-    double err_bnd;
+    double err_bnd = 0.0;
+
     t = abs(polyeval<T>(b, n-1, r, err_bnd) );
+
     err = t > 10.0 * err_bnd;
+
     cout << std::scientific << std::setprecision(4);
+
     if(err || g_verbose)
     {
-      cout << "    residual    = " << t << endl;
-      cout << "    error bound = " << err_bnd << endl;
+      cout << " residual = " << t << endl;
+      cout << " error bound = " << err_bnd << endl;
     }
   }
 
-  delete [] x;
-  delete [] b;
+  delete[] x;
+
+  delete[] b;
 
   if(err)
+  {
     cout << "  test FAILED." << endl;
+  }
   else
+  {
     cout << "  test passed." << endl;
+  }
+
   cout << endl;
 
   cout.flags(fmt);
+
   return !err;
 }
 
-template <class T>
-bool pslq_test(int p, int q)
+template<class T> bool pslq_test(int p, int q)
 {
   return pslq_test<T>(p, q, std::numeric_limits<T>::epsilon() );
 }
@@ -113,19 +152,29 @@ bool pslq_test(int p, int q)
 static void print_usage()
 {
   cout << "pslq_test [-h] [-n N] [-d] [--dd] [--qd] [--all] [-v]" << endl;
+
   cout << "  Performs the PSLQ algorithm on 1, r, r^2, ..., r^(n - 1)" << endl;
+
   cout << "  where r is a root of a constructed integer coefficient" << endl;
+
   cout << "  polynomial.  PSLQ algorithm should reconstruct the polynomial" << endl;
+
   cout << "  in most cases where the degree is not too high and the" << endl;
+
   cout << "  polynomial is irreducible over the rationals." << endl;
+
   cout << endl;
-  cout << "-h --help    Print this usage message and exit." << endl;
-  cout << "-d --double  Perform PSLQ with double precision (53 bit mantissa)." << endl;
-  cout << "--dd         Perform PSLQ with double-double precision." << endl;
-  cout << "               (about 106 bits of significand)." << endl;
-  cout << "--qd         Perform PSLQ with quad-double precision." << endl;
-  cout << "               (about 212 bits of significand).  This is the default." << endl;
-  cout << "--all        Perform PSLQ with all three precisions above." << endl;
+
+  cout << "-h --help Print this usage message and exit." << endl;
+
+  cout << "-d --double Perform PSLQ with double precision (53 bit mantissa)." << endl;
+
+  cout << "--dd Perform PSLQ with double-double precision (about 106 bits of significand)." << endl;
+
+  cout << "--qd Perform PSLQ with quad-double precision (about 212 bits of significand).  This is the default." << endl;
+
+  cout << "--all Perform PSLQ with all three precisions above." << endl;
+
   cout << "-v --verbose Increase verbosity." << endl;
 }
 
@@ -190,10 +239,12 @@ int main4(int argc, const char* argv[] )
   if( !flag_double_pslq && !flag_dd_pslq && !flag_qd_pslq)
   {
     flag_dd_pslq = true;
+
     flag_qd_pslq = true;
   }
 
 //unsigned int old_cw;
+
 //fpu_fix_start(&old_cw);
 
   bool pass = true;
@@ -203,6 +254,7 @@ int main4(int argc, const char* argv[] )
     cout << "Performing double-precision PSLQ." << endl;
 
     pass &= pslq_test<double>(2, 2);
+
     pass &= pslq_test<double>(3, 2);
   }
 
@@ -211,9 +263,13 @@ int main4(int argc, const char* argv[] )
     cout << "Performing double-double precision PSLQ." << endl;
 
     pass &= pslq_test<dd_real>(2, 2);
+
     pass &= pslq_test<dd_real>(2, 3);
+
     pass &= pslq_test<dd_real>(2, 4);
+
     pass &= pslq_test<dd_real>(3, 3);
+
     pass &= pslq_test<dd_real>(2, 5);
   }
 
@@ -222,10 +278,15 @@ int main4(int argc, const char* argv[] )
     cout << "Performing quad-double precision PSLQ." << endl;
 
     pass &= pslq_test<qd_real>(3, 3);
+
     pass &= pslq_test<dd_real>(2, 5);
+
     pass &= pslq_test<qd_real>(4, 3);
+
     pass &= pslq_test<qd_real>(2, 6);
+
     pass &= pslq_test<qd_real>(2, 7);
+
     pass &= pslq_test<qd_real>(3, 5);
   }
 
